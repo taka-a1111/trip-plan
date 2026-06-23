@@ -238,8 +238,13 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
 .cell.today .dn{box-shadow:0 2px 8px rgba(12,124,140,.4)}
 .cell.hol .dn{color:#e0662a;font-weight:700}
 .cell.hol{cursor:pointer}
-.holinfo{padding:6px 18px 0;font-size:.82rem;color:#b5532e;min-height:0;max-height:0;overflow:hidden;transition:max-height .2s}
-.holinfo.show{max-height:3em;padding-bottom:2px}
+.holpop{position:fixed;z-index:120;background:#fff;border:1px solid var(--line);box-shadow:0 8px 24px rgba(7,40,45,.22);border-radius:10px;padding:7px 13px;font-size:.78rem;color:var(--ink);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .12s;transform:translate(-50%,-100%)}
+.holpop.show{opacity:1}
+.holpop.below{transform:translate(-50%,0)}
+.holpop b{color:#b5532e;font-weight:700;font-family:'Outfit',sans-serif}
+.holpop::after{content:'';position:absolute;left:50%;margin-left:-6px;border:6px solid transparent}
+.holpop:not(.below)::after{top:100%;border-top-color:#fff}
+.holpop.below::after{bottom:100%;border-bottom-color:#fff}
 .hol-leg{color:#e0662a;font-weight:600}
 .bar{box-shadow:0 1px 2px rgba(7,40,45,.16);transition:filter .12s,transform .12s}
 .bar:hover{filter:brightness(1.08);transform:translateY(-1px)}
@@ -300,7 +305,7 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
 <div class="cal-wrap"><div class="cal-card reveal">
 <div class="cal-bar"><button class="navbtn" id="prev" aria-label="前の月">‹</button><div class="mlabel" id="mlabel"></div><button class="navbtn" id="next" aria-label="次の月">›</button><button class="today-btn" id="today">今日</button></div>
 <div class="wd"><span style="color:var(--coral)">日</span><span>月</span><span>火</span><span>水</span><span>木</span><span>金</span><span style="color:var(--slate)">土</span></div>
-<div id="grid"></div><div class="holinfo" id="holinfo"></div><div class="cal-hint">日程の帯をタップでしおりへ。<span class="hol-leg">祝日</span>をタップすると何の日か表示されます。</div></div></div>
+<div id="grid"></div><div class="cal-hint">日程の帯をタップでしおりへ。<span class="hol-leg">祝日</span>をタップすると何の日か表示されます。</div></div></div>
 <section class="up reveal" id="trips"><div class="up-h"><h2><span id="ytitle"></span>年の旅</h2><span class="ysum" id="ysum"></span><span class="ln"></span></div>
 <div class="tcards" id="tcards"></div></section>
 <footer class="gfoot"><div class="ft-title">家族とかけがえの無い時間を</div><div class="ft-sub">家族の旅程カレンダー</div><div class="ft-credit">表紙写真：Scott Cresswell「Cradle of Stars」 CC BY 2.0</div></footer>
@@ -315,6 +320,12 @@ function fmt(d){return (d.getMonth()+1)+"月"+d.getDate()+"日";}
 function sod(d){return new Date(d.getFullYear(),d.getMonth(),d.getDate());}
 var jp=["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"];
 var TODAY=sod(new Date());
+var holpop=null;
+function ensurePop(){if(!holpop){holpop=document.createElement('div');holpop.className='holpop';document.body.appendChild(holpop);}return holpop;}
+function hideHolpop(){if(holpop)holpop.classList.remove('show');}
+function showHolpop(c){var p=ensurePop();p.innerHTML='<b>'+c.dataset.md+'（'+c.dataset.w+'）</b> '+c.dataset.hol;p.classList.add('show');var r=c.getBoundingClientRect();var ph=p.offsetHeight,pw=p.offsetWidth;var left=Math.max(8+pw/2,Math.min(r.left+r.width/2,window.innerWidth-8-pw/2));var top=r.top-10,below=false;if(top-ph<6){top=r.bottom+10;below=true;}p.style.left=left+'px';p.style.top=top+'px';p.classList.toggle('below',below);}
+document.addEventListener('click',function(e){if(!e.target.closest('.cell.hol'))hideHolpop();});
+window.addEventListener('scroll',hideHolpop,{passive:true});
 trips.forEach(function(t){t.sd=pD(t.s);t.ed=pD(t.e);var n=Math.round((t.ed-t.sd)/864e5);t.label=n+"泊"+(n+1)+"日";});
 trips.sort(function(a,b){return a.sd-b.sd;});
 var up=trips.filter(function(t){return t.ed>=TODAY;});
@@ -330,8 +341,8 @@ function renderCal(){document.getElementById('mlabel').textContent=y+"年 "+jp[m
   H+='<div class="wk"><div class="nums">';wk.forEach(function(d){var inm=d.getMonth()===m,dw=d.getDay(),td=sod(d).getTime()===TODAY.getTime();var key=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');var hn=inm?HOL[key]:null;H+='<div class="cell'+(inm?'':' out')+(dw===0?' sun':'')+(dw===6?' sat':'')+(td?' today':'')+(hn?' hol':'')+'"'+(hn?' data-hol="'+hn+'" data-md="'+(d.getMonth()+1)+'月'+d.getDate()+'日" data-w="'+'日月火水木金土'[dw]+'"':'')+'><span class="dn">'+d.getDate()+'</span></div>';});
   H+='</div><div class="lanes">';for(var L=0;L<lanes.length;L++){H+='<div class="lane">';segs.filter(function(s){return s.lane===L;}).forEach(function(s){var c="bar"+(s.rl?"":" nl")+(s.rr?"":" nr");H+='<a class="'+c+'" href="'+s.t.a+'" style="grid-column:'+(s.cs+1)+'/span '+(s.ce-s.cs+1)+';background:'+s.t.color+'">'+(s.rl?s.t.name:'　'+s.t.name)+'</a>';});H+='</div>';}H+='</div></div>';});
   document.getElementById('grid').innerHTML=H;
-  var hi=document.getElementById('holinfo');if(hi){hi.textContent='';hi.classList.remove('show');}
-  document.querySelectorAll('#grid .cell.hol').forEach(function(c){c.addEventListener('click',function(){var hi=document.getElementById('holinfo');if(!hi)return;hi.innerHTML='<b>'+c.dataset.md+'（'+c.dataset.w+'）</b> ・ '+c.dataset.hol;hi.classList.add('show');});});}
+  hideHolpop();
+  document.querySelectorAll('#grid .cell.hol').forEach(function(c){c.addEventListener('click',function(e){e.stopPropagation();showHolpop(c);});});}
 function tstate(t){if(t.ed<TODAY)return['済','st-done'];if(t.sd<=TODAY&&t.ed>=TODAY)return['旅行中','st-now'];return['予定','st-plan'];}
 function renderList(){
  var u=trips.filter(function(t){return t.sd.getFullYear()===y;}).sort(function(a,b){return a.sd-b.sd;});
