@@ -159,6 +159,10 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
 .toc-m .menu a{display:block;font-size:.84rem;color:var(--ink);text-decoration:none;padding:9px 12px;border-radius:8px}
 .toc-m .menu a:hover{background:var(--sand)}
 @media(max-width:680px){.toc{display:none}.toc-m{display:block}}
+.totop{position:fixed;right:18px;bottom:18px;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:var(--paper-2);color:var(--teal-deep);box-shadow:var(--shadow-m);cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .25s,transform .25s,visibility .25s;z-index:80}
+.totop.show{opacity:1;visibility:visible;transform:none}
+.totop svg{width:20px;height:20px}
+@media(max-width:680px){.totop{right:14px;bottom:14px;width:42px;height:42px}}
 
 .top-head{max-width:1040px;margin:0 auto;padding:30px 18px 8px;text-align:center}
 .top-head h1{margin:0;font-family:'Shippori Mincho',serif;font-weight:700;font-size:clamp(1.7rem,6vw,2.5rem);letter-spacing:.06em;color:var(--ink)}
@@ -211,6 +215,7 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
 <section class="up reveal"><div class="up-h"><h2>これからの旅</h2><span style="font-family:'Outfit';font-size:.78rem;color:var(--ink-faint)" id="upcnt"></span><span class="ln"></span></div>
 <div class="tcards" id="tcards"></div></section>
 <footer class="gfoot"><div class="ft-title">家族とかけがえの無い時間を</div></footer>
+<button class="totop" id="totop" aria-label="上に戻る"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V6M6 12l6-6 6 6"/></svg></button>
 <script>
 var trips=[{name:"白浜・伊賀",s:"2026-07-18",e:"2026-07-21",a:"./wakayama.html",color:"#62757b"},
  {name:"沖縄",s:"2026-07-26",e:"2026-08-01",a:"./okinawa.html",color:"#e8693f"},
@@ -240,4 +245,5 @@ document.getElementById('next').addEventListener('click',function(){m++;if(m>11)
 renderCal();cards();cd();
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
-</script></body></html>
+
+var tt=document.getElementById('totop');if(tt){window.addEventListener('scroll',function(){if(window.scrollY>400)tt.classList.add('show');else tt.classList.remove('show');});tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});}</script></body></html>
