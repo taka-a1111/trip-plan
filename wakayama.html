@@ -193,6 +193,7 @@ body{font-family:'Zen Kaku Gothic New',sans-serif;color:var(--ink);background:va
 .wxpop a .ar{color:var(--ink-faint,#8aa0a6);font-family:'Outfit',sans-serif}
 .wxpop .src{font-size:.68rem;color:var(--ink-faint,#8aa0a6);margin-top:9px;line-height:1.55;border-top:1px solid var(--line);padding-top:8px}
 .wxpop .cls{position:absolute;top:7px;right:9px;cursor:pointer;color:var(--ink-faint,#8aa0a6);font-size:.85rem;background:none;border:none;padding:2px}
+.wxpop .conf{font-size:.72rem;color:#8a5330;background:#fff3e9;border:1px solid #f2d3ba;border-radius:8px;padding:5px 9px;margin-bottom:6px;line-height:1.5}
 </style>
 </head>
 <body>
@@ -398,8 +399,9 @@ Object.keys(DM).forEach(di=>{
     h+='<h4>'+nm+'\u30fb'+d.slice(5).replace('-','/')+' \u306e\u5929\u6c17</h4>';
     var line=info.lab+' \u30fb '+info.hi+'\u00b0/'+info.lo+'\u00b0';
     if(info.pp!==null)line+=' \u30fb \u964d\u6c34'+info.pp+'%';
-    if(info.gust!==null)line+=' \u30fb \u6700\u5927\u77ac\u9593'+info.gust+'km/h';
+    if(info.gust!==null&&info.lead<=5)line+=' \u30fb \u6700\u5927\u77ac\u9593'+info.gust+'km/h';
     h+='<div class="now"><span class="big">'+info.ic+'</span><span>'+line+'</span></div>';
+    if(info.conf)h+='<div class="conf">'+info.conf+' ／ 約'+info.lead+'日先の予報</div>';
     h+='<div class="grp">\u5929\u6c17\u4e88\u5831</div>'+links(wsites);
     h+='<div class="grp">\u53f0\u98a8\u60c5\u5831</div>'+links(tsites);
     h+='<div class="src">\u8907\u6570\u30e2\u30c7\u30eb\u7d71\u5408\uff08\u6c17\u8c61\u5e81\u30fbECMWF\u30fbGFS\u30fbICON\uff5cOpen-Meteo\uff09\u3002\u53f0\u98a8\u63a5\u8fd1\u6642\u306f\u4e0a\u8a18\u3067\u6700\u65b0\u306e\u9032\u8def\u3092\u78ba\u8a8d\u3057\u3066\u304f\u3060\u3055\u3044\u3002</div>';
@@ -418,10 +420,10 @@ Object.keys(DM).forEach(di=>{
       var codes=pick(d,'weather_code',i),hi=pick(d,'temperature_2m_max',i),lo=pick(d,'temperature_2m_min',i),pp=pick(d,'precipitation_probability_max',i),gu=pick(d,'wind_gusts_10m_max',i);
       if(!codes.length&&!hi.length)return;
       var wc=codes.length?WLBL[Math.round(med(codes.map(cat)))]:['',''];
-      var Hi=hi.length?Math.round(avg(hi)):null,Lo=lo.length?Math.round(avg(lo)):null,Pp=pp.length?Math.round(avg(pp)):null,Gu=gu.length?Math.round(avg(gu)):null;
+      var Hi=hi.length?Math.round(avg(hi)):null,Lo=lo.length?Math.round(avg(lo)):null,Pp=pp.length?Math.round(avg(pp)):null,Gu=gu.length?Math.round(med(gu)):null;var lead=Math.round((new Date(x.d+'T00:00:00')-today)/864e5);
       var host=document.querySelector('#day'+(idx+1)+' .day-date');if(!host)return;
       if(host.parentNode.querySelector('.wx'))return;
-      var windy=(Gu!==null&&Gu>=50);
+      var windy=(Gu!==null&&Gu>=50&&lead<=5);
       var s=document.createElement('span');s.className='wx';s.setAttribute('role','button');s.tabIndex=0;
       s.title=wc[1]+'\uff0f\u30bf\u30c3\u30d7\u3067\u5929\u6c17\u30fb\u53f0\u98a8\u60c5\u5831\u306e\u4e00\u89a7\u3092\u8868\u793a';
       var html='';
@@ -430,7 +432,7 @@ Object.keys(DM).forEach(di=>{
       if(Pp!==null)html+='<span class="pp">\ud83d\udca7'+Pp+'%</span>';
       if(windy)html+='<span class="wd">\ud83d\udca8'+Gu+'</span>';
       s.innerHTML=html;
-      var info={la:x.la,lon:x.lo,nm:x.nm,d:x.d,ic:wc[0],lab:wc[1],hi:Hi,lo:Lo,pp:Pp,gust:Gu};
+      var info={la:x.la,lon:x.lo,nm:x.nm,d:x.d,ic:wc[0],lab:wc[1],hi:Hi,lo:Lo,pp:Pp,gust:Gu,lead:lead,conf:(lead<=3?'':(lead<=7?'確度：中（変わりやすい・要確認）':'確度：低（あくまで目安・要確認）'))};
       function open(e){e.preventDefault();e.stopPropagation();openPop(s,info);}
       s.addEventListener('click',open);
       s.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' ')open(e);});
