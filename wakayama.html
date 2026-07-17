@@ -200,17 +200,29 @@ body{font-family:'Zen Kaku Gothic New',sans-serif;color:var(--ink);background:va
 .fv{display:flex;align-items:stretch}
 .fv > .fv-photo{flex:1 1 50%;min-width:0;min-height:0}
 .fv > .fv-map{flex:1 1 50%;min-width:0;position:relative}
-.fv-map #tripmap{width:100%;height:74vh;height:74svh;border-radius:0;border:none;box-shadow:none}
+.fv-map #tripmap{width:100%;height:62vh;height:62svh;border-radius:0;border:none;box-shadow:none}
 .fv-gbtn{position:absolute;top:14px;right:14px;z-index:1000;box-shadow:0 4px 14px rgba(7,40,45,.28)}
 .fv-map-label{position:absolute;left:12px;bottom:12px;z-index:1000;margin:0;background:rgba(255,255,255,.94);color:var(--teal-deep);font-family:'Outfit',sans-serif;font-weight:600;font-size:.64rem;letter-spacing:.16em;padding:5px 11px;border-radius:20px;box-shadow:0 2px 8px rgba(7,40,45,.18)}
 @media(min-width:681px){.fv .hero-main h1{font-size:clamp(1.5rem,3.2vw,2.5rem)}}
 @media(max-width:680px){
  .fv{flex-direction:column}
- .fv > .fv-photo{flex:none;min-height:46vh;min-height:46svh}
+ .fv > .fv-photo{flex:none;min-height:42vh;min-height:42svh}
  .fv > .fv-map{flex:none}
- .fv-map #tripmap{height:42vh;height:42svh}
+ .fv-map #tripmap{height:34vh;height:34svh}
  .fv-gbtn{top:10px;right:10px}
 }
+
+/* ファーストビューの天気ストリップ（各日付） ※戻す場合はこのブロックと #fvwx を削除 */
+.fvwx{display:flex;gap:8px;overflow-x:auto;padding:12px 16px;background:var(--paper,#f6f2ea);border-bottom:1px solid var(--line);-webkit-overflow-scrolling:touch}
+.fvwx:empty{display:none}
+.fvwx-day{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:84px;background:var(--paper-2);border:1px solid var(--line);border-radius:12px;padding:8px 10px;cursor:pointer;font-family:'Outfit',sans-serif;box-shadow:var(--shadow-s)}
+.fvwx-day:hover{background:var(--sand,#efe6d6)}
+.fvwx-day .d{font-size:.72rem;font-weight:600;color:var(--ink-soft);white-space:nowrap}
+.fvwx-day .ic{font-size:1.55rem;line-height:1.1}
+.fvwx-day .t{font-size:.76rem;color:var(--ink);font-weight:600;white-space:nowrap}
+.fvwx-day .t .lo{color:var(--teal-deep)}
+.fvwx-day .pp{font-size:.66rem;color:var(--teal);white-space:nowrap}
+@media(max-width:680px){.fvwx{padding:10px 12px;gap:7px}.fvwx-day{min-width:78px;padding:7px 9px}}
 </style>
 </head>
 <body>
@@ -234,7 +246,7 @@ body{font-family:'Zen Kaku Gothic New',sans-serif;color:var(--ink);background:va
       </div>
     </div>
   </div>
-</header><div class="fv-map"><div class="fv-map-label">この旅のスポット</div><a class="fv-gbtn rm-gbtn map-open" href="https://www.google.com/maps/dir/?api=1&origin=35.1874286,136.9635885&destination=33.977173,135.0724669&waypoints=34.8563235,136.1851969|34.7974004,136.1817856|34.7752676,136.0650558|33.6898631,135.3364115|33.6708154,135.3343668|33.6817259,135.3444329|33.6659593,135.3356032|33.6707012,135.3304584&travelmode=driving" target="_blank" rel="noopener">Googleマップで開く</a><div id="tripmap"></div></div></div>
+</header><div class="fv-map"><div class="fv-map-label">この旅のスポット</div><a class="fv-gbtn rm-gbtn map-open" href="https://www.google.com/maps/dir/?api=1&origin=35.1874286,136.9635885&destination=33.977173,135.0724669&waypoints=34.8563235,136.1851969|34.7974004,136.1817856|34.7752676,136.0650558|33.6898631,135.3364115|33.6708154,135.3343668|33.6817259,135.3444329|33.6659593,135.3356032|33.6707012,135.3304584&travelmode=driving" target="_blank" rel="noopener">Googleマップで開く</a><div id="tripmap"></div></div></div><div class="fvwx" id="fvwx"></div>
 
 <div class="legend-wrap reveal">
   <div class="legend">
@@ -364,7 +376,9 @@ Object.keys(DM).forEach(di=>{
 
 
 
-/* 天気予報：◯日目の横に表示・タップで各サイトのリンク（v4） */
+</script>
+<script>/*FV_RESIZE*/window.addEventListener('load',function(){setTimeout(function(){try{window.dispatchEvent(new Event('resize'));}catch(e){}},400);});
+/* 天気予報：◯日目の横＋ファーストビューの各日付ストリップ・タップで各サイトのリンク（v5） */
 (function(WX_DAYS){
   var HORIZON=16;
   var today=new Date();today.setHours(0,0,0,0);
@@ -390,7 +404,7 @@ Object.keys(DM).forEach(di=>{
   function med(a){var b=a.slice().sort(function(x,y){return x-y;}),n=b.length;return n?(n%2?b[(n-1)/2]:(b[n/2-1]+b[n/2])/2):null;}
   var pop=null,openedAt=0;
   function ensurePop(){if(pop)return pop;pop=document.createElement('div');pop.className='wxpop';document.body.appendChild(pop);
-    setTimeout(function(){document.addEventListener('click',function(e){if(pop&&!e.target.closest('.wxpop')&&!e.target.closest('.glance'))hide();});},0);
+    setTimeout(function(){document.addEventListener('click',function(e){if(pop&&!e.target.closest('.wxpop')&&!e.target.closest('.glance')&&!e.target.closest('.fvwx-day'))hide();});},0);
     window.addEventListener('scroll',function(){if(Date.now()-openedAt>500)hide();},{passive:true});return pop;}
   function hide(){if(pop)pop.classList.remove('show');}
   function openPop(anchor,info){
@@ -408,7 +422,7 @@ Object.keys(DM).forEach(di=>{
     h+='<div class="now"><span class="big">'+info.ic+'</span><span>'+line+'</span></div>';
     if(info.conf)h+='<div class="conf">'+info.conf+' \uff0f \u7d04'+info.lead+'\u65e5\u5148\u306e\u4e88\u5831</div>';
     h+=links.map(function(a){return '<a'+(a[2]?' class="'+a[2]+'"':'')+' href="'+a[1]+'" target="_blank" rel="noopener">'+a[0]+'<span class="ar">\u2197</span></a>';}).join('');
-    h+='<div class="src">\u5bbf\u6cca\u5730\u306e\u30d4\u30f3\u30dd\u30a4\u30f3\u30c8\u4e88\u5831\u3092\u958b\u304d\u307e\u3059\u3002\u5de6\u306e\u76ee\u5b89\u306f\u6c17\u8c61\u5e81\u30fbECMWF\u30fbGFS\u30fbICON\u306e\u7d71\u5408\u5024\u3067\u3059\u3002</div>';
+    h+='<div class="src">\u5bbf\u6cca\u5730\u306e\u30d4\u30f3\u30dd\u30a4\u30f3\u30c8\u4e88\u5831\u3092\u958b\u304d\u307e\u3059\u3002\u5024\u306e\u76ee\u5b89\u306f\u6c17\u8c61\u5e81\u30fbECMWF\u30fbGFS\u30fbICON\u306e\u7d71\u5408\u5024\u3067\u3059\u3002</div>';
     p.innerHTML=h;
     p.querySelector('.cls').addEventListener('click',hide);
     p.classList.add('show');
@@ -418,9 +432,8 @@ Object.keys(DM).forEach(di=>{
     p.style.left=left+'px';p.style.top=top+'px';p.style.width=pw+'px';
   }
   function render(){
+    var strip=document.getElementById('fvwx');
     WX_DAYS.forEach(function(x,idx){
-      var host=document.querySelector('#day'+(idx+1)+' .day-badge')||document.querySelector('#day'+(idx+1)+' .day-date');
-      if(!host||host.parentNode.querySelector('.wx'))return;
       var u=uniq[x.la+','+x.lo];if(!u||!u.data||!u.data.daily)return;
       var d=u.data.daily,t=d.time||[],i=t.indexOf(x.d);if(i<0)return;
       var codes=pick(d,'weather_code',i),hi=pick(d,'temperature_2m_max',i),lo=pick(d,'temperature_2m_min',i),pp=pick(d,'precipitation_probability_mean',i);
@@ -429,24 +442,29 @@ Object.keys(DM).forEach(di=>{
       var Hi=hi.length?Math.round(avg(hi)):null,Lo=lo.length?Math.round(avg(lo)):null,Pp=pp.length?Math.round(avg(pp)):null;
       var lead=Math.round((new Date(x.d+'T00:00:00')-today)/864e5);
       var conf=lead<=3?'':(lead<=7?'\u78ba\u5ea6\uff1a\u4e2d\uff08\u5909\u308f\u308a\u3084\u3059\u3044\u30fb\u8981\u78ba\u8a8d\uff09':'\u78ba\u5ea6\uff1a\u4f4e\uff08\u3042\u304f\u307e\u3067\u76ee\u5b89\u30fb\u8981\u78ba\u8a8d\uff09');
-      var g='<span class="glance" role="button" tabindex="0" title="\u30bf\u30c3\u30d7\u3067\u6c17\u8c61\u5e81\u30fbtenki.jp\u30fb\u30a6\u30a7\u30b6\u30fc\u30cb\u30e5\u30fc\u30b9\u3092\u958b\u304f">';
-      if(wc[0])g+='<span class="ic">'+wc[0]+'</span>';
-      if(Hi!==null)g+='<span class="t">'+Hi+'\u00b0<span class="lo">/'+Lo+'\u00b0</span></span>';
-      if(Pp!==null)g+='<span class="pp">\u964d\u6c34'+Pp+'%</span>';
-      
-      g+='</span>';
-      var w=document.createElement('span');w.className='wx';w.innerHTML=g;
-      var glance=w.querySelector('.glance');
       var info={nm:x.nm,d:x.d,jma:x.jma,tk:x.tk,la:x.la,lo:x.lo,ic:wc[0],lab:wc[1],hi:Hi,lo2:Lo,pp:Pp,lead:lead,conf:conf,typ:TYP};
-      (function(gl,inf){
-        function open(e){e.preventDefault();e.stopPropagation();openPop(gl,inf);}
-        gl.addEventListener('click',open);
-        gl.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' ')open(e);});
-      })(glance,info);
-      host.insertAdjacentElement('afterend',w);
+      if(strip){
+        var wd='\u65e5\u6708\u706b\u6c34\u6728\u91d1\u571f'[new Date(x.d+'T00:00:00').getDay()];
+        var md=x.d.slice(5).replace('-','/');
+        var b=document.createElement('button');b.type='button';b.className='fvwx-day';
+        b.innerHTML='<span class="d">'+md+' '+wd+'</span>'+(wc[0]?'<span class="ic">'+wc[0]+'</span>':'')+(Hi!==null?'<span class="t">'+Hi+'\u00b0<span class="lo">/'+Lo+'\u00b0</span></span>':'')+(Pp!==null?'<span class="pp">\u964d\u6c34'+Pp+'%</span>':'');
+        (function(bb,inf){bb.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();openPop(bb,inf);});})(b,info);
+        strip.appendChild(b);
+      }
+      var host=document.querySelector('#day'+(idx+1)+' .day-badge')||document.querySelector('#day'+(idx+1)+' .day-date');
+      if(host && !host.parentNode.querySelector('.wx')){
+        var g='<span class="glance" role="button" tabindex="0" title="\u30bf\u30c3\u30d7\u3067\u6c17\u8c61\u5e81\u30fbtenki.jp\u30fb\u30a6\u30a7\u30b6\u30fc\u30cb\u30e5\u30fc\u30b9\u3092\u958b\u304f">';
+        if(wc[0])g+='<span class="ic">'+wc[0]+'</span>';
+        if(Hi!==null)g+='<span class="t">'+Hi+'\u00b0<span class="lo">/'+Lo+'\u00b0</span></span>';
+        if(Pp!==null)g+='<span class="pp">\u964d\u6c34'+Pp+'%</span>';
+        g+='</span>';
+        var w=document.createElement('span');w.className='wx';w.innerHTML=g;
+        var glance=w.querySelector('.glance');
+        (function(gl,inf){gl.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();openPop(gl,inf);});gl.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' ')openPop(gl,inf);});})(glance,info);
+        host.insertAdjacentElement('afterend',w);
+      }
     });
   }
 })([{d:'2026-07-18',la:34.775,lo:136.065,jma:'240000',tk:'5/27/5310/24216',nm:'伊賀市'},{d:'2026-07-19',la:33.671,lo:135.334,jma:'300000',tk:'6/33/6520/30401',nm:'白浜町'},{d:'2026-07-20',la:33.671,lo:135.334,jma:'300000',tk:'6/33/6520/30401',nm:'白浜町'},{d:'2026-07-21',la:33.671,lo:135.334,jma:'300000',tk:'6/33/6520/30401',nm:'白浜町'}]);
-</script>
-<script>/*FV_RESIZE*/window.addEventListener('load',function(){setTimeout(function(){try{window.dispatchEvent(new Event('resize'));}catch(e){}},400);});</script></body>
+</script></body>
 </html>
