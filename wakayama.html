@@ -172,6 +172,13 @@ body{font-family:'Zen Kaku Gothic New',sans-serif;color:var(--ink);background:va
 
 .ft-top{display:inline-flex;align-items:center;gap:6px;margin-top:16px;font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:.78rem;color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.42);border-radius:10px;padding:8px 16px;cursor:pointer;transition:background .18s}
 .ft-top:hover{background:rgba(255,255,255,.14)}
+
+.day-line .wx{display:inline-flex;align-items:center;gap:8px;font-family:'Outfit',sans-serif;font-weight:600;font-size:.74rem;color:var(--ink-soft);background:var(--paper-2);border:1px solid var(--line);border-radius:20px;padding:3px 11px;margin-left:6px;white-space:nowrap;vertical-align:middle}
+.day-line .wx .ic{font-size:1rem;line-height:1}
+.day-line .wx .t{color:var(--ink)}
+.day-line .wx .lo{color:var(--teal-deep)}
+.day-line .wx .pp{color:var(--teal)}
+@media(max-width:680px){.day-line .wx{font-size:.68rem;padding:2px 9px;gap:6px;margin-left:0;margin-top:2px}}
 </style>
 </head>
 <body>
@@ -325,6 +332,51 @@ Object.keys(DM).forEach(di=>{
   if(b.length>1){m.fitBounds(b,{padding:[50,50],maxZoom:13});}else{m.setView(b[0],12);}
   setTimeout(()=>m.invalidateSize(),300);
 });
+
+
+/* 天気予報：旅が近づくと自動表示（複数モデル統合・Open-Meteo） */
+(function(WX_DAYS){
+  var HORIZON=16;
+  var today=new Date();today.setHours(0,0,0,0);
+  var dates=WX_DAYS.map(function(x){return x.d;});
+  var start=new Date(dates[0]+'T00:00:00'),end=new Date(dates[dates.length-1]+'T00:00:00');
+  if((start-today)/864e5>HORIZON)return;   /* まだ先 */
+  if((today-end)/864e5>0)return;           /* 旅行終了 */
+  var MODELS='jma_seamless,ecmwf_ifs04,gfs_seamless,icon_seamless';
+  var FIELDS='weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max';
+  var sd=dates[0],ed=dates[dates.length-1],uniq={};
+  WX_DAYS.forEach(function(x){var k=x.la+','+x.lo;uniq[k]=uniq[k]||{la:x.la,lo:x.lo};});
+  Promise.all(Object.keys(uniq).map(function(k){
+    var u=uniq[k];
+    var url='https://api.open-meteo.com/v1/forecast?latitude='+u.la+'&longitude='+u.lo+'&daily='+FIELDS+'&models='+MODELS+'&timezone=Asia%2FTokyo&start_date='+sd+'&end_date='+ed;
+    return fetch(url).then(function(r){return r.ok?r.json():null;}).then(function(j){u.data=j;}).catch(function(){u.data=null;});
+  })).then(render);
+  function pick(d,base,i){var o=[];Object.keys(d).forEach(function(kk){if(kk===base||kk.indexOf(base+'_')===0){var v=d[kk][i];if(v!==null&&v!==undefined&&!isNaN(v))o.push(v);}});return o;}
+  function avg(a){return a.reduce(function(s,v){return s+v;},0)/a.length;}
+  function med(a){var b=a.slice().sort(function(x,y){return x-y;}),n=b.length;return n?(n%2?b[(n-1)/2]:(b[n/2-1]+b[n/2])/2):null;}
+  var WLBL=[['\u2600','\u5feb\u6674'],['\ud83c\udf24','\u6674\u308c\u6642\u3005\u66c7\u308a'],['\u2601','\u66c7\u308a'],['\ud83c\udf2b','\u9727'],['\ud83c\udf26','\u9727\u96e8'],['\ud83c\udf26','\u306b\u308f\u304b\u96e8'],['\ud83c\udf27','\u96e8'],['\u26c8','\u96f7\u96e8'],['\ud83c\udf28','\u96ea']];
+  function cat(c){c=+c;if(c===0)return 0;if(c===1||c===2)return 1;if(c===3)return 2;if(c>=45&&c<=48)return 3;if(c>=51&&c<=57)return 4;if(c>=80&&c<=82)return 5;if(c>=61&&c<=67)return 6;if(c>=95)return 7;if(c>=71&&c<=77)return 8;return 2;}
+  function render(){
+    WX_DAYS.forEach(function(x,idx){
+      var u=uniq[x.la+','+x.lo];if(!u||!u.data||!u.data.daily)return;
+      var d=u.data.daily,t=d.time||[],i=t.indexOf(x.d);if(i<0)return;
+      var codes=pick(d,'weather_code',i),hi=pick(d,'temperature_2m_max',i),lo=pick(d,'temperature_2m_min',i),pp=pick(d,'precipitation_probability_max',i);
+      if(!codes.length&&!hi.length)return;
+      var wc=codes.length?WLBL[Math.round(med(codes.map(cat)))]:['',''];
+      var Hi=hi.length?Math.round(avg(hi)):null,Lo=lo.length?Math.round(avg(lo)):null,Pp=pp.length?Math.round(avg(pp)):null;
+      var host=document.querySelector('#day'+(idx+1)+' .day-date');if(!host)return;
+      if(host.parentNode.querySelector('.wx'))return;
+      var s=document.createElement('span');s.className='wx';
+      s.title=wc[1]+'\uff0f\u8907\u6570\u30e2\u30c7\u30eb\u7d71\u5408\u4e88\u5831\uff08\u6c17\u8c61\u5e81\u30fbECMWF\u30fbGFS\u30fbICON\uff5cOpen-Meteo\uff09\u3002\u65c5\u884c\u304c\u8fd1\u3065\u304f\u307b\u3069\u7cbe\u5ea6\u304c\u4e0a\u304c\u308a\u307e\u3059\u3002';
+      var h='';
+      if(wc[0])h+='<span class="ic">'+wc[0]+'</span>';
+      if(Hi!==null)h+='<span class="t">'+Hi+'\u00b0<span class="lo">/'+Lo+'\u00b0</span></span>';
+      if(Pp!==null)h+='<span class="pp">\u2614'+Pp+'%</span>';
+      s.innerHTML=h;
+      host.insertAdjacentElement('afterend',s);
+    });
+  }
+})([{d:'2026-07-18',la:34.775,lo:136.065},{d:'2026-07-19',la:33.671,lo:135.334},{d:'2026-07-20',la:33.671,lo:135.334},{d:'2026-07-21',la:33.671,lo:135.334}]);
 
 </script>
 </body>
