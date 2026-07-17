@@ -272,7 +272,7 @@ var RT={"pts": [{"n": "那覇空港", "lat": 26.2001297, "lon": 127.6466452, "k"
   if((start-today)/864e5>HORIZON)return;
   if((today-end)/864e5>0)return;
   var MODELS='jma_seamless,ecmwf_ifs04,gfs_seamless,icon_seamless';
-  var FIELDS='weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,wind_gusts_10m_max';
+  var FIELDS='weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max';
   var sd=dates[0],ed=dates[dates.length-1],uniq={};
   WX_DAYS.forEach(function(x){var k=x.la+','+x.lo;uniq[k]=uniq[k]||{la:x.la,lo:x.lo};});
   Promise.all(Object.keys(uniq).map(function(k){
@@ -280,6 +280,7 @@ var RT={"pts": [{"n": "那覇空港", "lat": 26.2001297, "lon": 127.6466452, "k"
     var url='https://api.open-meteo.com/v1/forecast?latitude='+u.la+'&longitude='+u.lo+'&daily='+FIELDS+'&models='+MODELS+'&timezone=Asia%2FTokyo&start_date='+sd+'&end_date='+ed;
     return fetch(url).then(function(r){return r.ok?r.json():null;}).then(function(j){u.data=j;}).catch(function(){u.data=null;});
   })).then(render);
+  var TYP=false;fetch('https://www.jma.go.jp/bosai/typhoon/data/targetTc.json').then(function(r){return r.ok?r.json():[];}).then(function(a){TYP=Array.isArray(a)&&a.some(function(t){return /^\d+$/.test(String(t.typhoonNumber))||['TS','STS','TY'].indexOf(t.category)>=0;});}).catch(function(){});
   var WLBL=[['\u2600','\u5feb\u6674'],['\u26c5','\u6674\u308c\u6642\u3005\u66c7\u308a'],['\u2601','\u66c7\u308a'],['\ud83c\udf2b','\u9727'],['\ud83c\udf26','\u9727\u96e8'],['\ud83c\udf26','\u306b\u308f\u304b\u96e8'],['\ud83c\udf27','\u96e8'],['\u26c8','\u96f7\u96e8'],['\ud83c\udf28','\u96ea']];
   function cat(c){c=+c;if(c===0)return 0;if(c===1||c===2)return 1;if(c===3)return 2;if(c>=45&&c<=48)return 3;if(c>=51&&c<=57)return 4;if(c>=80&&c<=82)return 5;if(c>=61&&c<=67)return 6;if(c>=95)return 7;if(c>=71&&c<=77)return 8;return 2;}
   function pick(d,base,i){var o=[];Object.keys(d).forEach(function(kk){if(kk===base||kk.indexOf(base+'_')===0){var v=d[kk][i];if(v!==null&&v!==undefined&&!isNaN(v))o.push(v);}});return o;}
@@ -295,11 +296,10 @@ var RT={"pts": [{"n": "那覇空港", "lat": 26.2001297, "lon": 127.6466452, "k"
     openedAt=Date.now();
     var p=ensurePop(),la=info.la,lo=info.lon,nm=info.nm,d=info.d;
     var wsites=[
-      ['\u6c17\u8c61\u5e81\uff08\u5929\u6c17\u4e88\u5831\uff09','https://www.jma.go.jp/bosai/forecast/'],
-      ['tenki.jp\uff08'+nm+'\uff09','https://tenki.jp/search/?keyword='+enc(nm)],
-      ['Yahoo!\u5929\u6c17\uff08'+nm+'\uff09','https://weather.yahoo.co.jp/weather/search/?p='+enc(nm)],
-      ['Windy\uff08\u30d4\u30f3\u30dd\u30a4\u30f3\u30c8\uff09','https://www.windy.com/'+la+'/'+lo],
-      ['Google\uff08'+nm+' \u5929\u6c17\uff09','https://www.google.com/search?q='+enc(nm+' \u5929\u6c17')]
+      ['気象庁 雨雲レーダー（ピンポイント）','https://www.jma.go.jp/bosai/nowc/#lat:'+la+'/lon:'+lo+'/zoom:10/colordepth:normal/elements:hrpns'],
+      ['Windy（ピンポイント予報）','https://www.windy.com/'+la+'/'+lo],
+      ['Ventusky（ピンポイント予報）','https://www.ventusky.com/?p='+la+';'+lo+';10'],
+      ['Google（'+nm+' 天気）','https://www.google.com/search?q='+enc(nm+' 天気')]
     ];
     var tsites=[
       ['\u6c17\u8c61\u5e81 \u53f0\u98a8\u60c5\u5831','https://www.jma.go.jp/bosai/map.html#contents=typhoon'],
@@ -311,12 +311,12 @@ var RT={"pts": [{"n": "那覇空港", "lat": 26.2001297, "lon": 127.6466452, "k"
     h+='<h4>'+nm+'\u30fb'+d.slice(5).replace('-','/')+' \u306e\u5929\u6c17</h4>';
     var line=info.lab+' \u30fb '+info.hi+'\u00b0/'+info.lo+'\u00b0';
     if(info.pp!==null)line+=' \u30fb \u964d\u6c34'+info.pp+'%';
-    if(info.gust!==null&&info.lead<=5)line+=' \u30fb \u6700\u5927\u77ac\u9593'+info.gust+'km/h';
+    
     h+='<div class="now"><span class="big">'+info.ic+'</span><span>'+line+'</span></div>';
     if(info.conf)h+='<div class="conf">'+info.conf+' ／ 約'+info.lead+'日先の予報</div>';
-    h+='<div class="grp">\u5929\u6c17\u4e88\u5831</div>'+links(wsites);
-    h+='<div class="grp">\u53f0\u98a8\u60c5\u5831</div>'+links(tsites);
-    h+='<div class="src">\u8907\u6570\u30e2\u30c7\u30eb\u7d71\u5408\uff08\u6c17\u8c61\u5e81\u30fbECMWF\u30fbGFS\u30fbICON\uff5cOpen-Meteo\uff09\u3002\u53f0\u98a8\u63a5\u8fd1\u6642\u306f\u4e0a\u8a18\u3067\u6700\u65b0\u306e\u9032\u8def\u3092\u78ba\u8a8d\u3057\u3066\u304f\u3060\u3055\u3044\u3002</div>';
+    h+='<div class="grp">天気予報（宿泊地ピンポイント）</div>'+links(wsites);
+    if(TYP)h+='<div class="grp">台風情報</div>'+links(tsites);
+    h+='<div class="src">複数モデル統合（気象庁・ECMWF・GFS・ICON｜Open-Meteo）。リンクは宿泊地の座標をピンポイント表示します。</div>';
     p.innerHTML=h;
     p.querySelector('.cls').addEventListener('click',hide);
     p.classList.add('show');
@@ -329,22 +329,22 @@ var RT={"pts": [{"n": "那覇空港", "lat": 26.2001297, "lon": 127.6466452, "k"
     WX_DAYS.forEach(function(x,idx){
       var u=uniq[x.la+','+x.lo];if(!u||!u.data||!u.data.daily)return;
       var d=u.data.daily,t=d.time||[],i=t.indexOf(x.d);if(i<0)return;
-      var codes=pick(d,'weather_code',i),hi=pick(d,'temperature_2m_max',i),lo=pick(d,'temperature_2m_min',i),pp=pick(d,'precipitation_probability_max',i),gu=pick(d,'wind_gusts_10m_max',i);
+      var codes=pick(d,'weather_code',i),hi=pick(d,'temperature_2m_max',i),lo=pick(d,'temperature_2m_min',i),pp=pick(d,'precipitation_probability_max',i);
       if(!codes.length&&!hi.length)return;
       var wc=codes.length?WLBL[Math.round(med(codes.map(cat)))]:['',''];
-      var Hi=hi.length?Math.round(avg(hi)):null,Lo=lo.length?Math.round(avg(lo)):null,Pp=pp.length?Math.round(avg(pp)):null,Gu=gu.length?Math.round(med(gu)):null;var lead=Math.round((new Date(x.d+'T00:00:00')-today)/864e5);
+      var Hi=hi.length?Math.round(avg(hi)):null,Lo=lo.length?Math.round(avg(lo)):null,Pp=pp.length?Math.round(avg(pp)):null;var lead=Math.round((new Date(x.d+'T00:00:00')-today)/864e5);
       var host=document.querySelector('#day'+(idx+1)+' .day-date');if(!host)return;
       if(host.parentNode.querySelector('.wx'))return;
-      var windy=(Gu!==null&&Gu>=50&&lead<=5);
+      
       var s=document.createElement('span');s.className='wx';s.setAttribute('role','button');s.tabIndex=0;
       s.title=wc[1]+'\uff0f\u30bf\u30c3\u30d7\u3067\u5929\u6c17\u30fb\u53f0\u98a8\u60c5\u5831\u306e\u4e00\u89a7\u3092\u8868\u793a';
       var html='';
       if(wc[0])html+='<span class="ic">'+wc[0]+'</span>';
       if(Hi!==null)html+='<span class="t">'+Hi+'\u00b0<span class="lo">/'+Lo+'\u00b0</span></span>';
       if(Pp!==null)html+='<span class="pp">\ud83d\udca7'+Pp+'%</span>';
-      if(windy)html+='<span class="wd">\ud83d\udca8'+Gu+'</span>';
+      
       s.innerHTML=html;
-      var info={la:x.la,lon:x.lo,nm:x.nm,d:x.d,ic:wc[0],lab:wc[1],hi:Hi,lo:Lo,pp:Pp,gust:Gu,lead:lead,conf:(lead<=3?'':(lead<=7?'確度：中（変わりやすい・要確認）':'確度：低（あくまで目安・要確認）'))};
+      var info={la:x.la,lon:x.lo,nm:x.nm,d:x.d,ic:wc[0],lab:wc[1],hi:Hi,lo:Lo,pp:Pp,lead:lead,conf:(lead<=3?'':(lead<=7?'確度：中（変わりやすい・要確認）':'確度：低（あくまで目安・要確認）'))};
       function open(e){e.preventDefault();e.stopPropagation();openPop(s,info);}
       s.addEventListener('click',open);
       s.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' ')open(e);});
