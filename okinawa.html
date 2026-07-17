@@ -238,7 +238,7 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
 .wxpop.show{opacity:1;pointer-events:auto;transform:none}
 .wxpop h4{margin:0 0 8px;font-family:'Shippori Mincho',serif;font-size:.92rem;color:var(--ink);padding-right:18px}
 .wxpop .now{display:flex;align-items:center;gap:9px;font-size:.8rem;color:var(--ink-soft);background:var(--paper,#f6f2ea);border:1px solid var(--line);border-radius:9px;padding:7px 10px;margin-bottom:6px;line-height:1.45}
-.wxpop .now .big{font-size:1.3rem}
+.wxpop .now .big{font-size:1.75rem;line-height:1}
 .wxpop .conf{font-size:.72rem;color:#8a5330;background:#fff3e9;border:1px solid #f2d3ba;border-radius:8px;padding:5px 9px;margin-bottom:6px;line-height:1.5}
 .wxpop a{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:.9rem;color:var(--teal-ink,#0c5561);text-decoration:none;padding:9px 10px;border-radius:9px}
 .wxpop a:hover{background:var(--sand,#efe6d6)}
@@ -312,9 +312,9 @@ var RT={"pts": [{"n": "那覇空港", "lat": 26.2001297, "lon": 127.6466452, "k"
   WX_DAYS.forEach(function(x){var k=x.la+','+x.lo;if(!uniq[k]){uniq[k]={la:x.la,lo:x.lo,data:null};order.push(k);}});
   var lats=order.map(function(k){return uniq[k].la;}).join(',');
   var lons=order.map(function(k){return uniq[k].lo;}).join(',');
-  var CK='om7:'+lats+';'+lons+':'+sd+'_'+ed;
-  function cget(k){try{var v=sessionStorage.getItem(k);if(!v)return null;var o=JSON.parse(v);if(Date.now()-o.t>1800000)return null;return o.d;}catch(e){return null;}}
-  function cset(k,d){try{sessionStorage.setItem(k,JSON.stringify({t:Date.now(),d:d}));}catch(e){}}
+  var CK='om9:'+lats+';'+lons+':'+sd+'_'+ed;
+  function cget(k){try{var v=localStorage.getItem(k);if(!v)return null;var o=JSON.parse(v);if(Date.now()-o.t>10800000)return null;return o.d;}catch(e){return null;}}
+  function cset(k,d){try{localStorage.setItem(k,JSON.stringify({t:Date.now(),d:d}));}catch(e){}}
   function applyBatch(j){var arr=Array.isArray(j)?j:[j];order.forEach(function(k,idx){uniq[k].data=arr[idx]||null;});}
   var cached=cget(CK);
   if(cached){applyBatch(cached);Promise.resolve().then(render);}
@@ -327,7 +327,7 @@ var RT={"pts": [{"n": "那覇空港", "lat": 26.2001297, "lon": 127.6466452, "k"
     fetch(url).then(function(r){return r.ok?r.json():null;}).then(function(j){if(j){cset(CK,j);applyBatch(j);render();}}).catch(function(){});
     fetch('https://www.jma.go.jp/bosai/typhoon/data/targetTc.json').then(function(r){return r.ok?r.json():[];}).then(function(a){TYP=Array.isArray(a)&&a.some(function(t){return /^\d+$/.test(String(t.typhoonNumber))||['TS','STS','TY'].indexOf(t.category)>=0;});}).catch(function(){});
   }
-  var WLBL=[['\u2600\ufe0f','\u5feb\u6674'],['\u26c5\ufe0f','\u6674\u308c\u6642\u3005\u66c7\u308a'],['\u2601\ufe0f','\u66c7\u308a'],['\ud83c\udf2b\ufe0f','\u9727'],['\ud83c\udf26\ufe0f','\u9727\u96e8'],['\ud83c\udf26\ufe0f','\u306b\u308f\u304b\u96e8'],['\ud83c\udf27\ufe0f','\u96e8'],['\u26c8\ufe0f','\u96f7\u96e8'],['\ud83c\udf28\ufe0f','\u96ea']];
+  var WICON={sun:'<g stroke="#F2B33D" stroke-width="2" stroke-linecap="round"><line x1="12" y1="2.4" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="21.6"/><line x1="2.4" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="21.6" y2="12"/><line x1="5.2" y1="5.2" x2="7" y2="7"/><line x1="17" y1="17" x2="18.8" y2="18.8"/><line x1="5.2" y1="18.8" x2="7" y2="17"/><line x1="17" y1="7" x2="18.8" y2="5.2"/></g><circle cx="12" cy="12" r="4.6" fill="#F2B33D"/>',partly:'<g stroke="#F2B33D" stroke-width="1.8" stroke-linecap="round"><line x1="8.5" y1="1.8" x2="8.5" y2="3.8"/><line x1="2" y1="8.3" x2="4" y2="8.3"/><line x1="3.5" y1="3.3" x2="4.9" y2="4.7"/><line x1="13.5" y1="3.3" x2="12.1" y2="4.7"/></g><circle cx="8.5" cy="8.3" r="3.5" fill="#F2B33D"/><circle cx="10.5" cy="15" r="3.1" fill="#9DB2BE"/><circle cx="15.6" cy="13.8" r="3.8" fill="#9DB2BE"/><circle cx="13.2" cy="15.8" r="3.4" fill="#9DB2BE"/><rect x="8.4" y="15" width="10.4" height="4.4" rx="2.2" fill="#9DB2BE"/>',cloud:'<circle cx="9" cy="13.5" r="3.4" fill="#9DB2BE"/><circle cx="15.2" cy="12.4" r="4.1" fill="#9DB2BE"/><circle cx="12.4" cy="14.6" r="3.9" fill="#9DB2BE"/><rect x="6.6" y="13.6" width="11.4" height="5" rx="2.5" fill="#9DB2BE"/>',fog:'<circle cx="9" cy="11" r="3.1" fill="#9DB2BE"/><circle cx="15" cy="10" r="3.7" fill="#9DB2BE"/><circle cx="12.4" cy="12" r="3.5" fill="#9DB2BE"/><rect x="6.8" y="11" width="10.8" height="4.4" rx="2.2" fill="#9DB2BE"/><g stroke="#B9C6CF" stroke-width="1.8" stroke-linecap="round"><line x1="6.5" y1="18" x2="17.5" y2="18"/><line x1="8.5" y1="21" x2="19.5" y2="21"/></g>',shower:'<circle cx="9" cy="10.5" r="3.2" fill="#9DB2BE"/><circle cx="15.2" cy="9.4" r="3.9" fill="#9DB2BE"/><circle cx="12.4" cy="11.4" r="3.6" fill="#9DB2BE"/><rect x="6.6" y="10.5" width="11.4" height="4.6" rx="2.3" fill="#9DB2BE"/><g stroke="#2E9AA0" stroke-width="2" stroke-linecap="round"><line x1="10.5" y1="17" x2="9.4" y2="20"/><line x1="15" y1="17" x2="13.9" y2="20"/></g>',rain:'<circle cx="9" cy="10.5" r="3.2" fill="#9DB2BE"/><circle cx="15.2" cy="9.4" r="3.9" fill="#9DB2BE"/><circle cx="12.4" cy="11.4" r="3.6" fill="#9DB2BE"/><rect x="6.6" y="10.5" width="11.4" height="4.6" rx="2.3" fill="#9DB2BE"/><g stroke="#2E9AA0" stroke-width="2" stroke-linecap="round"><line x1="9" y1="17" x2="7.9" y2="20.2"/><line x1="12.2" y1="17" x2="11.1" y2="20.2"/><line x1="15.4" y1="17" x2="14.3" y2="20.2"/></g>',storm:'<circle cx="9" cy="10.5" r="3.2" fill="#9DB2BE"/><circle cx="15.2" cy="9.4" r="3.9" fill="#9DB2BE"/><circle cx="12.4" cy="11.4" r="3.6" fill="#9DB2BE"/><rect x="6.6" y="10.5" width="11.4" height="4.6" rx="2.3" fill="#9DB2BE"/><path d="M13.2 15.5l-3.4 4.2h2.3l-1.3 3.1 4.2-4.6h-2.3l1.6-2.7z" fill="#F2B33D"/>',snow:'<circle cx="9" cy="10.5" r="3.2" fill="#9DB2BE"/><circle cx="15.2" cy="9.4" r="3.9" fill="#9DB2BE"/><circle cx="12.4" cy="11.4" r="3.6" fill="#9DB2BE"/><rect x="6.6" y="10.5" width="11.4" height="4.6" rx="2.3" fill="#9DB2BE"/><g fill="#B9C6CF"><circle cx="9.4" cy="18.6" r="1.15"/><circle cx="12.4" cy="20" r="1.15"/><circle cx="15.4" cy="18.6" r="1.15"/></g>'};function icon(k){var s=WICON[k]||WICON.cloud;return '<svg class="wxi" width="1em" height="1em" viewBox="0 0 24 24" style="display:inline-block;vertical-align:-0.14em" aria-hidden="true">'+s+'</svg>';}var WLBL=[['sun','快晴'],['partly','晴れ時々曇り'],['cloud','曇り'],['fog','霧'],['shower','霧雨'],['shower','にわか雨'],['rain','雨'],['storm','雷雨'],['snow','雪']];
   function cat(c){c=+c;if(c===0)return 0;if(c===1||c===2)return 1;if(c===3)return 2;if(c>=45&&c<=48)return 3;if(c>=51&&c<=57)return 4;if(c>=80&&c<=82)return 5;if(c>=61&&c<=67)return 6;if(c>=95)return 7;if(c>=71&&c<=77)return 8;return 2;}
   function pick(d,base,i){var o=[];Object.keys(d).forEach(function(kk){if(kk===base||kk.indexOf(base+'_')===0){var v=d[kk][i];if(v!==null&&v!==undefined&&!isNaN(v))o.push(v);}});return o;}
   function avg(a){return a.reduce(function(s,v){return s+v;},0)/a.length;}
@@ -349,7 +349,7 @@ var RT={"pts": [{"n": "那覇空港", "lat": 26.2001297, "lon": 127.6466452, "k"
     var h='<button class="cls" aria-label="\u9589\u3058\u308b">\u2715</button>';
     h+='<h4>'+info.nm+'\u30fb'+info.d.slice(5).replace('-','/')+' \u306e\u5929\u6c17</h4>';
     var line=info.lab+' \u30fb '+info.hi+'\u00b0/'+info.lo2+'\u00b0'+(info.pp!==null?' \u30fb \u964d\u6c34'+info.pp+'%':'');
-    h+='<div class="now"><span class="big">'+info.ic+'</span><span>'+line+'</span></div>';
+    h+='<div class="now"><span class="big">'+icon(info.ic)+'</span><span>'+line+'</span></div>';
     if(info.conf)h+='<div class="conf">'+info.conf+' \uff0f \u7d04'+info.lead+'\u65e5\u5148\u306e\u4e88\u5831</div>';
     h+=links.map(function(a){return '<a'+(a[2]?' class="'+a[2]+'"':'')+' href="'+a[1]+'" target="_blank" rel="noopener">'+a[0]+'<span class="ar">\u2197</span></a>';}).join('');
     h+='<div class="src">\u5bbf\u6cca\u5730\u306e\u30d4\u30f3\u30dd\u30a4\u30f3\u30c8\u4e88\u5831\u3092\u958b\u304d\u307e\u3059\u3002\u5024\u306e\u76ee\u5b89\u306f\u6c17\u8c61\u5e81\u30fbECMWF\u30fbGFS\u30fbICON\u306e\u7d71\u5408\u5024\u3067\u3059\u3002</div>';
@@ -379,14 +379,14 @@ var RT={"pts": [{"n": "那覇空港", "lat": 26.2001297, "lon": 127.6466452, "k"
         var wd='\u65e5\u6708\u706b\u6c34\u6728\u91d1\u571f'[new Date(x.d+'T00:00:00').getDay()];
         var md=x.d.slice(5).replace('-','/');
         var b=document.createElement('button');b.type='button';b.className='fvwx-day';
-        b.innerHTML='<span class="d">'+md+' '+wd+'</span>'+(wc[0]?'<span class="ic">'+wc[0]+'</span>':'')+(Hi!==null?'<span class="t">'+Hi+'\u00b0<span class="lo">/'+Lo+'\u00b0</span></span>':'')+(Pp!==null?'<span class="pp">\u964d\u6c34'+Pp+'%</span>':'');
+        b.innerHTML='<span class="d">'+md+' '+wd+'</span>'+(wc[0]?'<span class="ic">'+icon(wc[0])+'</span>':'')+(Hi!==null?'<span class="t">'+Hi+'\u00b0<span class="lo">/'+Lo+'\u00b0</span></span>':'')+(Pp!==null?'<span class="pp">\u964d\u6c34'+Pp+'%</span>':'');
         (function(bb,inf){bb.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();openPop(bb,inf);});})(b,info);
         strip.appendChild(b);
       }
       var host=document.querySelector('#day'+(idx+1)+' .day-badge')||document.querySelector('#day'+(idx+1)+' .day-date');
       if(host && !host.parentNode.querySelector('.wx')){
         var g='<span class="glance" role="button" tabindex="0" title="\u30bf\u30c3\u30d7\u3067\u6c17\u8c61\u5e81\u30fbtenki.jp\u30fb\u30a6\u30a7\u30b6\u30fc\u30cb\u30e5\u30fc\u30b9\u3092\u958b\u304f">';
-        if(wc[0])g+='<span class="ic">'+wc[0]+'</span>';
+        if(wc[0])g+='<span class="ic">'+icon(wc[0])+'</span>';
         if(Hi!==null)g+='<span class="t">'+Hi+'\u00b0<span class="lo">/'+Lo+'\u00b0</span></span>';
         if(Pp!==null)g+='<span class="pp">\u964d\u6c34'+Pp+'%</span>';
         g+='</span>';
