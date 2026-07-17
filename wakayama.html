@@ -195,6 +195,22 @@ body{font-family:'Zen Kaku Gothic New',sans-serif;color:var(--ink);background:va
 .wxpop a.typ{color:#b3452a}
 .wxpop .src{font-size:.66rem;color:var(--ink-faint,#8aa0a6);margin-top:8px;line-height:1.5;border-top:1px solid var(--line);padding-top:8px}
 .wxpop .cls{position:absolute;top:7px;right:9px;cursor:pointer;color:var(--ink-faint,#8aa0a6);font-size:.85rem;background:none;border:none;padding:2px}
+
+/* ファーストビュー：左=写真 / 右=地図（スマホは上下）※戻す場合はこのブロックと .fv ラッパを削除 */
+.fv{display:flex;align-items:stretch}
+.fv > .fv-photo{flex:1 1 50%;min-width:0;min-height:0}
+.fv > .fv-map{flex:1 1 50%;min-width:0;position:relative}
+.fv-map #tripmap{width:100%;height:74vh;height:74svh;border-radius:0;border:none;box-shadow:none}
+.fv-gbtn{position:absolute;top:14px;right:14px;z-index:1000;box-shadow:0 4px 14px rgba(7,40,45,.28)}
+.fv-map-label{position:absolute;left:12px;bottom:12px;z-index:1000;margin:0;background:rgba(255,255,255,.94);color:var(--teal-deep);font-family:'Outfit',sans-serif;font-weight:600;font-size:.64rem;letter-spacing:.16em;padding:5px 11px;border-radius:20px;box-shadow:0 2px 8px rgba(7,40,45,.18)}
+@media(min-width:681px){.fv .hero-main h1{font-size:clamp(1.5rem,3.2vw,2.5rem)}}
+@media(max-width:680px){
+ .fv{flex-direction:column}
+ .fv > .fv-photo{flex:none;min-height:46vh;min-height:46svh}
+ .fv > .fv-map{flex:none}
+ .fv-map #tripmap{height:42vh;height:42svh}
+ .fv-gbtn{top:10px;right:10px}
+}
 </style>
 </head>
 <body>
@@ -206,7 +222,7 @@ body{font-family:'Zen Kaku Gothic New',sans-serif;color:var(--ink);background:va
   </div>
 </nav>
 
-<header class="hero">
+<div class="fv"><header class="hero fv-photo">
   <div class="hero-frame">
     <div class="hero-main">
       <h1><span class="nb">白浜・伊賀 3泊4日</span><br>家族キャンプ旅</h1>
@@ -218,7 +234,7 @@ body{font-family:'Zen Kaku Gothic New',sans-serif;color:var(--ink);background:va
       </div>
     </div>
   </div>
-</header>
+</header><div class="fv-map"><div class="fv-map-label">この旅のスポット</div><a class="fv-gbtn rm-gbtn map-open" href="https://www.google.com/maps/dir/?api=1&origin=35.1874286,136.9635885&destination=33.977173,135.0724669&waypoints=34.8563235,136.1851969|34.7974004,136.1817856|34.7752676,136.0650558|33.6898631,135.3364115|33.6708154,135.3343668|33.6817259,135.3444329|33.6659593,135.3356032|33.6707012,135.3304584&travelmode=driving" target="_blank" rel="noopener">Googleマップで開く</a><div id="tripmap"></div></div></div>
 
 <div class="legend-wrap reveal">
   <div class="legend">
@@ -226,13 +242,7 @@ body{font-family:'Zen Kaku Gothic New',sans-serif;color:var(--ink);background:va
   </div>
 </div>
 
-<div class="mapsec reveal">
-  <div class="maphead">
-    <h3>この旅のスポット</h3>
-    <a class="map-open" href="https://www.google.com/maps/dir/?api=1&origin=35.1874286,136.9635885&destination=33.977173,135.0724669&waypoints=34.8563235,136.1851969|34.7974004,136.1817856|34.7752676,136.0650558|33.6898631,135.3364115|33.6708154,135.3343668|33.6817259,135.3444329|33.6659593,135.3356032|33.6707012,135.3304584&travelmode=driving" target="_blank" rel="noopener">Googleマップで開く</a>
-  </div>
-  <div id="tripmap"></div>
-</div>
+
 
 <main class="timeline">
 <section class="day reveal" id="day1">
@@ -438,5 +448,5 @@ Object.keys(DM).forEach(di=>{
   }
 })([{d:'2026-07-18',la:34.775,lo:136.065,jma:'240000',tk:'5/27/5310/24216',nm:'伊賀市'},{d:'2026-07-19',la:33.671,lo:135.334,jma:'300000',tk:'6/33/6520/30401',nm:'白浜町'},{d:'2026-07-20',la:33.671,lo:135.334,jma:'300000',tk:'6/33/6520/30401',nm:'白浜町'},{d:'2026-07-21',la:33.671,lo:135.334,jma:'300000',tk:'6/33/6520/30401',nm:'白浜町'}]);
 </script>
-</body>
+<script>/*FV_RESIZE*/window.addEventListener('load',function(){setTimeout(function(){try{window.dispatchEvent(new Event('resize'));}catch(e){}},400);});</script></body>
 </html>
