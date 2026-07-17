@@ -173,40 +173,28 @@ body{font-family:'Zen Kaku Gothic New',sans-serif;color:var(--ink);background:va
 .ft-top{display:inline-flex;align-items:center;gap:6px;margin-top:16px;font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:.78rem;color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.42);border-radius:10px;padding:8px 16px;cursor:pointer;transition:background .18s}
 .ft-top:hover{background:rgba(255,255,255,.14)}
 
-.day-line .wx{display:inline-flex;align-items:center;gap:8px;font-family:'Outfit',sans-serif;font-weight:600;font-size:.74rem;color:var(--ink-soft);background:var(--paper-2);border:1px solid var(--line);border-radius:20px;padding:3px 11px;margin-left:6px;white-space:nowrap;vertical-align:middle}
-.day-line .wx .ic{font-size:1rem;line-height:1}
-.day-line .wx .t{color:var(--ink)}
-.day-line .wx .lo{color:var(--teal-deep)}
-.day-line .wx .pp{color:var(--teal)}
-@media(max-width:680px){.day-line .wx{font-size:.68rem;padding:2px 9px;gap:6px;margin-left:0;margin-top:2px}}
-
-.day-line .wx{cursor:pointer}
-.day-line .wx .wd{color:var(--coral,#e8693f)}
-.wxpop{position:fixed;z-index:200;max-width:284px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 34px rgba(7,40,45,.24);padding:12px 14px 13px;opacity:0;pointer-events:none;transition:opacity .12s,transform .12s;transform:translateY(4px)}
-.wxpop.show{opacity:1;pointer-events:auto;transform:none}
-.wxpop h4{margin:0 0 9px;font-family:'Shippori Mincho',serif;font-size:.94rem;color:var(--ink);padding-right:18px}
-.wxpop .now{display:flex;align-items:center;gap:9px;font-size:.8rem;color:var(--ink-soft);background:var(--paper,#f6f2ea);border:1px solid var(--line);border-radius:9px;padding:7px 10px;margin-bottom:6px;line-height:1.45}
-.wxpop .now .big{font-size:1.2rem}
-.wxpop .grp{font-family:'Outfit',sans-serif;font-weight:700;font-size:.6rem;letter-spacing:.1em;color:var(--ink-faint,#8aa0a6);margin:9px 0 3px}
-.wxpop a{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:.82rem;color:var(--teal-ink,#053f48);text-decoration:none;padding:6px 8px;border-radius:8px}
-.wxpop a:hover{background:var(--sand,#efe6d6)}
-.wxpop a .ar{color:var(--ink-faint,#8aa0a6);font-family:'Outfit',sans-serif}
-.wxpop .src{font-size:.68rem;color:var(--ink-faint,#8aa0a6);margin-top:9px;line-height:1.55;border-top:1px solid var(--line);padding-top:8px}
-.wxpop .cls{position:absolute;top:7px;right:9px;cursor:pointer;color:var(--ink-faint,#8aa0a6);font-size:.85rem;background:none;border:none;padding:2px}
-.wxpop .conf{font-size:.72rem;color:#8a5330;background:#fff3e9;border:1px solid #f2d3ba;border-radius:8px;padding:5px 9px;margin-bottom:6px;line-height:1.5}
-
-.day-line .wx{display:inline-flex;flex-wrap:wrap;align-items:center;gap:5px 8px;margin-left:8px;padding:0;background:none;border:none;border-radius:0;vertical-align:middle}
-.day-line .wx .glance{display:inline-flex;align-items:center;gap:6px;font-family:'Outfit',sans-serif;font-weight:600;font-size:.74rem;color:var(--ink-soft)}
+.day-line .wx{display:inline-flex;align-items:center;margin-left:8px;vertical-align:middle}
+.day-line .wx .glance{display:inline-flex;align-items:center;gap:7px;cursor:pointer;font-family:'Outfit',sans-serif;font-weight:600;font-size:.76rem;color:var(--ink-soft);background:var(--paper-2);border:1px solid var(--line);border-radius:22px;padding:3px 12px}
+.day-line .wx .glance:hover{background:var(--sand,#efe6d6)}
 .day-line .wx .glance .ic{font-size:1.4rem;line-height:1}
 .day-line .wx .glance .t{color:var(--ink)}
 .day-line .wx .glance .lo{color:var(--teal-deep)}
 .day-line .wx .glance .pp{color:var(--teal)}
 .day-line .wx .glance .lead{color:var(--ink-faint,#8aa0a6);font-weight:500;font-size:.68rem}
-.day-line .wx .srcs{display:inline-flex;flex-wrap:wrap;align-items:center;gap:4px 5px}
-.day-line .wx .srcs a{font-family:'Outfit',sans-serif;font-weight:600;font-size:.66rem;color:var(--teal-ink,#0c5561);background:var(--paper-2);border:1px solid var(--line);border-radius:20px;padding:2px 9px;text-decoration:none;white-space:nowrap}
-.day-line .wx .srcs a:hover{background:var(--sand,#efe6d6)}
-.day-line .wx .srcs a.typ{color:#b3452a;background:#fff3e9;border-color:#f2d3ba}
-@media(max-width:680px){.day-line .wx{margin-left:0;margin-top:4px;width:100%}.day-line .wx .glance{font-size:.72rem}.day-line .wx .srcs a{font-size:.64rem;padding:2px 8px}}
+@media(max-width:680px){.day-line .wx{margin-left:6px}.day-line .wx .glance{font-size:.72rem;padding:2px 10px;gap:6px}.day-line .wx .glance .ic{font-size:1.25rem}}
+.wxpop{position:fixed;z-index:200;max-width:266px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 34px rgba(7,40,45,.24);padding:12px 14px 12px;opacity:0;pointer-events:none;transition:opacity .12s,transform .12s;transform:translateY(4px)}
+.wxpop.show{opacity:1;pointer-events:auto;transform:none}
+.wxpop h4{margin:0 0 8px;font-family:'Shippori Mincho',serif;font-size:.92rem;color:var(--ink);padding-right:18px}
+.wxpop .now{display:flex;align-items:center;gap:9px;font-size:.8rem;color:var(--ink-soft);background:var(--paper,#f6f2ea);border:1px solid var(--line);border-radius:9px;padding:7px 10px;margin-bottom:6px;line-height:1.45}
+.wxpop .now .big{font-size:1.3rem}
+.wxpop .conf{font-size:.72rem;color:#8a5330;background:#fff3e9;border:1px solid #f2d3ba;border-radius:8px;padding:5px 9px;margin-bottom:6px;line-height:1.5}
+.wxpop a{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:.9rem;color:var(--teal-ink,#0c5561);text-decoration:none;padding:9px 10px;border-radius:9px}
+.wxpop a:hover{background:var(--sand,#efe6d6)}
+.wxpop a+a{border-top:1px solid var(--line)}
+.wxpop a .ar{color:var(--ink-faint,#8aa0a6);font-family:'Outfit',sans-serif}
+.wxpop a.typ{color:#b3452a}
+.wxpop .src{font-size:.66rem;color:var(--ink-faint,#8aa0a6);margin-top:8px;line-height:1.5;border-top:1px solid var(--line);padding-top:8px}
+.wxpop .cls{position:absolute;top:7px;right:9px;cursor:pointer;color:var(--ink-faint,#8aa0a6);font-size:.85rem;background:none;border:none;padding:2px}
 </style>
 </head>
 <body>
@@ -365,7 +353,8 @@ Object.keys(DM).forEach(di=>{
 
 
 
-/* 天気予報：旅が近づくと自動表示（各社リンク＋統合の目安）v3 */
+
+/* 天気予報：◯日目の横に表示・タップで各サイトのリンク（v4） */
 (function(WX_DAYS){
   var HORIZON=16;
   var today=new Date();today.setHours(0,0,0,0);
@@ -389,38 +378,65 @@ Object.keys(DM).forEach(di=>{
   function pick(d,base,i){var o=[];Object.keys(d).forEach(function(kk){if(kk===base||kk.indexOf(base+'_')===0){var v=d[kk][i];if(v!==null&&v!==undefined&&!isNaN(v))o.push(v);}});return o;}
   function avg(a){return a.reduce(function(s,v){return s+v;},0)/a.length;}
   function med(a){var b=a.slice().sort(function(x,y){return x-y;}),n=b.length;return n?(n%2?b[(n-1)/2]:(b[n/2-1]+b[n/2])/2):null;}
+  var pop=null,openedAt=0;
+  function ensurePop(){if(pop)return pop;pop=document.createElement('div');pop.className='wxpop';document.body.appendChild(pop);
+    setTimeout(function(){document.addEventListener('click',function(e){if(pop&&!e.target.closest('.wxpop')&&!e.target.closest('.glance'))hide();});},0);
+    window.addEventListener('scroll',function(){if(Date.now()-openedAt>500)hide();},{passive:true});return pop;}
+  function hide(){if(pop)pop.classList.remove('show');}
+  function openPop(anchor,info){
+    openedAt=Date.now();
+    var p=ensurePop();
+    var links=[
+      ['\u6c17\u8c61\u5e81','https://www.jma.go.jp/bosai/forecast/#area_type=offices&amp;area_code='+info.jma,''],
+      ['tenki.jp','https://tenki.jp/forecast/'+info.tk+'/',''],
+      ['\u30a6\u30a7\u30b6\u30fc\u30cb\u30e5\u30fc\u30b9','https://weathernews.jp/onebox/'+info.la+'/'+info.lo+'/','']
+    ];
+    if(info.typ)links.push(['\u53f0\u98a8\u60c5\u5831','https://www.jma.go.jp/bosai/map.html#contents=typhoon','typ']);
+    var h='<button class="cls" aria-label="\u9589\u3058\u308b">\u2715</button>';
+    h+='<h4>'+info.nm+'\u30fb'+info.d.slice(5).replace('-','/')+' \u306e\u5929\u6c17</h4>';
+    var line=info.lab+' \u30fb '+info.hi+'\u00b0/'+info.lo2+'\u00b0'+(info.pp!==null?' \u30fb \u964d\u6c34'+info.pp+'%':'');
+    h+='<div class="now"><span class="big">'+info.ic+'</span><span>'+line+'</span></div>';
+    if(info.conf)h+='<div class="conf">'+info.conf+' \uff0f \u7d04'+info.lead+'\u65e5\u5148\u306e\u4e88\u5831</div>';
+    h+=links.map(function(a){return '<a'+(a[2]?' class="'+a[2]+'"':'')+' href="'+a[1]+'" target="_blank" rel="noopener">'+a[0]+'<span class="ar">\u2197</span></a>';}).join('');
+    h+='<div class="src">\u5bbf\u6cca\u5730\u306e\u30d4\u30f3\u30dd\u30a4\u30f3\u30c8\u4e88\u5831\u3092\u958b\u304d\u307e\u3059\u3002\u5de6\u306e\u76ee\u5b89\u306f\u6c17\u8c61\u5e81\u30fbECMWF\u30fbGFS\u30fbICON\u306e\u7d71\u5408\u5024\u3067\u3059\u3002</div>';
+    p.innerHTML=h;
+    p.querySelector('.cls').addEventListener('click',hide);
+    p.classList.add('show');
+    var r=anchor.getBoundingClientRect(),pw=Math.min(266,window.innerWidth-16),ph=p.offsetHeight;
+    var left=Math.max(8,Math.min(r.left,window.innerWidth-pw-8));
+    var top=r.bottom+8;if(top+ph>window.innerHeight-8){top=Math.max(8,r.top-ph-8);}
+    p.style.left=left+'px';p.style.top=top+'px';p.style.width=pw+'px';
+  }
   function render(){
     WX_DAYS.forEach(function(x,idx){
-      var host=document.querySelector('#day'+(idx+1)+' .day-badge')||document.querySelector('#day'+(idx+1)+' .day-date');if(!host||host.parentNode.querySelector('.wx'))return;
-      var u=uniq[x.la+','+x.lo],glance='';
-      if(u&&u.data&&u.data.daily){
-        var d=u.data.daily,t=d.time||[],i=t.indexOf(x.d);
-        if(i>=0){
-          var codes=pick(d,'weather_code',i),hi=pick(d,'temperature_2m_max',i),lo=pick(d,'temperature_2m_min',i),pp=pick(d,'precipitation_probability_mean',i);
-          if(codes.length||hi.length){
-            var wc=codes.length?WLBL[Math.round(med(codes.map(cat)))]:['',''];
-            var Hi=hi.length?Math.round(avg(hi)):null,Lo=lo.length?Math.round(avg(lo)):null,Pp=pp.length?Math.round(avg(pp)):null;
-            var lead=Math.round((new Date(x.d+'T00:00:00')-today)/864e5);
-            glance='<span class="glance" title="\u8907\u6570\u30e2\u30c7\u30eb\u7d71\u5408\u306e\u76ee\u5b89\uff08\u6c17\u8c61\u5e81\u30fbECMWF\u30fbGFS\u30fbICON\uff09\u3002\u8a73\u7d30\u306f\u5404\u30b5\u30a4\u30c8\u3078\u3002">';
-            if(wc[0])glance+='<span class="ic">'+wc[0]+'</span>';
-            if(Hi!==null)glance+='<span class="t">'+Hi+'\u00b0<span class="lo">/'+Lo+'\u00b0</span></span>';
-            if(Pp!==null)glance+='<span class="pp">降水'+Pp+'%</span>';
-            if(lead>7)glance+='<span class="lead">\u7d04'+lead+'\u65e5\u5148</span>';
-            glance+='</span>';
-          }
-        }
-      }
-      var srcs='<span class="srcs">'
-        +'<a href="https://www.jma.go.jp/bosai/forecast/#area_type=offices&amp;area_code='+x.jma+'" target="_blank" rel="noopener">\u6c17\u8c61\u5e81</a>'
-        +'<a href="https://tenki.jp/forecast/'+x.tk+'/" target="_blank" rel="noopener">tenki.jp</a>'
-        +'<a href="https://weathernews.jp/onebox/'+x.la+'/'+x.lo+'/" target="_blank" rel="noopener">\u30a6\u30a7\u30b6\u30fc\u30cb\u30e5\u30fc\u30b9</a>'
-        +(TYP?'<a class="typ" href="https://www.jma.go.jp/bosai/map.html#contents=typhoon" target="_blank" rel="noopener">\u53f0\u98a8\u60c5\u5831</a>':'')
-        +'</span>';
-      var w=document.createElement('span');w.className='wx';w.innerHTML=glance+srcs;
+      var host=document.querySelector('#day'+(idx+1)+' .day-badge')||document.querySelector('#day'+(idx+1)+' .day-date');
+      if(!host||host.parentNode.querySelector('.wx'))return;
+      var u=uniq[x.la+','+x.lo];if(!u||!u.data||!u.data.daily)return;
+      var d=u.data.daily,t=d.time||[],i=t.indexOf(x.d);if(i<0)return;
+      var codes=pick(d,'weather_code',i),hi=pick(d,'temperature_2m_max',i),lo=pick(d,'temperature_2m_min',i),pp=pick(d,'precipitation_probability_mean',i);
+      if(!codes.length&&!hi.length)return;
+      var wc=codes.length?WLBL[Math.round(med(codes.map(cat)))]:['',''];
+      var Hi=hi.length?Math.round(avg(hi)):null,Lo=lo.length?Math.round(avg(lo)):null,Pp=pp.length?Math.round(avg(pp)):null;
+      var lead=Math.round((new Date(x.d+'T00:00:00')-today)/864e5);
+      var conf=lead<=3?'':(lead<=7?'\u78ba\u5ea6\uff1a\u4e2d\uff08\u5909\u308f\u308a\u3084\u3059\u3044\u30fb\u8981\u78ba\u8a8d\uff09':'\u78ba\u5ea6\uff1a\u4f4e\uff08\u3042\u304f\u307e\u3067\u76ee\u5b89\u30fb\u8981\u78ba\u8a8d\uff09');
+      var g='<span class="glance" role="button" tabindex="0" title="\u30bf\u30c3\u30d7\u3067\u6c17\u8c61\u5e81\u30fbtenki.jp\u30fb\u30a6\u30a7\u30b6\u30fc\u30cb\u30e5\u30fc\u30b9\u3092\u958b\u304f">';
+      if(wc[0])g+='<span class="ic">'+wc[0]+'</span>';
+      if(Hi!==null)g+='<span class="t">'+Hi+'\u00b0<span class="lo">/'+Lo+'\u00b0</span></span>';
+      if(Pp!==null)g+='<span class="pp">\u964d\u6c34'+Pp+'%</span>';
+      
+      g+='</span>';
+      var w=document.createElement('span');w.className='wx';w.innerHTML=g;
+      var glance=w.querySelector('.glance');
+      var info={nm:x.nm,d:x.d,jma:x.jma,tk:x.tk,la:x.la,lo:x.lo,ic:wc[0],lab:wc[1],hi:Hi,lo2:Lo,pp:Pp,lead:lead,conf:conf,typ:TYP};
+      (function(gl,inf){
+        function open(e){e.preventDefault();e.stopPropagation();openPop(gl,inf);}
+        gl.addEventListener('click',open);
+        gl.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' ')open(e);});
+      })(glance,info);
       host.insertAdjacentElement('afterend',w);
     });
   }
-})([{d:'2026-07-18',la:34.775,lo:136.065,jma:'240000',tk:'5/27/5310/24216'},{d:'2026-07-19',la:33.671,lo:135.334,jma:'300000',tk:'6/33/6520/30401'},{d:'2026-07-20',la:33.671,lo:135.334,jma:'300000',tk:'6/33/6520/30401'},{d:'2026-07-21',la:33.671,lo:135.334,jma:'300000',tk:'6/33/6520/30401'}]);
+})([{d:'2026-07-18',la:34.775,lo:136.065,jma:'240000',tk:'5/27/5310/24216',nm:'伊賀市'},{d:'2026-07-19',la:33.671,lo:135.334,jma:'300000',tk:'6/33/6520/30401',nm:'白浜町'},{d:'2026-07-20',la:33.671,lo:135.334,jma:'300000',tk:'6/33/6520/30401',nm:'白浜町'},{d:'2026-07-21',la:33.671,lo:135.334,jma:'300000',tk:'6/33/6520/30401',nm:'白浜町'}]);
 </script>
 </body>
 </html>
