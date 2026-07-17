@@ -309,19 +309,23 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
 .nt-badge.now{background:var(--teal)}
 .nt-go{position:absolute;bottom:22px;right:24px;z-index:2;font-family:'Zen Kaku Gothic New';font-weight:700;font-size:.8rem;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.55);padding:7px 15px;border-radius:10px;backdrop-filter:blur(4px)}
 @media(max-width:680px){.nt-go{display:none}.nt-inner{padding:20px}.nt-card{min-height:210px}}
+
+.ft-top{display:inline-flex;align-items:center;gap:6px;margin-top:16px;font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:.78rem;color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.42);border-radius:10px;padding:8px 16px;cursor:pointer;transition:background .18s}
+.ft-top:hover{background:rgba(255,255,255,.14)}
 </style></head><body id="top">
 <nav class="nav"><div class="nav-in"><a class="brand" href="#top"><b>旅のしおり</b></a>
 <div class="navright"><details class="menu-wrap" id="menu"><summary class="ham" aria-label="メニュー"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary>
-<div class="menu-panel"><a href="#top">トップ（カレンダー）</a><a href="#trips">今年の旅</a><div class="menu-h">年で見る</div><div id="yearmenu"></div></div></details></div></div></nav>
-<section class="nexttrip reveal" id="nexttrip"></section>
+<div class="menu-panel"><a href="#top">トップ（カレンダー）</a><a href="#trips">旅の一覧</a><div class="menu-h">年で見る</div><div id="yearmenu"></div></div></details></div></div></nav>
+<section class="up reveal" id="trips"><div class="up-h"><h2>旅の一覧</h2><span class="ysum" id="ysum"></span><span class="ln"></span></div>
+<div class="tcards" id="tcards"></div></section>
 <div class="yearbar"><button class="ybtn" id="py" aria-label="前の年">‹</button><div class="ylabel" id="ylabel"></div><button class="ybtn" id="ny" aria-label="次の年">›</button></div>
 <div class="cal-wrap"><div class="cal-card reveal">
 <div class="cal-bar"><button class="navbtn" id="prev" aria-label="前の月">‹</button><div class="mlabel" id="mlabel"></div><button class="navbtn" id="next" aria-label="次の月">›</button><button class="today-btn" id="today">今日</button></div>
 <div class="wd"><span style="color:var(--coral)">日</span><span>月</span><span>火</span><span>水</span><span>木</span><span>金</span><span style="color:var(--slate)">土</span></div>
 <div id="grid"></div><div class="cal-hint">日程の帯をタップでしおりへ。<span class="hol-leg">祝日</span>をタップすると何の日か表示されます。</div></div></div>
-<section class="up reveal" id="trips"><div class="up-h"><h2><span id="ytitle"></span>年の旅</h2><span class="ysum" id="ysum"></span><span class="ln"></span></div>
-<div class="tcards" id="tcards"></div></section>
-<footer class="gfoot"><div class="ft-sub">家族の旅程カレンダー</div></footer>
+
+<footer class="gfoot"><div class="ft-sub">家族の旅程カレンダー</div><a class="ft-top" href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ 上に戻る</a>
+</footer>
 <button class="totop" id="totop" aria-label="上に戻る"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V6M6 12l6-6 6 6"/></svg></button>
 <script>
 var HOL={"2024-01-01": "元日", "2024-01-08": "成人の日", "2024-02-11": "建国記念の日", "2024-02-12": "建国記念の日 振替休日", "2024-02-23": "天皇誕生日", "2024-03-20": "春分の日", "2024-04-29": "昭和の日", "2024-05-03": "憲法記念日", "2024-05-04": "みどりの日", "2024-05-05": "こどもの日", "2024-05-06": "こどもの日 振替休日", "2024-07-15": "海の日", "2024-08-11": "山の日", "2024-08-12": "山の日 振替休日", "2024-09-16": "敬老の日", "2024-09-22": "秋分の日", "2024-09-23": "秋分の日 振替休日", "2024-10-14": "スポーツの日", "2024-11-03": "文化の日", "2024-11-04": "文化の日 振替休日", "2024-11-23": "勤労感謝の日", "2025-01-01": "元日", "2025-01-13": "成人の日", "2025-02-11": "建国記念の日", "2025-02-23": "天皇誕生日", "2025-02-24": "天皇誕生日 振替休日", "2025-03-20": "春分の日", "2025-04-29": "昭和の日", "2025-05-03": "憲法記念日", "2025-05-04": "みどりの日", "2025-05-05": "こどもの日", "2025-05-06": "みどりの日 振替休日", "2025-07-21": "海の日", "2025-08-11": "山の日", "2025-09-15": "敬老の日", "2025-09-23": "秋分の日", "2025-10-13": "スポーツの日", "2025-11-03": "文化の日", "2025-11-23": "勤労感謝の日", "2025-11-24": "勤労感謝の日 振替休日", "2026-01-01": "元日", "2026-01-12": "成人の日", "2026-02-11": "建国記念の日", "2026-02-23": "天皇誕生日", "2026-03-20": "春分の日", "2026-04-29": "昭和の日", "2026-05-03": "憲法記念日", "2026-05-04": "みどりの日", "2026-05-05": "こどもの日", "2026-05-06": "憲法記念日 振替休日", "2026-07-20": "海の日", "2026-08-11": "山の日", "2026-09-21": "敬老の日", "2026-09-22": "国民の休日", "2026-09-23": "秋分の日", "2026-10-12": "スポーツの日", "2026-11-03": "文化の日", "2026-11-23": "勤労感謝の日", "2027-01-01": "元日", "2027-01-11": "成人の日", "2027-02-11": "建国記念の日", "2027-02-23": "天皇誕生日", "2027-03-21": "春分の日", "2027-03-22": "春分の日 振替休日", "2027-04-29": "昭和の日", "2027-05-03": "憲法記念日", "2027-05-04": "みどりの日", "2027-05-05": "こどもの日", "2027-07-19": "海の日", "2027-08-11": "山の日", "2027-09-20": "敬老の日", "2027-09-23": "秋分の日", "2027-10-11": "スポーツの日", "2027-11-03": "文化の日", "2027-11-23": "勤労感謝の日", "2028-01-01": "元日", "2028-01-10": "成人の日", "2028-02-11": "建国記念の日", "2028-02-23": "天皇誕生日", "2028-03-20": "春分の日", "2028-04-29": "昭和の日", "2028-05-03": "憲法記念日", "2028-05-04": "みどりの日", "2028-05-05": "こどもの日", "2028-07-17": "海の日", "2028-08-11": "山の日", "2028-09-18": "敬老の日", "2028-09-22": "秋分の日", "2028-10-09": "スポーツの日", "2028-11-03": "文化の日", "2028-11-23": "勤労感謝の日"};
@@ -358,12 +362,11 @@ function renderCal(){document.getElementById('mlabel').textContent=y+"年 "+jp[m
   document.querySelectorAll('#grid .cell.hol').forEach(function(c){c.addEventListener('click',function(e){e.stopPropagation();showHolpop(c);});});}
 function tstate(t){if(t.ed<TODAY)return['済','st-done'];if(t.sd<=TODAY&&t.ed>=TODAY)return['旅行中','st-now'];return['予定','st-plan'];}
 function renderList(){
- var u=trips.filter(function(t){return t.sd.getFullYear()===y;}).sort(function(a,b){return a.sd-b.sd;});
+ var u=trips.slice().sort(function(a,b){return a.sd-b.sd;});
  var done=u.filter(function(t){return t.ed<TODAY;}).length;
  var nights=u.reduce(function(a,t){return a+Math.round((t.ed-t.sd)/864e5);},0);
- document.getElementById('ytitle').textContent=y;
  document.getElementById('ysum').textContent=u.length?(u.length+'つの旅 ・ '+nights+'泊'+(done?' ・ 済 '+done:'')):'';
- if(!u.length){document.getElementById('tcards').innerHTML='<div class="empty">この年の旅はまだありません。</div>';return;}
+ if(!u.length){document.getElementById('tcards').innerHTML='<div class="empty">旅はまだありません。</div>';return;}
  document.getElementById('tcards').innerHTML=u.map(function(t){
    var st=tstate(t),past=t.ed<TODAY;
    var op=t.a?('<a class="tcard'+(past?' past':'')+'" href="'+t.a+'">'):('<div class="tcard'+(past?' past':'')+'">');
@@ -388,7 +391,7 @@ document.getElementById('today').addEventListener('click',function(){var n=new D
  el.addEventListener('touchstart',function(e){var t=e.changedTouches[0];x0=t.clientX;y0=t.clientY;},{passive:true});
  el.addEventListener('touchend',function(e){if(x0===null)return;var t=e.changedTouches[0],dx=t.clientX-x0,dy=t.clientY-y0;x0=null;
   if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.3){if(dx<0){m++;if(m>11){m=0;y++;}}else{m--;if(m<0){m=11;y--;}}render();}},{passive:true});})();
-render();cd();buildMenu();
+render();buildMenu();
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
 
