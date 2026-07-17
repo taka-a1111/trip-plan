@@ -189,11 +189,11 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
 .wd span{text-align:center;font-size:.72rem;padding:8px 0;color:var(--ink-soft);font-weight:500}
 .wk{border-bottom:1px solid var(--line)} .wk:last-child{border-bottom:none}
 .nums{display:grid;grid-template-columns:repeat(7,1fr)}
-.cell{min-height:60px;padding:7px 0 0 9px;font-family:'Outfit';font-size:.82rem;color:var(--ink);border-right:1px solid var(--line)}
+.cell{min-height:34px;padding:6px 0 0 9px;font-family:'Outfit';font-size:.82rem;color:var(--ink);border-right:1px solid var(--line)}
 .cell:last-child{border-right:none}
 .cell.out{color:#cdc3ae}.cell.sun{color:var(--coral)}.cell.sat{color:var(--slate)}
 .cell.today .dn{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--teal);color:#fff}
-.lanes{display:flex;flex-direction:column;gap:3px;padding:0 5px 8px;margin-top:-3px}
+.lanes{display:flex;flex-direction:column;gap:3px;padding:0 5px 8px;margin-top:-1px}.lanes:empty{display:none}
 .lane{display:grid;grid-template-columns:repeat(7,1fr)}
 .bar{grid-row:1;height:22px;line-height:22px;margin:0 2px;padding:0 10px;font-size:.72rem;font-weight:600;color:#fff;border-radius:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;text-decoration:none;display:block}
 .bar.nl{border-top-left-radius:2px;border-bottom-left-radius:2px;margin-left:0}
@@ -222,7 +222,7 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
 .st-now{background:#fce3da;color:#b5532e}
 .st-plan{background:#e3f1ef;color:#0f6e63}
 .tcard.past{opacity:.62}.tcard.past:hover{opacity:.85}
-@media(max-width:680px){.cell{min-height:52px;font-size:.78rem;padding:6px 0 0 6px}.bar{font-size:.68rem;padding:0 7px}.tcard .dt{margin-left:0;width:100%;order:9}.tcard .go{margin-left:auto}}
+@media(max-width:680px){.cell{min-height:30px;font-size:.78rem;padding:5px 0 0 6px}.bar{font-size:.68rem;padding:0 7px}.tcard .dt{margin-left:0;width:100%;order:9}.tcard .go{margin-left:auto}}
 .top-head{position:relative;padding:48px 18px 12px;overflow:hidden}
 .top-head::before{content:'';position:absolute;left:50%;top:-40px;transform:translateX(-50%);width:140%;height:320px;background:radial-gradient(60% 100% at 50% 0%,rgba(12,124,140,.10),rgba(246,242,234,0) 70%);pointer-events:none;z-index:0}
 .top-head>*{position:relative;z-index:1}
@@ -233,7 +233,7 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
 .countdown{margin-top:18px;box-shadow:var(--shadow-s)}
 .yearbar{margin-top:22px;gap:18px}.yearbar .ylabel{font-size:1.85rem}
 .cal-card{box-shadow:var(--shadow-m);border-radius:18px}
-.cell{min-height:68px;transition:background .15s}
+.cell{transition:background .15s}
 .cell.sun,.cell.sat{background:#faf6ef}.cell.out{background:#f7f2e9}.cell:hover{background:#fbf6ec}
 .cell.today .dn{box-shadow:0 2px 8px rgba(12,124,140,.4)}
 .cell.hol .dn{color:#e0662a;font-weight:700}
@@ -267,7 +267,7 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
 .tcard.past{opacity:1}.tcard.past .thumb{filter:grayscale(.72) brightness(1.02)}.tcard.past .ttl{color:var(--ink-soft)}
 .gfoot{padding:40px 18px;border-top:3px solid var(--gold)}.gfoot .ft-title{font-size:1.2rem}
 .gfoot .ft-sub{margin-top:8px;font-size:.74rem;color:#a9c6cb;font-family:'Outfit',sans-serif;letter-spacing:.06em}
-@media(max-width:680px){.cell{min-height:54px}.tcard .thumb{width:96px}.tcard .tbody{padding:12px 13px}.tgo{display:none}}
+@media(max-width:680px){.cell{min-height:30px}.tcard .thumb{width:96px}.tcard .tbody{padding:12px 13px}.tgo{display:none}}
 .cv-hero{position:relative;min-height:72vh;min-height:72svh;display:flex;align-items:stretch;background-size:cover;background-position:center}
 .cv-frame{position:relative;flex:1;margin:18px;border:1px solid rgba(255,255,255,.5);outline:1px solid rgba(255,255,255,.22);outline-offset:5px;display:flex;flex-direction:column;justify-content:flex-end;padding:34px 30px;color:#fff}
 .cv-eyebrow{font-family:'Outfit',sans-serif;font-size:.7rem;letter-spacing:.28em;color:#f0d9a0;font-weight:600;margin-bottom:14px}
