@@ -312,6 +312,9 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
 
 .ft-top{display:inline-flex;align-items:center;gap:6px;margin-top:16px;font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:.78rem;color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.42);border-radius:10px;padding:8px 16px;cursor:pointer;transition:background .18s}
 .ft-top:hover{background:rgba(255,255,255,.14)}
+.cell{position:relative}
+.cwx{position:absolute;top:5px;right:6px;font-size:1rem;line-height:1;pointer-events:none;filter:saturate(.92)}
+@media(max-width:680px){.cwx{font-size:.84rem;top:4px;right:4px}}
 </style></head><body id="top">
 <nav class="nav"><div class="nav-in"><a class="brand" href="#top"><b>旅のしおり</b></a>
 <div class="navright"><details class="menu-wrap" id="menu"><summary class="ham" aria-label="メニュー"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary>
@@ -351,11 +354,12 @@ function ftm(yr){var ms=trips.filter(function(t){return t.sd.getFullYear()===yr;
 var y=trips.some(function(t){return t.sd.getFullYear()===curY;})?curY:(trips.length?trips[0].sd.getFullYear():curY);
 var m=ftm(y);
 function grid(y,m){var f=new Date(y,m,1),dow=f.getDay(),dim=new Date(y,m+1,0).getDate(),nw=Math.ceil((dow+dim)/7),cur=new Date(y,m,1-dow),W=[];for(var w=0;w<nw;w++){var a=[];for(var d=0;d<7;d++){a.push(new Date(cur));cur.setDate(cur.getDate()+1);}W.push(a);}return W;}
+var WXCAL={};
 function renderCal(){document.getElementById('mlabel').textContent=y+"年 "+jp[m];var W=grid(y,m),H="";
  W.forEach(function(wk){var ws=wk[0],we=wk[6],segs=[];
   trips.forEach(function(t){if(t.sd<=we&&t.ed>=ws){var cs=Math.round((t.sd-ws)/864e5);if(cs<0)cs=0;var ce=Math.round((t.ed-ws)/864e5);if(ce>6)ce=6;segs.push({cs:cs,ce:ce,rl:t.sd>=ws,rr:t.ed<=we,t:t});}});
   segs.sort(function(a,b){return a.cs-b.cs;});var lanes=[];segs.forEach(function(s){var pl=false;for(var i=0;i<lanes.length;i++){if(lanes[i][lanes[i].length-1].ce<s.cs){lanes[i].push(s);s.lane=i;pl=true;break;}}if(!pl){s.lane=lanes.length;lanes.push([s]);}});
-  H+='<div class="wk"><div class="nums">';wk.forEach(function(d){var inm=d.getMonth()===m,dw=d.getDay(),td=sod(d).getTime()===TODAY.getTime();var key=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');var hn=inm?HOL[key]:null;H+='<div class="cell'+(inm?'':' out')+(dw===0?' sun':'')+(dw===6?' sat':'')+(td?' today':'')+(hn?' hol':'')+'"'+(hn?' data-hol="'+hn+'" data-md="'+(d.getMonth()+1)+'月'+d.getDate()+'日" data-w="'+'日月火水木金土'[dw]+'"':'')+'><span class="dn">'+d.getDate()+'</span></div>';});
+  H+='<div class="wk"><div class="nums">';wk.forEach(function(d){var inm=d.getMonth()===m,dw=d.getDay(),td=sod(d).getTime()===TODAY.getTime();var key=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');var hn=inm?HOL[key]:null;H+='<div class="cell'+(inm?'':' out')+(dw===0?' sun':'')+(dw===6?' sat':'')+(td?' today':'')+(hn?' hol':'')+'"'+(hn?' data-hol="'+hn+'" data-md="'+(d.getMonth()+1)+'月'+d.getDate()+'日" data-w="'+'日月火水木金土'[dw]+'"':'')+'><span class="dn">'+d.getDate()+'</span>'+((inm&&WXCAL[key])?'<span class="cwx">'+WXCAL[key]+'</span>':'')+'</div>';});
   H+='</div><div class="lanes">';for(var L=0;L<lanes.length;L++){H+='<div class="lane">';segs.filter(function(s){return s.lane===L;}).forEach(function(s){var c="bar"+(s.rl?"":" nl")+(s.rr?"":" nr");H+='<a class="'+c+'" href="'+s.t.a+'" style="grid-column:'+(s.cs+1)+'/span '+(s.ce-s.cs+1)+';background:'+s.t.color+'">'+(s.rl?s.t.name:'　'+s.t.name)+'</a>';});H+='</div>';}H+='</div></div>';});
   document.getElementById('grid').innerHTML=H;
   hideHolpop();
@@ -395,4 +399,35 @@ render();buildMenu();
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
 
-var tt=document.getElementById('totop');if(tt){window.addEventListener('scroll',function(){if(window.scrollY>400)tt.classList.add('show');else tt.classList.remove('show');});tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});}</script></body></html>
+var tt=document.getElementById('totop');if(tt){window.addEventListener('scroll',function(){if(window.scrollY>400)tt.classList.add('show');else tt.classList.remove('show');});tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});}
+/* カレンダーに天気アイコン（直近の旅行日のみ・小さく右上） */
+(function(){
+  var WXPT={
+    '2026-07-18':[34.775,136.065],'2026-07-19':[33.671,135.334],'2026-07-20':[33.671,135.334],'2026-07-21':[33.671,135.334],
+    '2026-07-26':[26.219,127.667],'2026-07-27':[26.219,127.667],'2026-07-28':[26.502,127.861],'2026-07-29':[26.340,127.957],'2026-07-30':[26.142,127.671],'2026-07-31':[26.142,127.671],'2026-08-01':[26.200,127.647],
+    '2026-08-20':[35.538,136.430],'2026-08-21':[36.309,136.518],'2026-08-22':[35.968,136.810],'2026-08-23':[35.968,136.810]
+  };
+  var HORIZON=16,today=new Date();today.setHours(0,0,0,0);
+  var days=Object.keys(WXPT).filter(function(d){var lead=(new Date(d+'T00:00:00')-today)/864e5;return lead<=HORIZON&&lead>=-1;});
+  if(!days.length)return;
+  var WLBL=['\u2600','\u26c5','\u2601','\ud83c\udf2b','\ud83c\udf26','\ud83c\udf26','\ud83c\udf27','\u26c8','\ud83c\udf28'];
+  function cat(c){c=+c;if(c===0)return 0;if(c===1||c===2)return 1;if(c===3)return 2;if(c>=45&&c<=48)return 3;if(c>=51&&c<=57)return 4;if(c>=80&&c<=82)return 5;if(c>=61&&c<=67)return 6;if(c>=95)return 7;if(c>=71&&c<=77)return 8;return 2;}
+  function pick(d,i){var o=[];Object.keys(d).forEach(function(k){if(k==='weather_code'||k.indexOf('weather_code_')===0){var v=d[k][i];if(v!=null&&!isNaN(v))o.push(v);}});return o;}
+  function med(a){var b=a.slice().sort(function(x,y){return x-y;}),n=b.length;return n?(n%2?b[(n-1)/2]:(b[n/2-1]+b[n/2])/2):null;}
+  var uniq={};days.forEach(function(d){var p=WXPT[d];uniq[p[0]+','+p[1]]={la:p[0],lo:p[1]};});
+  var ds=days.slice().sort(),sd=ds[0],ed=ds[ds.length-1];
+  Promise.all(Object.keys(uniq).map(function(k){
+    var u=uniq[k];
+    var url='https://api.open-meteo.com/v1/forecast?latitude='+u.la+'&longitude='+u.lo+'&daily=weather_code&models=jma_seamless,ecmwf_ifs04,gfs_seamless,icon_seamless&timezone=Asia%2FTokyo&start_date='+sd+'&end_date='+ed;
+    return fetch(url).then(function(r){return r.ok?r.json():null;}).then(function(j){u.data=j;}).catch(function(){});
+  })).then(function(){
+    days.forEach(function(d){
+      var p=WXPT[d],u=uniq[p[0]+','+p[1]];if(!u||!u.data||!u.data.daily)return;
+      var dl=u.data.daily,i=(dl.time||[]).indexOf(d);if(i<0)return;
+      var codes=pick(dl,i);if(!codes.length)return;
+      WXCAL[d]=WLBL[Math.round(med(codes.map(cat)))];
+    });
+    if(typeof renderCal==='function')renderCal();
+  });
+})();
+</script></body></html>
