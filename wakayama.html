@@ -224,7 +224,7 @@ body{font-family:'Zen Kaku Gothic New',sans-serif;color:var(--ink);background:va
 .fvwx-day .pp{font-size:.66rem;color:var(--teal);white-space:nowrap}
 @media(max-width:680px){.fvwx{padding:10px 12px;gap:7px}.fvwx-day{min-width:78px;padding:7px 9px}}
 </style>
-</head>
+<link rel="preconnect" href="https://api.open-meteo.com" crossorigin><link rel="dns-prefetch" href="https://api.open-meteo.com"><script>/*WXHEAD*/window.__WXP=(function(){var t=new Date();t.setHours(0,0,0,0);var sd='2026-07-18',ed='2026-07-21';var s=new Date(sd+'T00:00:00'),e=new Date(ed+'T00:00:00');if((s-t)/864e5>16||(t-e)/864e5>0)return null;var u='https://api.open-meteo.com/v1/forecast?latitude=34.775,33.671&longitude=136.065,135.334&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_mean&models=jma_seamless,ecmwf_ifs04,gfs_seamless,icon_seamless&timezone=Asia%2FTokyo&start_date='+sd+'&end_date='+ed;return{weather:fetch(u).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}),typhoon:fetch('https://www.jma.go.jp/bosai/typhoon/data/targetTc.json').then(function(r){return r.ok?r.json():[];}).catch(function(){return[];})};})();</script></head>
 <body>
 <nav class="nav" id="top">
   <div class="nav-in">
@@ -378,7 +378,9 @@ Object.keys(DM).forEach(di=>{
 
 </script>
 <script>/*FV_RESIZE*/window.addEventListener('load',function(){setTimeout(function(){try{window.dispatchEvent(new Event('resize'));}catch(e){}},400);});
-/* 天気予報：◯日目の横＋ファーストビューの各日付ストリップ・タップで各サイトのリンク（v5） */
+
+
+/* 天気予報 v7：複数地点を1リクエストでバッチ取得＋sessionStorageキャッシュで高速化。アイコンはカラー統一(VS16) */
 (function(WX_DAYS){
   var HORIZON=16;
   var today=new Date();today.setHours(0,0,0,0);
@@ -388,16 +390,27 @@ Object.keys(DM).forEach(di=>{
   if((today-end)/864e5>0)return;
   var MODELS='jma_seamless,ecmwf_ifs04,gfs_seamless,icon_seamless';
   var FIELDS='weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_mean';
-  var sd=dates[0],ed=dates[dates.length-1],uniq={},TYP=false;
-  WX_DAYS.forEach(function(x){var k=x.la+','+x.lo;uniq[k]=uniq[k]||{la:x.la,lo:x.lo};});
-  var tasks=Object.keys(uniq).map(function(k){
-    var u=uniq[k];
-    var url='https://api.open-meteo.com/v1/forecast?latitude='+u.la+'&longitude='+u.lo+'&daily='+FIELDS+'&models='+MODELS+'&timezone=Asia%2FTokyo&start_date='+sd+'&end_date='+ed;
-    return fetch(url).then(function(r){return r.ok?r.json():null;}).then(function(j){u.data=j;}).catch(function(){u.data=null;});
-  });
-  tasks.push(fetch('https://www.jma.go.jp/bosai/typhoon/data/targetTc.json').then(function(r){return r.ok?r.json():[];}).then(function(a){TYP=Array.isArray(a)&&a.some(function(t){return /^\d+$/.test(String(t.typhoonNumber))||['TS','STS','TY'].indexOf(t.category)>=0;});}).catch(function(){}));
-  Promise.all(tasks).then(render);
-  var WLBL=[['\u2600','\u5feb\u6674'],['\u26c5','\u6674\u308c\u6642\u3005\u66c7\u308a'],['\u2601','\u66c7\u308a'],['\ud83c\udf2b','\u9727'],['\ud83c\udf26','\u9727\u96e8'],['\ud83c\udf26','\u306b\u308f\u304b\u96e8'],['\ud83c\udf27','\u96e8'],['\u26c8','\u96f7\u96e8'],['\ud83c\udf28','\u96ea']];
+  var sd=dates[0],ed=dates[dates.length-1],TYP=false;
+  var order=[],uniq={};
+  WX_DAYS.forEach(function(x){var k=x.la+','+x.lo;if(!uniq[k]){uniq[k]={la:x.la,lo:x.lo,data:null};order.push(k);}});
+  var lats=order.map(function(k){return uniq[k].la;}).join(',');
+  var lons=order.map(function(k){return uniq[k].lo;}).join(',');
+  var CK='om7:'+lats+';'+lons+':'+sd+'_'+ed;
+  function cget(k){try{var v=sessionStorage.getItem(k);if(!v)return null;var o=JSON.parse(v);if(Date.now()-o.t>1800000)return null;return o.d;}catch(e){return null;}}
+  function cset(k,d){try{sessionStorage.setItem(k,JSON.stringify({t:Date.now(),d:d}));}catch(e){}}
+  function applyBatch(j){var arr=Array.isArray(j)?j:[j];order.forEach(function(k,idx){uniq[k].data=arr[idx]||null;});}
+  var cached=cget(CK);
+  if(cached){applyBatch(cached);Promise.resolve().then(render);}
+  var P=window.__WXP;
+  if(P&&P.weather){
+    P.weather.then(function(j){if(j){cset(CK,j);applyBatch(j);render();}});
+    P.typhoon.then(function(a){TYP=Array.isArray(a)&&a.some(function(t){return /^\d+$/.test(String(t.typhoonNumber))||['TS','STS','TY'].indexOf(t.category)>=0;});});
+  }else{
+    var url='https://api.open-meteo.com/v1/forecast?latitude='+lats+'&longitude='+lons+'&daily='+FIELDS+'&models='+MODELS+'&timezone=Asia%2FTokyo&start_date='+sd+'&end_date='+ed;
+    fetch(url).then(function(r){return r.ok?r.json():null;}).then(function(j){if(j){cset(CK,j);applyBatch(j);render();}}).catch(function(){});
+    fetch('https://www.jma.go.jp/bosai/typhoon/data/targetTc.json').then(function(r){return r.ok?r.json():[];}).then(function(a){TYP=Array.isArray(a)&&a.some(function(t){return /^\d+$/.test(String(t.typhoonNumber))||['TS','STS','TY'].indexOf(t.category)>=0;});}).catch(function(){});
+  }
+  var WLBL=[['\u2600\ufe0f','\u5feb\u6674'],['\u26c5\ufe0f','\u6674\u308c\u6642\u3005\u66c7\u308a'],['\u2601\ufe0f','\u66c7\u308a'],['\ud83c\udf2b\ufe0f','\u9727'],['\ud83c\udf26\ufe0f','\u9727\u96e8'],['\ud83c\udf26\ufe0f','\u306b\u308f\u304b\u96e8'],['\ud83c\udf27\ufe0f','\u96e8'],['\u26c8\ufe0f','\u96f7\u96e8'],['\ud83c\udf28\ufe0f','\u96ea']];
   function cat(c){c=+c;if(c===0)return 0;if(c===1||c===2)return 1;if(c===3)return 2;if(c>=45&&c<=48)return 3;if(c>=51&&c<=57)return 4;if(c>=80&&c<=82)return 5;if(c>=61&&c<=67)return 6;if(c>=95)return 7;if(c>=71&&c<=77)return 8;return 2;}
   function pick(d,base,i){var o=[];Object.keys(d).forEach(function(kk){if(kk===base||kk.indexOf(base+'_')===0){var v=d[kk][i];if(v!==null&&v!==undefined&&!isNaN(v))o.push(v);}});return o;}
   function avg(a){return a.reduce(function(s,v){return s+v;},0)/a.length;}
@@ -433,6 +446,8 @@ Object.keys(DM).forEach(di=>{
   }
   function render(){
     var strip=document.getElementById('fvwx');
+    if(strip)strip.innerHTML='';
+    document.querySelectorAll('.day-line .wx').forEach(function(e){e.remove();});
     WX_DAYS.forEach(function(x,idx){
       var u=uniq[x.la+','+x.lo];if(!u||!u.data||!u.data.daily)return;
       var d=u.data.daily,t=d.time||[],i=t.indexOf(x.d);if(i<0)return;
