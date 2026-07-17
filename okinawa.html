@@ -249,7 +249,7 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
 
 .day-line .wx{display:inline-flex;flex-wrap:wrap;align-items:center;gap:5px 8px;margin-left:8px;padding:0;background:none;border:none;border-radius:0;vertical-align:middle}
 .day-line .wx .glance{display:inline-flex;align-items:center;gap:6px;font-family:'Outfit',sans-serif;font-weight:600;font-size:.74rem;color:var(--ink-soft)}
-.day-line .wx .glance .ic{font-size:1rem;line-height:1}
+.day-line .wx .glance .ic{font-size:1.4rem;line-height:1}
 .day-line .wx .glance .t{color:var(--ink)}
 .day-line .wx .glance .lo{color:var(--teal-deep)}
 .day-line .wx .glance .pp{color:var(--teal)}
@@ -316,7 +316,7 @@ var RT={"pts": [{"n": "那覇空港", "lat": 26.2001297, "lon": 127.6466452, "k"
             glance='<span class="glance" title="\u8907\u6570\u30e2\u30c7\u30eb\u7d71\u5408\u306e\u76ee\u5b89\uff08\u6c17\u8c61\u5e81\u30fbECMWF\u30fbGFS\u30fbICON\uff09\u3002\u8a73\u7d30\u306f\u5404\u30b5\u30a4\u30c8\u3078\u3002">';
             if(wc[0])glance+='<span class="ic">'+wc[0]+'</span>';
             if(Hi!==null)glance+='<span class="t">'+Hi+'\u00b0<span class="lo">/'+Lo+'\u00b0</span></span>';
-            if(Pp!==null)glance+='<span class="pp">\ud83d\udca7'+Pp+'%</span>';
+            if(Pp!==null)glance+='<span class="pp">降水'+Pp+'%</span>';
             if(lead>7)glance+='<span class="lead">\u7d04'+lead+'\u65e5\u5148</span>';
             glance+='</span>';
           }
