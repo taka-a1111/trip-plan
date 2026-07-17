@@ -223,7 +223,22 @@ body{font-family:'Zen Kaku Gothic New',sans-serif;color:var(--ink);background:va
 .fvwx-day .t .lo{color:var(--teal-deep)}
 .fvwx-day .pp{font-size:.66rem;color:var(--teal);white-space:nowrap}
 @media(max-width:680px){.fvwx{padding:10px 12px;gap:7px}.fvwx-day{min-width:78px;padding:7px 9px}}
-.fvwx-day.storm{border-color:#E4572E;background:#fdeee9;box-shadow:0 0 0 1px #E4572E inset}.glance.storm{border-color:#E4572E;background:#fdeee9}.wxpop .storm-warn{background:#fdeee9;border:1px solid #E4572E;color:#a8371a;font-size:.74rem;line-height:1.55;border-radius:8px;padding:7px 9px;margin:2px 0 8px;font-weight:600}</style>
+.fvwx-day.storm{border-color:#E4572E;background:#fdeee9;box-shadow:0 0 0 1px #E4572E inset}.glance.storm{border-color:#E4572E;background:#fdeee9}.wxpop .storm-warn{background:#fdeee9;border:1px solid #E4572E;color:#a8371a;font-size:.74rem;line-height:1.55;border-radius:8px;padding:7px 9px;margin:2px 0 8px;font-weight:600}
+.pack{border-top:3px solid var(--teal);padding-top:20px;margin-top:6px}
+.pack-h{font-family:'Shippori Mincho',serif;font-weight:700;font-size:1.2rem;color:var(--ink);letter-spacing:.02em}
+.pack-sub{font-size:.78rem;color:var(--ink-soft);margin:2px 0 16px}
+.pack-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pack-cat{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow-s);padding:12px 15px}
+.pack-cat h3{font-family:'Shippori Mincho',serif;font-weight:700;font-size:.96rem;color:var(--teal-ink);margin:0 0 8px;display:flex;align-items:center;gap:8px}
+.pack-cat h3 .cdot{width:10px;height:10px;border-radius:50%;flex:none}
+.pack-item{display:flex;align-items:flex-start;gap:9px;padding:5px 0;font-size:.83rem;color:var(--ink);cursor:pointer;line-height:1.5;-webkit-user-select:none;user-select:none}
+.pack-item .box{width:17px;height:17px;border:1.6px solid var(--teal);border-radius:5px;flex:none;margin-top:2px;position:relative;transition:.15s}
+.pack-item.on .box{background:var(--teal)}
+.pack-item.on .box::after{content:'';position:absolute;left:5px;top:1px;width:4px;height:9px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.pack-item.on .txt{color:var(--ink-faint);text-decoration:line-through}
+.pack-star{color:var(--coral);font-weight:700;margin-right:2px}
+@media(max-width:640px){.pack-grid{grid-template-columns:1fr}}
+</style>
 <link rel="preconnect" href="https://api.open-meteo.com" crossorigin><link rel="dns-prefetch" href="https://api.open-meteo.com"><script>/*WXHEAD*/window.__WXP=(function(){var t=new Date();t.setHours(0,0,0,0);var sd='2026-07-18',ed='2026-07-21';var s=new Date(sd+'T00:00:00'),e=new Date(ed+'T00:00:00');if((s-t)/864e5>16||(t-e)/864e5>0)return null;var u='https://api.open-meteo.com/v1/forecast?latitude=34.775,33.671&longitude=136.065,135.334&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_mean&models=jma_seamless,ecmwf_ifs04,gfs_seamless,icon_seamless&timezone=Asia%2FTokyo&start_date='+sd+'&end_date='+ed;return{weather:fetch(u).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}),typhoon:fetch('https://www.jma.go.jp/bosai/typhoon/data/targetTc.json').then(function(r){return r.ok?r.json():[];}).catch(function(){return[];})};})();</script></head>
 <body>
 <nav class="nav" id="top">
@@ -323,6 +338,13 @@ body{font-family:'Zen Kaku Gothic New',sans-serif;color:var(--ink);background:va
       </ul>
       <div class="daymap" id="daymap3"></div>
     </section>
+<section class="reveal" id="pack">
+  <div class="pack">
+    <div class="pack-h">持ち物リスト</div>
+    <div class="pack-sub">タップでチェックできます（この端末に保存されます）。★は今回の旅で特に忘れずに。</div>
+    <div class="pack-grid"><div class="pack-cat"><h3><span class="cdot" style="background:var(--teal)"></span>キャンプ泊（3泊）</h3><div class="pack-item" data-id="tent"><span class="box"></span><span class="txt">テント・タープ一式</span></div><div class="pack-item" data-id="sleep"><span class="box"></span><span class="txt">寝袋・マット</span></div><div class="pack-item" data-id="light"><span class="box"></span><span class="txt">ランタン／ヘッドライト</span></div><div class="pack-item" data-id="furniture"><span class="box"></span><span class="txt">テーブル・チェア</span></div><div class="pack-item" data-id="cooler"><span class="box"></span><span class="txt">クーラーボックス・保冷剤</span></div><div class="pack-item" data-id="bbq"><span class="box"></span><span class="txt">焚き火／BBQ用品・炭</span></div><div class="pack-item" data-id="cook"><span class="box"></span><span class="txt">食器・カトラリー・調理器具</span></div><div class="pack-item" data-id="power"><span class="box"></span><span class="txt"><span class="pack-star">★</span>モバイルバッテリー／ポータブル電源（グランパスは電源なし）</span></div><div class="pack-item" data-id="mcamp"><span class="box"></span><span class="txt">軍手・火ばさみ・ゴミ袋</span></div></div><div class="pack-cat"><h3><span class="cdot" style="background:var(--coral)"></span>暑さ・虫対策</h3><div class="pack-item" data-id="sun"><span class="box"></span><span class="txt">日焼け止め</span></div><div class="pack-item" data-id="bug"><span class="box"></span><span class="txt">虫よけ・かゆみ止め</span></div><div class="pack-item" data-id="fan"><span class="box"></span><span class="txt">ハンディファン・うちわ</span></div><div class="pack-item" data-id="hat"><span class="box"></span><span class="txt">帽子・冷感タオル</span></div><div class="pack-item" data-id="hydrate"><span class="box"></span><span class="txt">経口補水液・塩分タブレット</span></div></div><div class="pack-cat"><h3><span class="cdot" style="background:var(--teal)"></span>海・水遊び（白良浜・AQuaLooP・亀山）</h3><div class="pack-item" data-id="swim"><span class="box"></span><span class="txt">水着・ラッシュガード</span></div><div class="pack-item" data-id="mshoes"><span class="box"></span><span class="txt">マリンシューズ／ビーチサンダル</span></div><div class="pack-item" data-id="goggle"><span class="box"></span><span class="txt">ゴーグル・浮き輪</span></div><div class="pack-item" data-id="wbag"><span class="box"></span><span class="txt">防水バッグ・大きめタオル</span></div><div class="pack-item" data-id="wchange"><span class="box"></span><span class="txt">着替え多め（水遊び用）</span></div></div><div class="pack-cat"><h3><span class="cdot" style="background:var(--gold)"></span>温泉（やぶっちゃ・グランパス）</h3><div class="pack-item" data-id="towel"><span class="box"></span><span class="txt">フェイス／バスタオル</span></div><div class="pack-item" data-id="bath"><span class="box"></span><span class="txt">入浴小物・着替え</span></div></div><div class="pack-cat"><h3><span class="cdot" style="background:var(--coral)"></span>子ども</h3><div class="pack-item" data-id="kchange"><span class="box"></span><span class="txt">着替え多め</span></div><div class="pack-item" data-id="med"><span class="box"></span><span class="txt">酔い止め・常備薬・絆創膏</span></div><div class="pack-item" data-id="kdoc"><span class="box"></span><span class="txt">母子手帳・保険証</span></div><div class="pack-item" data-id="snack"><span class="box"></span><span class="txt">おやつ・車内の暇つぶし</span></div></div><div class="pack-cat"><h3><span class="cdot" style="background:var(--gold)"></span>お金・書類</h3><div class="pack-item" data-id="cash"><span class="box"></span><span class="txt"><span class="pack-star">★</span>現金（井出商店は現金のみ）</span></div><div class="pack-item" data-id="license"><span class="box"></span><span class="txt">免許証・健康保険証</span></div><div class="pack-item" data-id="resv"><span class="box"></span><span class="txt">予約番号（やぶっちゃ／グランパス NAPRSV-114575234）</span></div></div><div class="pack-cat"><h3><span class="cdot" style="background:var(--slate)"></span>雨・その他</h3><div class="pack-item" data-id="rain"><span class="box"></span><span class="txt">レインウェア・折りたたみ傘（7/18は降水24%）</span></div><div class="pack-item" data-id="wipe"><span class="box"></span><span class="txt">ウェットティッシュ・ゴミ袋</span></div><div class="pack-item" data-id="charger"><span class="box"></span><span class="txt">充電ケーブル・充電器</span></div></div></div>
+  </div>
+</section>
 </main>
 
 <footer class="foot">
@@ -484,5 +506,10 @@ Object.keys(DM).forEach(di=>{
     });
   }
 })([{d:'2026-07-18',la:34.775,lo:136.065,jma:'240000',tk:'5/27/5310/24216',nm:'伊賀市'},{d:'2026-07-19',la:33.671,lo:135.334,jma:'300000',tk:'6/33/6520/30401',nm:'白浜町'},{d:'2026-07-20',la:33.671,lo:135.334,jma:'300000',tk:'6/33/6520/30401',nm:'白浜町'},{d:'2026-07-21',la:33.671,lo:135.334,jma:'300000',tk:'6/33/6520/30401',nm:'白浜町'}]);
-</script></body>
+</script><script>
+(function(){var K='pack_wakayama_v1',s={};try{s=JSON.parse(localStorage.getItem(K)||'{}')}catch(e){}
+document.querySelectorAll('#pack .pack-item').forEach(function(el){var id=el.getAttribute('data-id');if(s[id])el.classList.add('on');
+el.addEventListener('click',function(){el.classList.toggle('on');s[id]=el.classList.contains('on');try{localStorage.setItem(K,JSON.stringify(s))}catch(e){}});});})();
+</script>
+</body>
 </html>
