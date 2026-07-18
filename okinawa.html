@@ -372,7 +372,7 @@ var RT={"pts": [{"n": "那覇空港", "lat": 26.2001297, "lon": 127.6466452, "k"
       var d=u.data.daily,t=d.time||[],i=t.indexOf(x.d);if(i<0)return;
       var codes=pick(d,'weather_code',i),hi=pick(d,'temperature_2m_max',i),lo=pick(d,'temperature_2m_min',i),pp=pick(d,'precipitation_probability_mean',i);
       if(!codes.length&&!hi.length)return;
-      var Hi=hi.length?Math.round(avg(hi)):null,Lo=lo.length?Math.round(avg(lo)):null,Pp=pp.length?Math.round(avg(pp)):null;
+      var Hi=hi.length?Math.round(avg(hi)):null,Lo=lo.length?Math.round(avg(lo)):null,Pp=pp.length?Math.round(avg(pp)/10)*10:null;
       var wc=codes.length?classify(codes,Pp):['',''];
       var storm=!!STORM[x.d];if(storm)wc=['typhoon','\u53f0\u98a8\uff08\u66b4\u98a8\u57df\uff09'];
       var lead=Math.round((new Date(x.d+'T00:00:00')-today)/864e5);
