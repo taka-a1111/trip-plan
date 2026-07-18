@@ -239,6 +239,8 @@ body{font-family:'Zen Kaku Gothic New',sans-serif;color:var(--ink);background:va
 .pack-star{color:var(--coral);font-weight:700;margin-right:2px}
 @media(max-width:640px){.pack-grid{grid-template-columns:1fr}}
 .b-ok{background:#2f7d44;color:#fff}
+.fvwx-day .loc{font-size:.62rem;font-weight:700;color:var(--teal-deep);white-space:nowrap;letter-spacing:.02em}
+.glance .loc{font-size:.66rem;font-weight:700;color:var(--teal-deep);white-space:nowrap;margin-right:1px}
 </style>
 <link rel="preconnect" href="https://api.open-meteo.com" crossorigin><link rel="dns-prefetch" href="https://api.open-meteo.com"><script>/*WXHEAD*/window.__WXP=(function(){var t=new Date();t.setHours(0,0,0,0);var sd='2026-07-18',ed='2026-07-21';var s=new Date(sd+'T00:00:00'),e=new Date(ed+'T00:00:00');if((s-t)/864e5>16||(t-e)/864e5>0)return null;var u='https://api.open-meteo.com/v1/forecast?latitude=34.775,33.671&longitude=136.065,135.334&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_mean&models=jma_seamless,ecmwf_ifs04,gfs_seamless,icon_seamless&timezone=Asia%2FTokyo&start_date='+sd+'&end_date='+ed;return{weather:fetch(u).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}),typhoon:fetch('https://www.jma.go.jp/bosai/typhoon/data/targetTc.json').then(function(r){return r.ok?r.json():[];}).catch(function(){return[];})};})();</script></head>
 <body>
@@ -488,13 +490,14 @@ Object.keys(DM).forEach(di=>{
         var wd='\u65e5\u6708\u706b\u6c34\u6728\u91d1\u571f'[new Date(x.d+'T00:00:00').getDay()];
         var md=x.d.slice(5).replace('-','/');
         var b=document.createElement('button');b.type='button';b.className='fvwx-day'+(storm?' storm':'');
-        b.innerHTML='<span class="d">'+md+' '+wd+'</span>'+(wc[0]?'<span class="ic">'+icon(wc[0])+'</span>':'')+(Hi!==null?'<span class="t">'+Hi+'\u00b0<span class="lo">/'+Lo+'\u00b0</span></span>':'')+(Pp!==null?'<span class="pp">\u964d\u6c34'+Pp+'%</span>':'');
+        b.innerHTML='<span class="d">'+md+' '+wd+'</span>'+'<span class="loc">'+x.nm+'</span>'+(wc[0]?'<span class="ic">'+icon(wc[0])+'</span>':'')+(Hi!==null?'<span class="t">'+Hi+'\u00b0<span class="lo">/'+Lo+'\u00b0</span></span>':'')+(Pp!==null?'<span class="pp">\u964d\u6c34'+Pp+'%</span>':'');
         (function(bb,inf){bb.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();openPop(bb,inf);});})(b,info);
         strip.appendChild(b);
       }
       var host=document.querySelector('#day'+(idx+1)+' .day-badge')||document.querySelector('#day'+(idx+1)+' .day-date');
       if(host && !host.parentNode.querySelector('.wx')){
         var g='<span class="glance'+(storm?' storm':'')+'" role="button" tabindex="0" title="\u30bf\u30c3\u30d7\u3067\u6c17\u8c61\u5e81\u30fbtenki.jp\u30fb\u30a6\u30a7\u30b6\u30fc\u30cb\u30e5\u30fc\u30b9\u3092\u958b\u304f">';
+        g+='<span class="loc">'+x.nm+'</span>';
         if(wc[0])g+='<span class="ic">'+icon(wc[0])+'</span>';
         if(Hi!==null)g+='<span class="t">'+Hi+'\u00b0<span class="lo">/'+Lo+'\u00b0</span></span>';
         if(Pp!==null)g+='<span class="pp">\u964d\u6c34'+Pp+'%</span>';
