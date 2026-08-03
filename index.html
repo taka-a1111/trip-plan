@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>旅のカレンダー｜家族の旅程</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+<title>旅のカレンダー｜家族の旅程</title><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/><link rel="stylesheet" href="https://unpkg.com/leaflet-gesture-handling@1.2.2/dist/leaflet-gesture-handling.min.css"/><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --ink:#16282d; --ink-soft:#46595f; --ink-faint:#8aa0a6;
@@ -12,6 +12,30 @@
   --shadow-m:0 16px 44px rgba(5,63,72,.14);
   --r:16px;
 }
+.jm-wrap{border:1px solid var(--line);border-radius:var(--r);background:var(--paper-2);overflow:hidden;box-shadow:var(--shadow-s)}
+.jm-sub{font-size:.79rem;color:var(--ink-soft);line-height:1.7;padding:13px 16px 0}
+#jpmap{width:100%;height:400px;margin-top:11px;background:#dfe9ec}
+.jm-panel{padding:14px 16px 16px;border-top:1px solid var(--line);background:var(--paper-2)}
+.jm-empty{font-size:.82rem;color:var(--ink-faint);text-align:center;padding:16px 0}
+.jm-place{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:11px}
+.jm-name{font-family:'Shippori Mincho',serif;font-weight:700;font-size:1.02rem;color:var(--ink)}
+.jm-coord{font-family:'Outfit',sans-serif;font-size:.7rem;color:var(--ink-faint)}
+.jm-avg{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:13px}
+.jm-stat{flex:1 1 92px;border:1px solid var(--line);border-radius:11px;padding:9px 11px;background:var(--paper)}
+.jm-slab{display:block;font-size:.68rem;color:var(--ink-soft);margin-bottom:3px}
+.jm-sval{font-family:'Outfit',sans-serif;font-weight:700;font-size:1.18rem;line-height:1.15}
+.jm-hi{color:var(--coral)}.jm-lo{color:var(--teal)}.jm-mid{color:var(--ink)}
+.jm-days{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:11px;overflow:hidden}
+.jm-days li{display:flex;align-items:center;gap:9px;background:var(--paper-2);padding:8px 11px;font-size:.8rem}
+.jm-d{font-family:'Outfit',sans-serif;font-weight:600;color:var(--ink-soft);width:52px;flex-shrink:0}
+.jm-ic{width:20px;text-align:center;flex-shrink:0}
+.jm-t{margin-left:auto;font-family:'Outfit',sans-serif;font-weight:600;white-space:nowrap}
+.jm-t b{color:var(--coral)}.jm-t i{font-style:normal;color:var(--teal);margin-left:7px}
+.jm-err{font-size:.8rem;color:var(--coral);padding:8px 0}
+.jm-load{font-size:.82rem;color:var(--ink-faint);padding:14px 0;text-align:center}
+.jm-pin{background:none;border:none}
+.jm-pin span{display:block;width:22px;height:22px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--coral);border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.4)}
+@media(max-width:560px){#jpmap{height:330px}.jm-sval{font-size:1.06rem}}
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:64px;font-size:18px}
 body{font-family:'Zen Kaku Gothic New',sans-serif;color:var(--ink);background:var(--paper);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -342,6 +366,15 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
 <div class="wd"><span style="color:var(--coral)">日</span><span>月</span><span>火</span><span>水</span><span>木</span><span>金</span><span style="color:var(--slate)">土</span></div>
 <div id="grid"></div><div class="cal-hint">日程の帯をタップでしおりへ。<span class="hol-leg">祝日</span>をタップすると何の日か表示されます。</div></div></div>
 
+<section class="up reveal" id="jpw">
+  <div class="up-h"><h2>全国の気温</h2><span class="ln"></span></div>
+  <div class="jm-wrap">
+    <div class="jm-sub">地図をタップすると、その地点のこれから7日間の予報（最高・最低・平均）が出ます。旅先の下見や、家を出るときの服装の目安に。</div>
+    <div id="jpmap"></div>
+    <div class="jm-panel" id="jmPanel"><div class="jm-empty">地図をタップして地点を選んでください</div></div>
+  </div>
+</section>
+
 <section class="up reveal" id="pack">
   <div class="up-h"><h2>持ち物リスト</h2><span class="ln"></span><button class="pack-reset" id="packReset" type="button">すべてリセット</button></div>
   <div class="pack-sub">タップでチェックできます（この端末に保存されます）。旅の種類に合わせて必要なものを。各旅程ページにはその旅ならではの★項目もあります。</div>
@@ -456,5 +489,72 @@ var tt=document.getElementById('totop');if(tt){window.addEventListener('scroll',
 document.querySelectorAll('#pack .pack-item').forEach(function(el){var id=el.getAttribute('data-id');if(s[id])el.classList.add('on');
 el.addEventListener('click',function(){el.classList.toggle('on');s[id]=el.classList.contains('on');try{localStorage.setItem(K,JSON.stringify(s))}catch(e){}});});
 var rb=document.getElementById('packReset');if(rb)rb.addEventListener('click',function(){if(!confirm('チェックをすべてリセットしますか？'))return;document.querySelectorAll('#pack .pack-item').forEach(function(el){el.classList.remove('on');});s={};try{localStorage.removeItem(K)}catch(e){}});})();
+</script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-gesture-handling@1.2.2/dist/leaflet-gesture-handling.js"></script>
+<script>
+(function(){
+  function boot(){
+    if(!window.L){return;}
+    var el=document.getElementById('jpmap'); if(!el) return;
+    var map=L.map(el,{gestureHandling:true,scrollWheelZoom:false}).setView([36.5,138.2],5);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'&copy; OpenStreetMap'}).addTo(map);
+    var pin=null, panel=document.getElementById('jmPanel'), token=0;
+
+    var WMO={0:'\u2600\ufe0f',1:'\u{1F324}\ufe0f',2:'\u26c5',3:'\u2601\ufe0f',45:'\u{1F32B}\ufe0f',48:'\u{1F32B}\ufe0f',
+      51:'\u{1F327}\ufe0f',53:'\u{1F327}\ufe0f',55:'\u{1F327}\ufe0f',61:'\u{1F327}\ufe0f',63:'\u{1F327}\ufe0f',65:'\u{1F327}\ufe0f',
+      66:'\u{1F327}\ufe0f',67:'\u{1F327}\ufe0f',71:'\u{1F328}\ufe0f',73:'\u{1F328}\ufe0f',75:'\u{1F328}\ufe0f',77:'\u{1F328}\ufe0f',
+      80:'\u{1F326}\ufe0f',81:'\u{1F327}\ufe0f',82:'\u26c8\ufe0f',85:'\u{1F328}\ufe0f',86:'\u{1F328}\ufe0f',95:'\u26c8\ufe0f',96:'\u26c8\ufe0f',99:'\u26c8\ufe0f'};
+    var WD=['\u65e5','\u6708','\u706b','\u6c34','\u6728','\u91d1','\u571f'];
+
+    function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+    function fmt(n){return (Math.round(n*10)/10).toFixed(1);}
+
+    function show(lat,lon){
+      var my=++token;
+      panel.innerHTML='<div class="jm-load">読み込み中…</div>';
+      var url='https://api.open-meteo.com/v1/forecast?latitude='+lat.toFixed(4)+'&longitude='+lon.toFixed(4)
+        +'&daily=weather_code,temperature_2m_max,temperature_2m_min,temperature_2m_mean'
+        +'&models=jma_seamless&timezone=Asia%2FTokyo&forecast_days=7';
+      fetch(url).then(function(r){ if(!r.ok) throw new Error('http'); return r.json(); })
+      .then(function(j){
+        if(my!==token) return;
+        var d=j&&j.daily;
+        if(!d||!d.time||!d.time.length){ panel.innerHTML='<div class="jm-err">この地点の予報は取得できませんでした。少し内陸を選んでみてください。</div>'; return; }
+        var hi=d.temperature_2m_max, lo=d.temperature_2m_min, mid=d.temperature_2m_mean;
+        var vh=hi.filter(function(x){return x!=null;}), vl=lo.filter(function(x){return x!=null;}), vm=mid.filter(function(x){return x!=null;});
+        if(!vh.length){ panel.innerHTML='<div class="jm-err">この地点の気温データがありません（海上の可能性があります）。</div>'; return; }
+        var mx=Math.max.apply(null,vh), mn=Math.min.apply(null,vl);
+        var av=vm.reduce(function(a,b){return a+b;},0)/vm.length;
+        var rows='';
+        for(var i=0;i<d.time.length;i++){
+          var dt=new Date(d.time[i]+'T00:00:00');
+          var lab=(dt.getMonth()+1)+'/'+dt.getDate()+'('+WD[dt.getDay()]+')';
+          rows+='<li><span class="jm-d">'+lab+'</span><span class="jm-ic">'+(WMO[d.weather_code[i]]||'')+'</span>'
+              +'<span class="jm-t"><b>'+(hi[i]==null?'–':fmt(hi[i]))+'°</b><i>'+(lo[i]==null?'–':fmt(lo[i]))+'°</i></span></li>';
+        }
+        panel.innerHTML=
+          '<div class="jm-place"><span class="jm-name">選択した地点</span>'
+          +'<span class="jm-coord">'+lat.toFixed(3)+', '+lon.toFixed(3)+'</span></div>'
+          +'<div class="jm-avg">'
+          +'<div class="jm-stat"><span class="jm-slab">7日間の最高</span><span class="jm-sval jm-hi">'+fmt(mx)+'°</span></div>'
+          +'<div class="jm-stat"><span class="jm-slab">7日間の最低</span><span class="jm-sval jm-lo">'+fmt(mn)+'°</span></div>'
+          +'<div class="jm-stat"><span class="jm-slab">平均気温</span><span class="jm-sval jm-mid">'+fmt(av)+'°</span></div>'
+          +'</div><ul class="jm-days">'+rows+'</ul>';
+      })
+      .catch(function(){ if(my===token) panel.innerHTML='<div class="jm-err">気温を取得できませんでした。通信環境を確認してもう一度タップしてください。</div>'; });
+    }
+
+    map.on('click',function(e){
+      var lat=e.latlng.lat, lon=e.latlng.lng;
+      var ic=L.divIcon({className:'jm-pin',html:'<span></span>',iconSize:[22,22],iconAnchor:[11,20]});
+      if(pin) map.removeLayer(pin);
+      pin=L.marker([lat,lon],{icon:ic}).addTo(map);
+      show(lat,lon);
+    });
+  }
+  if(document.readyState!=='loading') boot();
+  else document.addEventListener('DOMContentLoaded',boot);
+})();
 </script>
 </body></html>
