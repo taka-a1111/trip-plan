@@ -653,14 +653,34 @@ var rb=document.getElementById('packReset');if(rb)rb.addEventListener('click',fu
       setPanel(btn('検索中…',true)+'<div class="jm-load">キャンプ場を探しています…</div>');
       var b=map.getBounds();
       var bbox=b.getSouth().toFixed(4)+','+b.getWest().toFixed(4)+','+b.getNorth().toFixed(4)+','+b.getEast().toFixed(4);
-      var q='[out:json][timeout:25];(node["tourism"="camp_site"]('+bbox+');way["tourism"="camp_site"]('+bbox+'););out center 80;';
-      var EPS=['https://overpass-api.de/api/interpreter','https://overpass.kumi.systems/api/interpreter','https://overpass.private.coffee/api/interpreter'];
-      function tryEp(i){
-        return fetch(EPS[i],{method:'POST',body:'data='+encodeURIComponent(q)})
-          .then(function(r){ if(!r.ok) throw new Error('http'+r.status); return r.json(); })
-          .catch(function(err){ if(i+1<EPS.length) return tryEp(i+1); throw err; });
+      var q='[out:json][timeout:25];nwr["tourism"="camp_site"]('+bbox+');out center 80;';
+      var EPS=['https://overpass-api.de/api/interpreter','https://overpass.kumi.systems/api/interpreter'];
+      function once(url,ms){
+        var ctl=(typeof AbortController!=='undefined')?new AbortController():null;
+        var timer=setTimeout(function(){ if(ctl) ctl.abort(); }, ms);
+        var opt={method:'POST',body:'data='+encodeURIComponent(q)};
+        if(ctl) opt.signal=ctl.signal;
+        return fetch(url,opt).then(function(r){
+          clearTimeout(timer);
+          if(!r.ok) throw new Error('http'+r.status);
+          return r.json();
+        },function(e){ clearTimeout(timer); throw e; });
       }
-      tryEp(0)
+      function wait(ms){ return new Promise(function(res){ setTimeout(res,ms); }); }
+      // 本家は混雑時に503/504を返すことがあるため、間隔を空けて最大4回粘る。
+      // 途中で代替サーバーも1度試す（代替は遅いことがあるので待ち時間は短め）
+      // 本家は混雑時に429/503/504を返すことがある。間隔を空けて最大3回、本家に粘る。
+      // 代替サーバーは応答しないことが多いので最後の保険として1度だけ。
+      var PLAN=[[0,20000,0],[0,20000,3000],[0,20000,6000],[1,12000,1000]];
+      function attempt(k){
+        if(k>=PLAN.length) return Promise.reject(new Error('giveup'));
+        var url=EPS[PLAN[k][0]], ms=PLAN[k][1], pre=PLAN[k][2];
+        var g=document.getElementById('cpGo');
+        if(k>0&&g) g.textContent='混み合っています。再試行中…（'+(k+1)+'/'+PLAN.length+'）';
+        return wait(pre).then(function(){ return once(url,ms); })
+          .catch(function(){ return attempt(k+1); });
+      }
+      attempt(0)
       .then(function(j){
         if(my!==token) return;
         layer.clearLayers();
@@ -691,7 +711,7 @@ var rb=document.getElementById('packReset');if(rb)rb.addEventListener('click',fu
       })
       .catch(function(){
         if(my!==token) return;
-        setPanel(btn('もう一度探す',false)+'<div class="jm-err">読み込みに失敗しました。混み合っている可能性があるので、少し待ってからもう一度お試しください。</div>');
+        setPanel(btn('もう一度探す',false)+'<div class="jm-err">キャンプ場データの配信元（OpenStreetMap）が混み合っているようです。1分ほど待ってから、もう一度お試しください。</div>');
         bind();
       });
     }
