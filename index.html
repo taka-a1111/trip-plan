@@ -33,7 +33,7 @@
 .jm-t b{color:var(--coral)}.jm-t i{font-style:normal;color:var(--teal);margin-left:7px}
 .jm-err{font-size:.8rem;color:var(--coral);padding:8px 0}
 .jm-load{font-size:.82rem;color:var(--ink-faint);padding:14px 0;text-align:center}
-.jm-pin{background:none;border:none}
+#cpmap{width:100%;height:400px;margin-top:11px;background:#dfe9ec}.up-h{flex-wrap:wrap}.past-toggle{font-family:'Zen Kaku Gothic New';font-weight:700;font-size:.72rem;color:var(--teal-ink);background:var(--paper-2);border:1px solid var(--teal);border-radius:999px;padding:4px 12px;cursor:pointer;flex:0 0 auto;max-width:100%;white-space:nowrap;margin-left:auto}.past-toggle:hover{background:var(--sand)}.cp-btn{display:block;width:100%;font-family:'Zen Kaku Gothic New';font-weight:700;font-size:.82rem;color:#fff;background:var(--teal);border:none;border-radius:10px;padding:11px;cursor:pointer;margin-bottom:12px}.cp-btn:disabled{background:var(--ink-faint);cursor:default}.cp-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:11px;overflow:hidden;max-height:340px;overflow-y:auto}.cp-list li{background:var(--paper-2);padding:10px 12px}.cp-top{display:flex;align-items:flex-start;gap:7px}.cp-no{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--gold);color:#fff;font-family:'Outfit',sans-serif;font-weight:700;font-size:.68rem;flex-shrink:0;margin-top:1px}.cp-name{font-weight:700;font-size:.88rem;color:var(--ink);line-height:1.4;overflow-wrap:break-word}.cp-meta{display:block;font-size:.72rem;color:var(--ink-soft);margin-top:4px;padding-left:27px;line-height:1.6}.cp-meta a{color:var(--teal-ink)}.cp-mk{display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--gold);color:#fff;font-family:'Outfit',sans-serif;font-weight:700;font-size:11px;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.35)}@media(max-width:560px){#cpmap{height:330px}}.jm-pin{background:none;border:none}
 .jm-pin span{display:block;width:22px;height:22px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--coral);border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.4)}
 @media(max-width:560px){#jpmap{height:330px}.jm-sval{font-size:1.06rem}}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -358,7 +358,7 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
 <nav class="nav"><div class="nav-in"><a class="brand" href="#top"><b>旅のしおり</b></a>
 <div class="navright"><details class="menu-wrap" id="menu"><summary class="ham" aria-label="メニュー"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary>
 <div class="menu-panel"><a href="#top">トップ（カレンダー）</a><a href="#trips">旅の一覧</a><div class="menu-h">年で見る</div><div id="yearmenu"></div></div></details></div></div></nav>
-<section class="up reveal" id="trips"><div class="up-h"><h2>旅の一覧</h2><span class="ysum" id="ysum"></span><span class="ln"></span></div>
+<section class="up reveal" id="trips"><div class="up-h"><h2>旅の一覧</h2><span class="ysum" id="ysum"></span><span class="ln"></span><button class="past-toggle" id="pastToggle" type="button" style="display:none"></button></div>
 <div class="tcards" id="tcards"></div></section>
 <div class="yearbar"><button class="ybtn" id="py" aria-label="前の年">‹</button><div class="ylabel" id="ylabel"></div><button class="ybtn" id="ny" aria-label="次の年">›</button></div>
 <div class="cal-wrap"><div class="cal-card reveal">
@@ -372,6 +372,15 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
     <div class="jm-sub">地図をタップすると、その地点のこれから7日間の予報（最高・最低・平均）が出ます。旅先の下見や、家を出るときの服装の目安に。</div>
     <div id="jpmap"></div>
     <div class="jm-panel" id="jmPanel"><div class="jm-empty">地図をタップして地点を選んでください</div></div>
+  </div>
+</section>
+
+<section class="up reveal" id="camp">
+  <div class="up-h"><h2>キャンプ場をさがす</h2><span class="ln"></span></div>
+  <div class="jm-wrap">
+    <div class="jm-sub">見たい地域まで地図を拡大すると、その範囲のキャンプ場が出ます（OpenStreetMapのデータ）。全国のまま表示すると数が多すぎるため、県くらいまで寄ってから読み込みます。</div>
+    <div id="cpmap"></div>
+    <div class="jm-panel" id="cpPanel"><div class="jm-empty">地図を県くらいまで拡大して「この範囲で探す」を押してください</div></div>
   </div>
 </section>
 
@@ -419,11 +428,17 @@ function renderCal(){document.getElementById('mlabel').textContent=y+"年 "+jp[m
   document.querySelectorAll('#grid .cell.hol').forEach(function(c){c.addEventListener('click',function(e){e.stopPropagation();showHolpop(c);});});}
 function tstate(t){if(t.ed<TODAY)return['済','st-done'];if(t.sd<=TODAY&&t.ed>=TODAY)return['旅行中','st-now'];return['予定','st-plan'];}
 function renderList(){
- var u=trips.slice().sort(function(a,b){return a.sd-b.sd;});
- var done=u.filter(function(t){return t.ed<TODAY;}).length;
+ var all=trips.slice().sort(function(a,b){return a.sd-b.sd;});
+ var done=all.filter(function(t){return t.ed<TODAY;}).length;
+ var showPast=localStorage.getItem('showPastTrips')==='1';
+ var u=showPast?all:all.filter(function(t){return t.ed>=TODAY;});
  var nights=u.reduce(function(a,t){return a+Math.round((t.ed-t.sd)/864e5);},0);
- document.getElementById('ysum').textContent=u.length?(u.length+'つの旅 ・ '+nights+'泊'+(done?' ・ 済 '+done:'')):'';
- if(!u.length){document.getElementById('tcards').innerHTML='<div class="empty">旅はまだありません。</div>';return;}
+ var sum=u.length?(u.length+'つの旅 ・ '+nights+'泊'):'';
+ if(done) sum+=(sum?' ・ ':'')+'済 '+done+(showPast?'':'（非表示）');
+ document.getElementById('ysum').textContent=sum;
+ var tog=document.getElementById('pastToggle');
+ if(tog){ tog.textContent=showPast?'終わった旅を隠す':'終わった旅も表示（'+done+'）'; tog.style.display=done?'':'none'; }
+ if(!u.length){document.getElementById('tcards').innerHTML='<div class="empty">'+(done&&!showPast?'これからの旅はまだありません。':'旅はまだありません。')+'</div>';return;}
  document.getElementById('tcards').innerHTML=u.map(function(t){
    var st=tstate(t),past=t.ed<TODAY;
    var op=t.a?('<a class="tcard'+(past?' past':'')+'" href="'+t.a+'">'):('<div class="tcard'+(past?' past':'')+'">');
@@ -433,6 +448,12 @@ function renderList(){
      +'<span class="pb"><span class="ttl">'+t.name+'</span><span class="pr2"><span class="dt">'+fmt(t.sd)+' 〜 '+fmt(t.ed)+'</span><span class="nn" style="color:'+t.color+';border-color:'+t.color+'">'+t.label+'</span></span></span>'+cl;
  }).join('');
 }
+
+(function(){var t=document.getElementById('pastToggle');if(!t)return;
+ t.addEventListener('click',function(){
+   localStorage.setItem('showPastTrips', localStorage.getItem('showPastTrips')==='1'?'0':'1');
+   renderList();
+ });})();
 function cd(){var el=document.getElementById('nexttrip');if(!el)return;var ip=trips.filter(function(t){return t.sd<=TODAY&&t.ed>=TODAY;});var nx=trips.filter(function(t){return t.sd>TODAY;})[0];var t,kick,badge,now=false;if(ip.length){t=ip[0];kick='旅行中';badge='旅行中';now=true;}else if(nx){t=nx;kick='次の旅';var dd=Math.round((sod(nx.sd)-TODAY)/864e5);badge='あと '+dd+' 日';}else{el.style.display='none';return;}el.innerHTML='<a class="nt-card" href="'+t.a+'">'+'<span class="nt-photo" style="background-image:linear-gradient(180deg,rgba(4,32,40,.22),rgba(4,32,40,.72)),url('+t.thumb+')"></span>'+'<span class="nt-badge'+(now?' now':'')+'">'+badge+'</span>'+'<span class="nt-inner">'+'<span class="nt-kick">'+kick+'</span>'+'<span class="nt-name">'+t.name+'</span>'+'<span class="nt-meta"><span class="nt-date">'+fmt(t.sd)+' 〜 '+fmt(t.ed)+'</span><span class="nt-nights">'+t.label+'</span></span>'+'</span>'+'<span class="nt-go">しおりを開く ›</span>'+'</a>';}
 function render(){document.getElementById('ylabel').textContent=y;renderCal();renderList();}
 function closeMenu(){var d=document.getElementById('menu');if(d)d.open=false;}
@@ -552,6 +573,90 @@ var rb=document.getElementById('packReset');if(rb)rb.addEventListener('click',fu
       pin=L.marker([lat,lon],{icon:ic}).addTo(map);
       show(lat,lon);
     });
+  }
+  if(document.readyState!=='loading') boot();
+  else document.addEventListener('DOMContentLoaded',boot);
+})();
+</script>
+<script>
+(function(){
+  function boot(){
+    if(!window.L) return;
+    var el=document.getElementById('cpmap'); if(!el) return;
+    var map=L.map(el,{gestureHandling:true,scrollWheelZoom:false}).setView([36.5,138.2],5);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'&copy; OpenStreetMap'}).addTo(map);
+    var panel=document.getElementById('cpPanel'), layer=L.layerGroup().addTo(map), token=0;
+    var MINZOOM=9;
+
+    function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+    function mapq(n){return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(n);}
+
+    function setPanel(html){ panel.innerHTML=html; }
+    function btn(label,dis){
+      return '<button class="cp-btn" id="cpGo"'+(dis?' disabled':'')+'>'+label+'</button>';
+    }
+    function hint(){
+      var z=map.getZoom();
+      if(z<MINZOOM) setPanel(btn('もう少し拡大してください（県くらいまで）',true)+'<div class="jm-empty">今の範囲は広すぎます</div>');
+      else setPanel(btn('この範囲で探す',false)+'<div class="jm-empty">ボタンを押すとこの範囲のキャンプ場を読み込みます</div>');
+      bind();
+    }
+    function bind(){
+      var g=document.getElementById('cpGo');
+      if(g) g.addEventListener('click',search);
+    }
+
+    function search(){
+      if(map.getZoom()<MINZOOM){ hint(); return; }
+      var my=++token;
+      setPanel(btn('検索中…',true)+'<div class="jm-load">キャンプ場を探しています…</div>');
+      var b=map.getBounds();
+      var bbox=b.getSouth().toFixed(4)+','+b.getWest().toFixed(4)+','+b.getNorth().toFixed(4)+','+b.getEast().toFixed(4);
+      var q='[out:json][timeout:25];(node["tourism"="camp_site"]('+bbox+');way["tourism"="camp_site"]('+bbox+'););out center 80;';
+      var EPS=['https://overpass-api.de/api/interpreter','https://overpass.kumi.systems/api/interpreter','https://overpass.private.coffee/api/interpreter'];
+      function tryEp(i){
+        return fetch(EPS[i],{method:'POST',body:'data='+encodeURIComponent(q)})
+          .then(function(r){ if(!r.ok) throw new Error('http'+r.status); return r.json(); })
+          .catch(function(err){ if(i+1<EPS.length) return tryEp(i+1); throw err; });
+      }
+      tryEp(0)
+      .then(function(j){
+        if(my!==token) return;
+        layer.clearLayers();
+        var els=(j.elements||[]).map(function(e){
+          var la=e.lat!=null?e.lat:(e.center&&e.center.lat), lo=e.lon!=null?e.lon:(e.center&&e.center.lon);
+          var t=e.tags||{};
+          return {n:t.name||'（名称未登録のキャンプ場）', la:la, lo:lo, named:!!t.name,
+                  site:t.website||t['contact:website']||'', tel:t.phone||t['contact:phone']||''};
+        }).filter(function(x){return x.la!=null&&x.lo!=null;});
+        els.sort(function(a,b){ return (b.named?1:0)-(a.named?1:0); });
+        if(!els.length){ setPanel(btn('この範囲で探す',false)+'<div class="jm-empty">この範囲では見つかりませんでした。場所を変えるか、少し広げてみてください。</div>'); bind(); return; }
+        var rows='';
+        els.forEach(function(x,i){
+          var lb=String(i+1);
+          var ic=L.divIcon({className:'',html:'<span class="cp-mk">'+lb+'</span>',iconSize:[22,22],iconAnchor:[11,11]});
+          L.marker([x.la,x.lo],{icon:ic}).addTo(layer).bindPopup('<b>'+esc(x.n)+'</b>');
+          var meta=[];
+          if(x.tel) meta.push(esc(x.tel));
+          meta.push('<a href="'+mapq(x.n!=='（名称未登録のキャンプ場）'?x.n:(x.la+','+x.lo))+'" target="_blank" rel="noopener">地図</a>');
+          if(x.site) meta.push('<a href="'+esc(x.site)+'" target="_blank" rel="noopener">公式</a>');
+          rows+='<li><div class="cp-top"><span class="cp-no">'+lb+'</span><span class="cp-name">'+esc(x.n)+'</span></div>'
+               +'<span class="cp-meta">'+meta.join(' ・ ')+'</span></li>';
+        });
+        setPanel(btn('この範囲で探しなおす',false)
+          +'<div class="jm-place"><span class="jm-name">'+els.length+'件見つかりました</span></div>'
+          +'<ul class="cp-list">'+rows+'</ul>');
+        bind();
+      })
+      .catch(function(){
+        if(my!==token) return;
+        setPanel(btn('もう一度探す',false)+'<div class="jm-err">読み込みに失敗しました。混み合っている可能性があるので、少し待ってからもう一度お試しください。</div>');
+        bind();
+      });
+    }
+
+    map.on('zoomend',function(){ if(!document.getElementById('cpGo')) return; if(!layer.getLayers().length) hint(); });
+    hint();
   }
   if(document.readyState!=='loading') boot();
   else document.addEventListener('DOMContentLoaded',boot);
