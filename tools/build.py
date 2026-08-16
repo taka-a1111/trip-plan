@@ -57,14 +57,21 @@ def build(name, tag):
         rows = "".join(render_row(points, r, counter) for r in d["rows"])
         tags = "".join('<span class="day-tag %s">%s</span>' % (c, t) for c, t in d["tags"])
         notice = '<div class="notice">%s</div>' % d["notice"] if d.get("notice") else ""
+        photo = ""
+        if d.get("photo"):
+            ph = d["photo"]
+            b64 = base64.b64encode(open(os.path.join(ROOT, ph["file"]), "rb").read()).decode()
+            cr = ('<span class="ph-credit">%s</span>' % ph["credit"]) if ph.get("credit") else ""
+            photo = ('<div class="day-photo"><img src="data:image/jpeg;base64,%s" alt="%s" loading="lazy">%s</div>'
+                     % (b64, ph.get("alt", ""), cr))
         sections.append(
             '<section class="day reveal" id="%s"><div class="day-line">'
             '<div class="day-date"><span class="dd">%s</span><span class="dw">%s</span></div>'
             '<span class="day-badge">%s</span><div class="day-tags">%s</div></div>'
-            '<h2 class="day-theme">%s</h2>%s'
+            '<h2 class="day-theme">%s</h2>%s%s'
             '<ul class="spot-list">%s</ul>'
             '<div class="daymap" id="daymap%d"></div></section>'
-            % (d["id"], d["dd"], d["dw"], d["badge"], tags, d["theme"], notice, rows, i))
+            % (d["id"], d["dd"], d["dw"], d["badge"], tags, d["theme"], photo, notice, rows, i))
         DM[str(i)] = [pin(points, k) for k in d["pins"]]
 
     memo = ('<div class="notice" style="margin-top:22px">%s</div>' % data["memo"]) if data.get("memo") else ""
