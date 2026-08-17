@@ -428,14 +428,8 @@ var RT={"pts": [{"n": "那覇空港", "lat": 26.2001297, "lon": 127.6466452, "k"
       t.addEventListener('click',function(){ apply(+t.dataset.day,true); });
     });
 
-    // 初期表示：今日がこの旅の日程内ならその日、URLハッシュ優先、なければ保存値、既定は1日目
-    var init=1;
-    var saved=null; try{ saved=localStorage.getItem('okiDay'); }catch(e){}
-    if(saved!==null && saved!=='') init=+saved;
-    var DATES=['2026-07-26','2026-07-27','2026-07-28','2026-07-29','2026-07-30','2026-07-31','2026-08-01'];
-    var t=new Date(); var key=t.getFullYear()+'-'+('0'+(t.getMonth()+1)).slice(-2)+'-'+('0'+t.getDate()).slice(-2);
-    var idx=DATES.indexOf(key);
-    if(idx>=0) init=idx+1;
+    // 旅行終了後は常に全日を表示（スクロールで全日程を見られる元の挙動）。URLハッシュ指定時のみその日へ。
+    var init=0;
     var h=(location.hash||'').match(/^#day([1-7])$/);
     if(h) init=+h[1];
     apply(init,false);
