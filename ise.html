@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="ja"><head><!-- BUILD_TAG: 2026-08-17b --><script>/*LINE_EXT*/(function(){try{var u=navigator.userAgent||'';if(/ Line\//i.test(u)&&location.search.indexOf('openExternalBrowser')<0){location.href=location.href+(location.search?'&':'?')+'openExternalBrowser=1';}}catch(e){}})();</script><meta charset="UTF-8">
+<!DOCTYPE html><html lang="ja"><head><!-- BUILD_TAG: 2026-08-17c --><script>/*LINE_EXT*/(function(){try{var u=navigator.userAgent||'';if(/ Line\//i.test(u)&&location.search.indexOf('openExternalBrowser')<0){location.href=location.href+(location.search?'&':'?')+'openExternalBrowser=1';}}catch(e){}})();</script><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>須原・伊勢｜旅のしおり</title><link rel="manifest" href="./manifest.json"><meta name="theme-color" content="#0c7c8c"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/><link rel="stylesheet" href="https://unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css"/><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="https://unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.js"></script>
 <style>
@@ -232,8 +232,8 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
 .ft-top{display:inline-flex;align-items:center;gap:6px;margin-top:16px;font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:.78rem;color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.42);border-radius:10px;padding:8px 16px;cursor:pointer;transition:background .18s}
 .ft-top:hover{background:rgba(255,255,255,.14)}
 
-.day-line .wx{display:inline-flex;align-items:center;margin-left:8px;vertical-align:middle}
-.day-line .wx .glance{display:inline-flex;align-items:center;gap:7px;cursor:pointer;font-family:'Outfit',sans-serif;font-weight:600;font-size:.76rem;color:var(--ink-soft);background:var(--paper-2);border:1px solid var(--line);border-radius:22px;padding:3px 12px}
+.day-line .wx{display:inline-flex;align-items:center;margin-left:8px;vertical-align:middle;flex:0 0 auto}
+.day-line .wx .glance{display:inline-flex;align-items:center;gap:7px;cursor:pointer;font-family:'Outfit',sans-serif;font-weight:600;font-size:.72rem;color:var(--ink-soft);background:var(--paper-2);border:1px solid var(--line);border-radius:22px;padding:2px 10px;white-space:nowrap}
 .day-line .wx .glance:hover{background:var(--sand,#efe6d6)}
 .day-line .wx .glance .ic{font-size:1.4rem;line-height:1}
 .day-line .wx .glance .t{color:var(--ink)}
@@ -302,7 +302,7 @@ var RT={"pts": [{"n": "自宅（名古屋）", "lat": 35.1874286, "lon": 136.963
 
 
 
-console.log('BUILD_TAG: 2026-08-17b');if('serviceWorker' in navigator&&location.protocol==='https:'){try{navigator.serviceWorker.register('./sw.js');}catch(e){}}</script><script>/*FV_RESIZE*/window.addEventListener('load',function(){[400,1500,3000].forEach(function(t){setTimeout(function(){try{window.dispatchEvent(new Event('resize'));}catch(e){}},t);});});
+console.log('BUILD_TAG: 2026-08-17c');if('serviceWorker' in navigator&&location.protocol==='https:'){try{navigator.serviceWorker.register('./sw.js');}catch(e){}}</script><script>/*FV_RESIZE*/window.addEventListener('load',function(){[400,1500,3000].forEach(function(t){setTimeout(function(){try{window.dispatchEvent(new Event('resize'));}catch(e){}},t);});});
 
 
 /* 天気予報 v7：複数地点を1リクエストでバッチ取得＋sessionStorageキャッシュで高速化。アイコンはカラー統一(VS16) */
@@ -396,7 +396,6 @@ console.log('BUILD_TAG: 2026-08-17b');if('serviceWorker' in navigator&&location.
       var host=document.querySelector('#day'+(idx+1)+' .day-badge')||document.querySelector('#day'+(idx+1)+' .day-date');
       if(host && !host.parentNode.querySelector('.wx')){
         var g='<span class="glance'+(storm?' storm':'')+'" role="button" tabindex="0" title="\u30bf\u30c3\u30d7\u3067\u6c17\u8c61\u5e81\u30fbtenki.jp\u30fb\u30a6\u30a7\u30b6\u30fc\u30cb\u30e5\u30fc\u30b9\u3092\u958b\u304f">';
-        g+='<span class="loc">'+x.nm+'</span>';
         if(wc[0])g+='<span class="ic">'+icon(wc[0])+'</span>';
         if(Hi!==null)g+='<span class="t">'+Hi+'\u00b0<span class="lo">/'+Lo+'\u00b0</span></span>';
         if(Pp!==null)g+='<span class="pp">\u964d\u6c34'+Pp+'%</span>';
