@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="ja"><head><!-- BUILD_TAG: 2026-08-16d --><script>/*LINE_EXT*/(function(){try{var u=navigator.userAgent||'';if(/ Line\//i.test(u)&&location.search.indexOf('openExternalBrowser')<0){location.href=location.href+(location.search?'&':'?')+'openExternalBrowser=1';}}catch(e){}})();</script><link rel="manifest" href="./manifest.json"><meta name="theme-color" content="#0c7c8c"><meta charset="UTF-8">
+<!DOCTYPE html><html lang="ja"><head><!-- BUILD_TAG: 2026-08-17a --><script>/*LINE_EXT*/(function(){try{var u=navigator.userAgent||'';if(/ Line\//i.test(u)&&location.search.indexOf('openExternalBrowser')<0){location.href=location.href+(location.search?'&':'?')+'openExternalBrowser=1';}}catch(e){}})();</script><link rel="manifest" href="./manifest.json"><meta name="theme-color" content="#0c7c8c"><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>旅のカレンダー｜家族の旅程</title><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/><link rel="stylesheet" href="https://unpkg.com/leaflet-gesture-handling@1.2.2/dist/leaflet-gesture-handling.min.css"/><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -419,8 +419,7 @@ trips.sort(function(a,b){return a.sd-b.sd;});
 var up=trips.filter(function(t){return t.ed>=TODAY;});
 var curY=TODAY.getFullYear();
 function ftm(yr){var ms=trips.filter(function(t){return t.sd.getFullYear()===yr;}).map(function(t){return t.sd.getMonth();});return ms.length?Math.min.apply(null,ms):0;}
-var y=trips.some(function(t){return t.sd.getFullYear()===curY;})?curY:(trips.length?trips[0].sd.getFullYear():curY);
-var m=ftm(y);
+var _tdy=new Date(); var y=_tdy.getFullYear(); var m=_tdy.getMonth();
 function grid(y,m){var f=new Date(y,m,1),dow=f.getDay(),dim=new Date(y,m+1,0).getDate(),nw=Math.ceil((dow+dim)/7),cur=new Date(y,m,1-dow),W=[];for(var w=0;w<nw;w++){var a=[];for(var d=0;d<7;d++){a.push(new Date(cur));cur.setDate(cur.getDate()+1);}W.push(a);}return W;}
 var WXCAL={};
 function renderCal(){document.getElementById('mlabel').textContent=y+"年 "+jp[m];var W=grid(y,m),H="";
