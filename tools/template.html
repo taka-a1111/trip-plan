@@ -172,8 +172,6 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
 .menu-panel a{display:block;font-size:.9rem;color:var(--ink);text-decoration:none;padding:10px 12px;border-radius:8px}
 .menu-panel a:hover{background:var(--sand)}
 .menu-h{font-size:.7rem;color:var(--ink-faint);padding:9px 12px 3px;letter-spacing:.04em}
-.fdock{position:fixed;right:14px;bottom:76px;z-index:90}
-.fbtn-primary{display:none;align-items:center;gap:7px;border:1px solid #0c7c8c;background:#0c7c8c;color:#fff;box-shadow:var(--shadow-m);border-radius:24px;padding:11px 15px;font-weight:700;font-size:.8rem;text-decoration:none;letter-spacing:.02em}
 .totop{position:fixed;right:18px;bottom:18px;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:var(--paper-2);color:var(--teal-deep);box-shadow:var(--shadow-m);cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .25s,transform .25s,visibility .25s;z-index:80}
 .totop.show{opacity:1;visibility:visible;transform:none}
 .totop svg{width:20px;height:20px}
@@ -285,12 +283,12 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
 .fvwx-day.storm{border-color:#E4572E;background:#fdeee9;box-shadow:0 0 0 1px #E4572E inset}.glance.storm{border-color:#E4572E;background:#fdeee9}.wxpop .storm-warn{background:#fdeee9;border:1px solid #E4572E;color:#a8371a;font-size:.74rem;line-height:1.55;border-radius:8px;padding:7px 9px;margin:2px 0 8px;font-weight:600}.b-ok{background:#2f7d44;color:#fff}
 .fvwx-day .loc{font-size:.62rem;font-weight:700;color:var(--teal-deep);white-space:nowrap;letter-spacing:.02em}
 .glance .loc{font-size:.66rem;font-weight:700;color:var(--teal-deep);white-space:nowrap;margin-right:1px}
-</style><link rel="preconnect" href="https://api.open-meteo.com" crossorigin><link rel="dns-prefetch" href="https://api.open-meteo.com"><script>/*WXHEAD*/window.__WXP=(function(){var t=new Date();t.setHours(0,0,0,0);var sd='{{DATE_S}}',ed='{{DATE_E}}';var s=new Date(sd+'T00:00:00'),e=new Date(ed+'T00:00:00');if((s-t)/864e5>16||(t-e)/864e5>0)return null;var u='https://api.open-meteo.com/v1/forecast?latitude={{WX_LAT}}&longitude={{WX_LON}}&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_mean&models=jma_seamless,ecmwf_ifs04,gfs_seamless,icon_seamless&timezone=Asia%2FTokyo&start_date='+sd+'&end_date='+ed;return{weather:fetch(u).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}),typhoon:fetch('https://www.jma.go.jp/bosai/typhoon/data/targetTc.json').then(function(r){return r.ok?r.json():[];}).catch(function(){return[];})};})();</script></head><body data-ds="{{DATE_S}}" data-de="{{DATE_E}}">
+</style><link rel="preconnect" href="https://api.open-meteo.com" crossorigin><link rel="dns-prefetch" href="https://api.open-meteo.com"><script>/*WXHEAD*/window.__WXP=(function(){var t=new Date();t.setHours(0,0,0,0);var sd='{{DATE_S}}',ed='{{DATE_E}}';var s=new Date(sd+'T00:00:00'),e=new Date(ed+'T00:00:00');if((s-t)/864e5>16||(t-e)/864e5>0)return null;var u='https://api.open-meteo.com/v1/forecast?latitude={{WX_LAT}}&longitude={{WX_LON}}&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_mean&models=jma_seamless,ecmwf_ifs04,gfs_seamless,icon_seamless&timezone=Asia%2FTokyo&start_date='+sd+'&end_date='+ed;return{weather:fetch(u).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}),typhoon:fetch('https://www.jma.go.jp/bosai/typhoon/data/targetTc.json').then(function(r){return r.ok?r.json():[];}).catch(function(){return[];})};})();</script></head><body>
 <nav class="nav" id="top"><div class="nav-in"><a class="brand" href="./index.html"><b>旅のしおり</b></a><div class="navright"><details class="menu-wrap"><summary class="ham" aria-label="メニュー"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary><div class="menu-panel"><a href="./index.html">カレンダーへ戻る</a><div class="menu-h">この旅の日程</div>{{NAV_DAYS}}</div></details></div></div></nav><div class="fv"><header class="hero trip-hero fv-photo" style="background-image:linear-gradient(180deg,rgba(5,40,48,.32),rgba(4,38,46,.18) 38%,rgba(4,40,48,.74)),url('data:image/jpeg;base64,{{HERO_B64}}')"><div class="hero-frame"><div class="hero-main"><h1><span class="nb">{{H1_TOP}}</span><br>{{H1_SUB}}</h1><div class="dates"><b class="en">{{DATES_LABEL}}</b></div><div class="hero-stats"><div><div class="num">{{STAT_DAYS}}</div><div class="lbl">日間</div></div><div><div class="num">{{STAT_NIGHTS}}</div><div class="lbl">泊</div></div><div><div class="num">{{STAT_SPOTS}}</div><div class="lbl">スポット</div></div></div></div></div></header><div class="fv-map"><div class="fv-map-label">この旅のスポット</div><a class="fv-gbtn rm-gbtn map-open" href="{{DIRLINK}}" target="_blank" rel="noopener">Googleマップで開く →</a><div id="tripmap"></div></div></div><div class="fvwx" id="fvwx"></div><div class="legend"><span class="lg"><span class="dot cat-sight"></span>観光</span><span class="lg"><span class="dot cat-play"></span>遊ぶ</span><span class="lg"><span class="dot cat-food"></span>グルメ</span><span class="lg"><span class="dot cat-shop"></span>買物</span><span class="lg"><span class="dot cat-onsen"></span>温泉</span><span class="lg"><span class="dot cat-stay"></span>泊まる</span><span class="lg"><span class="dot cat-move"></span>移動</span></div><main class="timeline">{{MAIN}}</main>
 
 <footer class="tfoot"><div class="ft-title">家族とかけがえの無い時間を</div>{{CREDIT}}<a href="./index.html">← カレンダーへ戻る</a><a class="ft-top" href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ 上に戻る</a>
 </footer>
-<div class="fdock"><a class="fbtn-primary" id="todayjump" href="#">▶ 今日の予定へ</a></div><button class="totop" id="totop" aria-label="上に戻る"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V6M6 12l6-6 6 6"/></svg></button>
+<button class="totop" id="totop" aria-label="上に戻る"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V6M6 12l6-6 6 6"/></svg></button>
 <script>
 var tt=document.getElementById('totop');if(tt){window.addEventListener('scroll',function(){if(window.scrollY>400)tt.classList.add('show');else tt.classList.remove('show');});tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});}
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
@@ -408,14 +406,4 @@ console.log('BUILD_TAG: {{BUILD_TAG}}');if('serviceWorker' in navigator&&locatio
     });
   }
 })({{WX_DAYS}});
-</script><script>(function(){
-  var a=document.getElementById('todayjump'); if(!a) return;
-  var ds=document.body.dataset.ds, de=document.body.dataset.de; if(!ds||!de) return;
-  var t=new Date(); t.setHours(0,0,0,0);
-  var s=new Date(ds+'T00:00:00'), e=new Date(de+'T00:00:00');
-  if(t<s||t>e) return;
-  var n=Math.floor((t-s)/86400000)+1;
-  var sec=document.getElementById('day'+n); if(!sec) return;
-  a.style.display='flex';
-  a.addEventListener('click',function(ev){ev.preventDefault();sec.scrollIntoView({behavior:'smooth',block:'start'});});
-})();</script></body></html>
+</script></body></html>
