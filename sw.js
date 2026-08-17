@@ -2,7 +2,7 @@
    - 同一オリジンのHTML等: ネット優先（更新が最優先）→ 圏外時はキャッシュ
    - 天気API(open-meteo/jma): ネット優先・キャッシュには保存しない（古い天気を出さない）
    - 地図タイル/CDN/フォント: キャッシュ優先＋裏で更新（圏外でも表示を保つ） */
-var CACHE = 'trip-plan-v2';
+var CACHE = 'trip-plan-v3';
 var CORE = ['./', './index.html', './kiso.html', './ise.html', './manifest.json'];
 
 self.addEventListener('install', function (e) {
@@ -32,8 +32,10 @@ self.addEventListener('fetch', function (e) {
     // ネット優先: 成功したらキャッシュ更新、失敗（圏外）ならキャッシュ
     e.respondWith(
       fetch(req).then(function (r) {
-        var cp = r.clone();
-        caches.open(CACHE).then(function (c) { c.put(req, cp); });
+        if (r && r.ok) {
+          var cp = r.clone();
+          caches.open(CACHE).then(function (c) { c.put(req, cp); });
+        }
         return r;
       }).catch(function () {
         return caches.match(req, { ignoreSearch: true }).then(function (m) {
@@ -47,8 +49,10 @@ self.addEventListener('fetch', function (e) {
   e.respondWith(
     caches.match(req).then(function (m) {
       var f = fetch(req).then(function (r) {
-        var cp = r.clone();
-        caches.open(CACHE).then(function (c) { c.put(req, cp); });
+        if (r && (r.ok || r.type === 'opaque')) {
+          var cp = r.clone();
+          caches.open(CACHE).then(function (c) { c.put(req, cp); });
+        }
         return r;
       }).catch(function () { return m; });
       return m || f;
