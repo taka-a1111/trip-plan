@@ -18,17 +18,26 @@ def gmap(q):
     return "https://www.google.com/maps/search/?api=1&query=" + urllib.parse.quote(q)
 
 
-def pin(points, key):
-    p = points[key]
+def pin(points, ref):
+    """refはキー文字列 or {"key":..., "lb":"A"}"""
+    if isinstance(ref, dict):
+        p = points[ref["key"]]
+        out = {"n": p["n"], "lat": p["lat"], "lon": p["lon"], "k": p["k"]}
+        if ref.get("lb"):
+            out["lb"] = ref["lb"]
+        return out
+    p = points[ref]
     return {"n": p["n"], "lat": p["lat"], "lon": p["lon"], "k": p["k"]}
 
 
 def render_row(points, row, counter):
     if row["type"] == "move":
+        badges = "".join('<span class="bdg %s">%s</span>' % (c, t) for c, t in row.get("badges", []))
+        note = ('<div class="s-note">%s</div>' % row["note"]) if row.get("note") else ""
         return ('<li class="spot-row"><div class="spot-main"><div class="spot-meta">'
                 '<span class="ctag cat-move">移動</span><span class="s-name">%s</span>'
-                '<span class="bdg b-move">%s</span></div></div></li>'
-                % (row["name"], row["dur"]))
+                '<span class="bdg b-move">%s</span>%s</div>%s</div></li>'
+                % (row["name"], row["dur"], badges, note))
     p = points[row["key"]]
     counter[0] += 1
     no_cls = "sn-stay" if p["k"] == "stay" else "sn-spot"
@@ -37,6 +46,8 @@ def render_row(points, row, counter):
     links = '<a class="lnk" href="%s" target="_blank" rel="noopener">地図</a>' % gmap(p["q"])
     if p.get("official"):
         links += '<a class="lnk lnk-of" href="%s" target="_blank" rel="noopener">公式</a>' % p["official"]
+    if p.get("reserve"):
+        links += '<a class="lnk lnk-rsv" href="%s" target="_blank" rel="noopener">予約</a>' % p["reserve"]
     name = row.get("name_override") or p["n"]
     return ('<li class="spot-row"><div class="spot-main"><div class="spot-meta">'
             '<span class="spot-no %s">%d</span><span class="ctag cat-%s">%s</span>'
@@ -51,10 +62,30 @@ def build(name, tag):
     tpl = open(os.path.join(ROOT, "tools", "template.html"), encoding="utf-8").read()
     points = data["points"]
 
-    sections, DM = [], {}
+    def render_meals(meals):
+        if not meals:
+            return ""
+        groups = ""
+        for g in meals:
+            items = ""
+            for it in g["items"]:
+                items += ('<li><div class="mtop"><span class="mno">%s</span>'
+                          '<a class="mname" href="%s" target="_blank" rel="noopener">%s</a></div>'
+                          '<span class="mmeta">%s</span></li>'
+                          % (it["lb"], gmap(it["q"]), it["name"], it.get("meta", "")))
+            lab_cls = "ml-l" if g.get("slot") == "昼" else "ml-d"
+            groups += ('<div class="meal"><span class="mlab %s">%s</span>'
+                       '<ul class="mlist">%s</ul></div>' % (lab_cls, g.get("slot", "夜"), items))
+        return ('<div class="mhead">食事の候補<span class="mhint">A・B… は地図のオレンジのピン</span></div>'
+                '<div class="meals">%s</div>' % groups)
+
+    sections, DM, has_meals = [], {}, False
     for i, d in enumerate(data["days"]):
         counter = [0]
         rows = "".join(render_row(points, r, counter) for r in d["rows"])
+        meals_html = render_meals(d.get("meals"))
+        if d.get("meals"):
+            has_meals = True
         tags = "".join('<span class="day-tag %s">%s</span>' % (c, t) for c, t in d["tags"])
         notice = '<div class="notice">%s</div>' % d["notice"] if d.get("notice") else ""
         photo = ""
@@ -69,9 +100,9 @@ def build(name, tag):
             '<div class="day-date"><span class="dd">%s</span><span class="dw">%s</span></div>'
             '<span class="day-badge">%s</span><div class="day-tags">%s</div></div>'
             '<h2 class="day-theme">%s</h2>%s%s'
-            '<ul class="spot-list">%s</ul>'
+            '<ul class="spot-list">%s</ul>%s'
             '<div class="daymap" id="daymap%d"></div></section>'
-            % (d["id"], d["dd"], d["dw"], d["badge"], tags, d["theme"], photo, notice, rows, i))
+            % (d["id"], d["dd"], d["dw"], d["badge"], tags, d["theme"], photo, notice, rows, meals_html, i))
         DM[str(i)] = [pin(points, k) for k in d["pins"]]
 
     memo = ('<div class="notice" style="margin-top:22px">%s</div>' % data["memo"]) if data.get("memo") else ""
@@ -87,10 +118,18 @@ def build(name, tag):
     nav = "".join('<a href="#%s">%s</a>' % (d["id"], d["badge"]) for d in data["days"])
     wx = data["wx"]
     year = data["date_s"][:4]
+    day_wx = [dict(wx, **d_.get("wx", {})) for d_ in data["days"]]
     wxdays = "[" + ",".join(
         "{d:'%s-%s',la:%s,lo:%s,jma:'%s',tk:'%s',nm:'%s'}"
-        % (year, _iso(d_["dd"]), wx["lat"], wx["lon"], wx["jma"], wx["tk"], wx["nm"])
-        for d_ in data["days"]) + "]"
+        % (year, _iso(d_["dd"]), w["lat"], w["lon"], w["jma"], w["tk"], w["nm"])
+        for d_, w in zip(data["days"], day_wx)) + "]"
+    seen, lats, lons = set(), [], []
+    for w in day_wx:
+        key = (w["lat"], w["lon"])
+        if key not in seen:
+            seen.add(key)
+            lats.append(str(w["lat"]))
+            lons.append(str(w["lon"]))
 
     hero = base64.b64encode(open(os.path.join(ROOT, data["hero_image"]), "rb").read()).decode()
     nights = sum(1 for d in data["days"][:-1])
@@ -103,7 +142,8 @@ def build(name, tag):
         "{{DATES_LABEL}}": data["dates_label"],
         "{{STAT_DAYS}}": str(len(data["days"])), "{{STAT_NIGHTS}}": str(nights), "{{STAT_SPOTS}}": str(spots),
         "{{DATE_S}}": data["date_s"], "{{DATE_E}}": data["date_e"],
-        "{{WX_LAT}}": str(wx["lat"]), "{{WX_LON}}": str(wx["lon"]),
+        "{{WX_LAT}}": ",".join(lats), "{{WX_LON}}": ",".join(lons),
+        "{{LEGEND_EXTRA}}": ('<span class="lg lg-pin"><span class="mno" style="width:16px;height:16px;font-size:.62rem">A</span>食事の候補</span>' if has_meals else ""),
         "{{NAV_DAYS}}": nav, "{{DIRLINK}}": dirlink, "{{MAIN}}": main,
         "{{RT}}": json.dumps(RT, ensure_ascii=False),
         "{{DM}}": json.dumps(DM, ensure_ascii=False),
