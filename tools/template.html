@@ -456,7 +456,7 @@ console.log('BUILD_TAG: {{BUILD_TAG}}');if('serviceWorker' in navigator&&locatio
         var wd='\u65e5\u6708\u706b\u6c34\u6728\u91d1\u571f'[new Date(x.d+'T00:00:00').getDay()];
         var md=x.d.slice(5).replace('-','/');
         var b=document.createElement('button');b.type='button';b.className='fvwx-day'+(storm?' storm':'');
-        b.innerHTML='<span class="d">'+md+' '+wd+'</span>'+'<span class="loc">'+x.nm+'</span>'+(wc[0]?'<span class="ic">'+icon(wc[0])+'</span>':'')+(Hi!==null?'<span class="t">'+Hi+'\u00b0<span class="lo">/'+Lo+'\u00b0</span></span>':'')+(Pp!==null?'<span class="pp">\u964d\u6c34'+Pp+'%</span>':'');
+        b.innerHTML='<span class="d">'+md+' '+wd+'</span>'+'<span class="loc">'+x.nm+'</span>'+(wc[0]?'<span class="ic">'+icon(wc[0])+'</span>':'')+(Hi!==null?'<span class="t">'+Hi+'\u00b0<span class="lo">/'+Lo+'\u00b0</span></span>':'')+(Pp!==null?'<span class="pp">'+Pp+'%</span>':'');
         (function(bb,inf){bb.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();openPop(bb,inf);});})(b,info);
         strip.appendChild(b);
       }
@@ -465,7 +465,7 @@ console.log('BUILD_TAG: {{BUILD_TAG}}');if('serviceWorker' in navigator&&locatio
         var g='<span class="glance'+(storm?' storm':'')+'" role="button" tabindex="0" title="\u30bf\u30c3\u30d7\u3067\u6c17\u8c61\u5e81\u30fbtenki.jp\u30fb\u30a6\u30a7\u30b6\u30fc\u30cb\u30e5\u30fc\u30b9\u3092\u958b\u304f">';
         if(wc[0])g+='<span class="ic">'+icon(wc[0])+'</span>';
         if(Hi!==null)g+='<span class="t">'+Hi+'\u00b0<span class="lo">/'+Lo+'\u00b0</span></span>';
-        if(Pp!==null)g+='<span class="pp">\u964d\u6c34'+Pp+'%</span>';
+        if(Pp!==null)g+='<span class="pp">'+Pp+'%</span>';
         g+='</span>';
         var w=document.createElement('span');w.className='wx';w.innerHTML=g;
         var glance=w.querySelector('.glance');

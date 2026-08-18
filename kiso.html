@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="ja"><head><!-- BUILD_TAG: 2026-08-19c --><script>/*LINE_EXT*/(function(){try{var u=navigator.userAgent||'';if(/ Line\//i.test(u)&&location.search.indexOf('openExternalBrowser')<0){location.href=location.href+(location.search?'&':'?')+'openExternalBrowser=1';}}catch(e){}})();</script><meta charset="UTF-8">
+<!DOCTYPE html><html lang="ja"><head><!-- BUILD_TAG: 2026-08-19d --><script>/*LINE_EXT*/(function(){try{var u=navigator.userAgent||'';if(/ Line\//i.test(u)&&location.search.indexOf('openExternalBrowser')<0){location.href=location.href+(location.search?'&':'?')+'openExternalBrowser=1';}}catch(e){}})();</script><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>木曽・開田高原｜旅のしおり</title><link rel="manifest" href="./manifest.json"><meta name="theme-color" content="#0c7c8c"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/><link rel="stylesheet" href="https://unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css"/><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="https://unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.js"></script>
 <style>
@@ -317,7 +317,7 @@ var RT={"pts": [{"n": "自宅（名古屋）", "lat": 35.1874286, "lon": 136.963
 
 
 
-console.log('BUILD_TAG: 2026-08-19c');if('serviceWorker' in navigator&&location.protocol==='https:'){try{navigator.serviceWorker.register('./sw.js');}catch(e){}}</script><script>/*FV_RESIZE*/window.addEventListener('load',function(){[400,1500,3000].forEach(function(t){setTimeout(function(){try{window.dispatchEvent(new Event('resize'));}catch(e){}},t);});});
+console.log('BUILD_TAG: 2026-08-19d');if('serviceWorker' in navigator&&location.protocol==='https:'){try{navigator.serviceWorker.register('./sw.js');}catch(e){}}</script><script>/*FV_RESIZE*/window.addEventListener('load',function(){[400,1500,3000].forEach(function(t){setTimeout(function(){try{window.dispatchEvent(new Event('resize'));}catch(e){}},t);});});
 
 
 /* 天気予報 v7：複数地点を1リクエストでバッチ取得＋sessionStorageキャッシュで高速化。アイコンはカラー統一(VS16) */
@@ -456,7 +456,7 @@ console.log('BUILD_TAG: 2026-08-19c');if('serviceWorker' in navigator&&location.
         var wd='\u65e5\u6708\u706b\u6c34\u6728\u91d1\u571f'[new Date(x.d+'T00:00:00').getDay()];
         var md=x.d.slice(5).replace('-','/');
         var b=document.createElement('button');b.type='button';b.className='fvwx-day'+(storm?' storm':'');
-        b.innerHTML='<span class="d">'+md+' '+wd+'</span>'+'<span class="loc">'+x.nm+'</span>'+(wc[0]?'<span class="ic">'+icon(wc[0])+'</span>':'')+(Hi!==null?'<span class="t">'+Hi+'\u00b0<span class="lo">/'+Lo+'\u00b0</span></span>':'')+(Pp!==null?'<span class="pp">\u964d\u6c34'+Pp+'%</span>':'');
+        b.innerHTML='<span class="d">'+md+' '+wd+'</span>'+'<span class="loc">'+x.nm+'</span>'+(wc[0]?'<span class="ic">'+icon(wc[0])+'</span>':'')+(Hi!==null?'<span class="t">'+Hi+'\u00b0<span class="lo">/'+Lo+'\u00b0</span></span>':'')+(Pp!==null?'<span class="pp">'+Pp+'%</span>':'');
         (function(bb,inf){bb.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();openPop(bb,inf);});})(b,info);
         strip.appendChild(b);
       }
@@ -465,7 +465,7 @@ console.log('BUILD_TAG: 2026-08-19c');if('serviceWorker' in navigator&&location.
         var g='<span class="glance'+(storm?' storm':'')+'" role="button" tabindex="0" title="\u30bf\u30c3\u30d7\u3067\u6c17\u8c61\u5e81\u30fbtenki.jp\u30fb\u30a6\u30a7\u30b6\u30fc\u30cb\u30e5\u30fc\u30b9\u3092\u958b\u304f">';
         if(wc[0])g+='<span class="ic">'+icon(wc[0])+'</span>';
         if(Hi!==null)g+='<span class="t">'+Hi+'\u00b0<span class="lo">/'+Lo+'\u00b0</span></span>';
-        if(Pp!==null)g+='<span class="pp">\u964d\u6c34'+Pp+'%</span>';
+        if(Pp!==null)g+='<span class="pp">'+Pp+'%</span>';
         g+='</span>';
         var w=document.createElement('span');w.className='wx';w.innerHTML=g;
         var glance=w.querySelector('.glance');
