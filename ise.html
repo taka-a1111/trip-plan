@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="ja"><head><!-- BUILD_TAG: 2026-08-19i --><script>/*LINE_EXT*/(function(){try{var u=navigator.userAgent||'';if(/ Line\//i.test(u)&&location.search.indexOf('openExternalBrowser')<0){location.href=location.href+(location.search?'&':'?')+'openExternalBrowser=1';}}catch(e){}})();</script><meta charset="UTF-8">
+<!DOCTYPE html><html lang="ja"><head><!-- BUILD_TAG: 2026-08-19j --><script>/*LINE_EXT*/(function(){try{var u=navigator.userAgent||'';if(/ Line\//i.test(u)&&location.search.indexOf('openExternalBrowser')<0){location.href=location.href+(location.search?'&':'?')+'openExternalBrowser=1';}}catch(e){}})();</script><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>須原・伊勢｜旅のしおり</title><link rel="manifest" href="./manifest.json"><meta name="theme-color" content="#0c7c8c"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/><link rel="stylesheet" href="https://unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css"/><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="https://unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.js"></script>
 <style>
@@ -212,7 +212,11 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
 .ft-btns a{margin-top:12px}
 .daybar{position:fixed;left:0;right:0;bottom:0;z-index:85;background:rgba(246,242,234,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-top:1px solid var(--line);box-shadow:0 -3px 14px rgba(20,40,45,.08);padding:7px 0 calc(7px + env(safe-area-inset-bottom));transform:translateY(110%);transition:transform .25s;pointer-events:none}
 .daybar.show{transform:none;pointer-events:auto}
-.daybar-in{display:flex;gap:7px;overflow-x:auto;padding:0 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.daybar{display:flex;align-items:center;gap:0}
+.db-home{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;margin-left:10px;border:1px solid var(--line);border-radius:11px;background:var(--paper-2);color:var(--teal-deep);text-decoration:none}
+.db-home svg{width:21px;height:21px}
+.db-home:hover{background:var(--sand,#efe6d6)}
+.daybar-in{display:flex;gap:7px;overflow-x:auto;padding:0 12px 0 4px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .daybar-in::-webkit-scrollbar{display:none}
 .daybar-in a{flex:0 0 auto;display:inline-flex;flex-direction:column;align-items:center;gap:0;padding:6px 13px;border:1px solid var(--line);border-radius:11px;background:var(--paper-2);color:var(--teal-ink);text-decoration:none;line-height:1.25}
 .daybar-in a.on{background:var(--teal-ink);border-color:var(--teal-ink);color:#fff}
@@ -322,11 +326,11 @@ body.has-daybar{padding-bottom:66px}
 
 <footer class="tfoot"><div class="ft-btns"><a href="./index.html">← カレンダーへ戻る</a><a class="ft-top" href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ 上に戻る</a></div>
 </footer>
-<nav class="daybar" id="daybar" aria-label="日程へ移動"><div class="daybar-in"><a href="#day1"><span class="fd-d">8/20</span><span class="fd-w">木・1日目</span></a><a href="#day2"><span class="fd-d">8/21</span><span class="fd-w">金・2日目</span></a><a href="#day3"><span class="fd-d">8/22</span><span class="fd-w">土・3日目</span></a><a href="#day4"><span class="fd-d">8/23</span><span class="fd-w">日・4日目</span></a></div></nav><button class="totop" id="totop" aria-label="上に戻る"><svg viewBox="0 0 24 26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V6M6 12l6-6 6 6"/></svg></button>
+<nav class="daybar" id="daybar" aria-label="日程へ移動"><a class="db-home" href="./index.html" aria-label="カレンダーへ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3.4 10.6 12 3.6l8.6 7"/><path d="M5.4 9.6V20h13.2V9.6"/><path d="M9.6 20v-5.6h4.8V20"/></svg></a><div class="daybar-in"><a href="#day1"><span class="fd-d">8/20</span><span class="fd-w">木・1日目</span></a><a href="#day2"><span class="fd-d">8/21</span><span class="fd-w">金・2日目</span></a><a href="#day3"><span class="fd-d">8/22</span><span class="fd-w">土・3日目</span></a><a href="#day4"><span class="fd-d">8/23</span><span class="fd-w">日・4日目</span></a></div></nav><button class="totop" id="totop" aria-label="上に戻る"><svg viewBox="0 0 24 26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V6M6 12l6-6 6 6"/></svg></button>
 <script>
 var tt=document.getElementById('totop');if(tt){window.addEventListener('scroll',function(){if(window.scrollY>400)tt.classList.add('show');else tt.classList.remove('show');});tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});}
 (function(){var bar=document.getElementById('daybar');if(!bar)return;
-  var links=[].slice.call(bar.querySelectorAll('a'));
+  var links=[].slice.call(bar.querySelectorAll('.daybar-in a'));
   var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
   document.body.classList.add('has-daybar');
   function upd(){
@@ -352,7 +356,7 @@ var RT={"pts": [{"n": "自宅（名古屋）", "lat": 35.1874286, "lon": 136.963
 
 
 
-console.log('BUILD_TAG: 2026-08-19i');if('serviceWorker' in navigator&&location.protocol==='https:'){try{navigator.serviceWorker.register('./sw.js');}catch(e){}}</script><script>/*FV_RESIZE*/window.addEventListener('load',function(){[400,1500,3000].forEach(function(t){setTimeout(function(){try{window.dispatchEvent(new Event('resize'));}catch(e){}},t);});});
+console.log('BUILD_TAG: 2026-08-19j');if('serviceWorker' in navigator&&location.protocol==='https:'){try{navigator.serviceWorker.register('./sw.js');}catch(e){}}</script><script>/*FV_RESIZE*/window.addEventListener('load',function(){[400,1500,3000].forEach(function(t){setTimeout(function(){try{window.dispatchEvent(new Event('resize'));}catch(e){}},t);});});
 
 
 /* 天気予報 v7：複数地点を1リクエストでバッチ取得＋sessionStorageキャッシュで高速化。アイコンはカラー統一(VS16) */
