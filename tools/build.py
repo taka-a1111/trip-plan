@@ -120,8 +120,9 @@ def build(name, tag):
     year = data["date_s"][:4]
     day_wx = [dict(wx, **d_.get("wx", {})) for d_ in data["days"]]
     wxdays = "[" + ",".join(
-        "{d:'%s-%s',la:%s,lo:%s,jma:'%s',tk:'%s',nm:'%s'}"
-        % (year, _iso(d_["dd"]), w["lat"], w["lon"], w["jma"], w["tk"], w["nm"])
+        "{d:'%s-%s',la:%s,lo:%s,jma:'%s',tk:'%s',nm:'%s',ja:'%s',js:'%s'}"
+        % (year, _iso(d_["dd"]), w["lat"], w["lon"], w["jma"], w["tk"], w["nm"],
+           w.get("jarea", ""), w.get("jstn", ""))
         for d_, w in zip(data["days"], day_wx)) + "]"
     seen, lats, lons = set(), [], []
     for w in day_wx:

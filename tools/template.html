@@ -261,6 +261,7 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
 .wxpop .now .big{font-size:1.75rem;line-height:1}
 .wxpop .conf{font-size:.72rem;color:#8a5330;background:#fff3e9;border:1px solid #f2d3ba;border-radius:8px;padding:5px 9px;margin-bottom:6px;line-height:1.5}
 .wxpop a{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:.9rem;color:var(--teal-ink,#0c5561);text-decoration:none;padding:9px 10px;border-radius:9px}
+.wxpop a .lv{margin-left:auto;font-family:'Outfit',sans-serif;font-weight:700;font-size:.8rem;color:var(--teal-deep);white-space:nowrap}
 .wxpop a:hover{background:var(--sand,#efe6d6)}
 .wxpop a+a{border-top:1px solid var(--line)}
 .wxpop a .ar{color:var(--ink-faint,#8aa0a6);font-family:'Outfit',sans-serif}
@@ -358,6 +359,59 @@ console.log('BUILD_TAG: {{BUILD_TAG}}');if('serviceWorker' in navigator&&locatio
     setTimeout(function(){document.addEventListener('click',function(e){if(pop&&!e.target.closest('.wxpop')&&!e.target.closest('.glance')&&!e.target.closest('.fvwx-day'))hide();});},0);
     window.addEventListener('scroll',function(){if(Date.now()-openedAt>500)hide();},{passive:true});return pop;}
   function hide(){if(pop)pop.classList.remove('show');}
+  var JMACACHE={};
+  function fillJma(info){
+    var el=document.getElementById('jmaval'); if(!el)return;
+    function apply(j){
+      try{
+        var pop='',hi='',lo='',stnm='';
+        // 直近1〜2日は府県予報（細分区・6時間毎）の降水確率を優先
+        try{
+          var ts0=(j[0]||{}).timeSeries||[];
+          if(ts0[1]&&ts0[1].timeDefines){
+            var ars0=ts0[1].areas||[]; var ar0=ars0[0];
+            ars0.forEach(function(a){if(info.ja&&a.area&&a.area.name&&a.area.name.indexOf(info.ja)>=0)ar0=a;});
+            var mx=-1;
+            ts0[1].timeDefines.forEach(function(td,i2){
+              if(td.slice(0,10)===info.d&&ar0.pops&&ar0.pops[i2]!==''&&ar0.pops[i2]!=null){
+                var v=+ar0.pops[i2]; if(v>mx)mx=v;
+              }
+            });
+            if(mx>=0)pop=String(mx);
+          }
+        }catch(e){}
+        var wk=j[1]||{}; var ts=wk.timeSeries||[];
+        if(ts[0]&&ts[0].timeDefines){
+          var di=-1;
+          ts[0].timeDefines.forEach(function(td,i3){if(td.slice(0,10)===info.d)di=i3;});
+          if(di>=0){
+            if(pop===''){
+              var ars=ts[0].areas||[]; var ar=ars[0];
+              ars.forEach(function(a){if(info.ja&&a.area&&a.area.name&&a.area.name.indexOf(info.ja)>=0)ar=a;});
+              if(ar&&ar.pops&&ar.pops[di]!==''&&ar.pops[di]!=null)pop=ar.pops[di];
+            }
+            var sts=(ts[1]&&ts[1].areas)||[]; var st=sts[0];
+            sts.forEach(function(s){if(info.js&&s.area&&s.area.name&&s.area.name.indexOf(info.js)>=0)st=s;});
+            if(st){
+              stnm=(st.area&&st.area.name)||'';
+              if(st.tempsMax&&st.tempsMax[di]!==''&&st.tempsMax[di]!=null)hi=st.tempsMax[di];
+              if(st.tempsMin&&st.tempsMin[di]!==''&&st.tempsMin[di]!=null)lo=st.tempsMin[di];
+            }
+          }
+        }
+        var s='';
+        if(hi!==''&&lo!=='')s+=(stnm?stnm+' ':'')+hi+'\u00b0/'+lo+'\u00b0';
+        if(pop!=='')s+=(s?' \u30fb ':'')+pop+'%';
+        el.textContent=s;
+      }catch(e){}
+    }
+    if(JMACACHE[info.jma]){apply(JMACACHE[info.jma]);return;}
+    fetch('https://www.jma.go.jp/bosai/forecast/data/forecast/'+info.jma+'.json')
+      .then(function(r){return r.json();})
+      .then(function(j){JMACACHE[info.jma]=j;apply(j);})
+      .catch(function(){});
+  }
+
   function openPop(anchor,info){
     openedAt=Date.now();
     var p=ensurePop();
@@ -373,11 +427,12 @@ console.log('BUILD_TAG: {{BUILD_TAG}}');if('serviceWorker' in navigator&&locatio
     var line=info.lab+' \u30fb '+info.hi+'\u00b0/'+info.lo2+'\u00b0'+(info.pp!==null?' \u30fb \u964d\u6c34'+info.pp+'%':'');
     h+='<div class="now"><span class="big">'+icon(info.ic)+'</span><span>'+line+'</span></div>';
     if(info.conf)h+='<div class="conf">'+info.conf+' \uff0f \u7d04'+info.lead+'\u65e5\u5148\u306e\u4e88\u5831</div>';
-    h+=links.map(function(a){return '<a'+(a[2]?' class="'+a[2]+'"':'')+' href="'+a[1]+'" target="_blank" rel="noopener">'+a[0]+'<span class="ar">\u2197</span></a>';}).join('');
+    h+=links.map(function(a,li){return '<a'+(a[2]?' class="'+a[2]+'"':'')+' href="'+a[1]+'" target="_blank" rel="noopener">'+a[0]+(li===0?'<span class="lv" id="jmaval"></span>':'')+'<span class="ar">\u2197</span></a>';}).join('');
     h+='<div class="src">\u5bbf\u6cca\u5730\u306e\u30d4\u30f3\u30dd\u30a4\u30f3\u30c8\u4e88\u5831\u3092\u958b\u304d\u307e\u3059\u3002\u5024\u306e\u76ee\u5b89\u306f\u6c17\u8c61\u5e81\u30fbECMWF\u30fbGFS\u30fbICON\u306e\u7d71\u5408\u5024\u3067\u3059\u3002</div>';
     p.innerHTML=h;
     p.querySelector('.cls').addEventListener('click',hide);
     p.classList.add('show');
+    fillJma(info);
     var r=anchor.getBoundingClientRect(),pw=Math.min(266,window.innerWidth-16),ph=p.offsetHeight;
     var left=Math.max(8,Math.min(r.left,window.innerWidth-pw-8));
     var top=r.bottom+8;if(top+ph>window.innerHeight-8){top=Math.max(8,r.top-ph-8);}
@@ -397,7 +452,7 @@ console.log('BUILD_TAG: {{BUILD_TAG}}');if('serviceWorker' in navigator&&locatio
       var storm=!!STORM[x.d];if(storm)wc=['typhoon','\u53f0\u98a8\uff08\u66b4\u98a8\u57df\uff09'];
       var lead=Math.round((new Date(x.d+'T00:00:00')-today)/864e5);
       var conf=lead<=3?'':(lead<=7?'\u78ba\u5ea6\uff1a\u4e2d\uff08\u5909\u308f\u308a\u3084\u3059\u3044\u30fb\u8981\u78ba\u8a8d\uff09':'\u78ba\u5ea6\uff1a\u4f4e\uff08\u3042\u304f\u307e\u3067\u76ee\u5b89\u30fb\u8981\u78ba\u8a8d\uff09');
-      var info={nm:x.nm,d:x.d,jma:x.jma,tk:x.tk,la:x.la,lo:x.lo,ic:wc[0],lab:wc[1],hi:Hi,lo2:Lo,pp:Pp,lead:lead,conf:conf,typ:TYP,storm:storm};
+      var info={nm:x.nm,d:x.d,jma:x.jma,tk:x.tk,ja:x.ja||'',js:x.js||'',la:x.la,lo:x.lo,ic:wc[0],lab:wc[1],hi:Hi,lo2:Lo,pp:Pp,lead:lead,conf:conf,typ:TYP,storm:storm};
       if(strip){
         var wd='\u65e5\u6708\u706b\u6c34\u6728\u91d1\u571f'[new Date(x.d+'T00:00:00').getDay()];
         var md=x.d.slice(5).replace('-','/');
