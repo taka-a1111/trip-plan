@@ -84,6 +84,15 @@ def build(name, tag):
         counter = [0]
         rows = "".join(render_row(points, r, counter) for r in d["rows"])
         meals_html = render_meals(d.get("meals"))
+        cost = d.get("cost")
+        cost_html = ""
+        if cost:
+            amt = cost.get("total")
+            label = "この日の有料費"
+            val = ("0円" if amt == 0 else "約{:,}円".format(amt)) if isinstance(amt, int) else str(amt)
+            bd = ('<span class="dc-b">%s</span>' % cost["note"]) if cost.get("note") else ""
+            cost_html = ('<div class="daycost"><span class="dc-l">%s</span>'
+                         '<span class="dc-v">%s</span>%s</div>' % (label, val, bd))
         if d.get("meals"):
             has_meals = True
         tags = "".join('<span class="day-tag %s">%s</span>' % (c, t) for c, t in d["tags"])
@@ -100,9 +109,9 @@ def build(name, tag):
             '<div class="day-date"><span class="dd">%s</span><span class="dw">%s</span></div>'
             '<span class="day-badge">%s</span><div class="day-tags">%s</div></div>'
             '<h2 class="day-theme">%s</h2>%s%s'
-            '<ul class="spot-list">%s</ul>%s'
+            '<ul class="spot-list">%s</ul>%s%s'
             '<div class="daymap" id="daymap%d"></div></section>'
-            % (d["id"], d["dd"], d["dw"], d["badge"], tags, d["theme"], photo, notice, rows, meals_html, i))
+            % (d["id"], d["dd"], d["dw"], d["badge"], tags, d["theme"], photo, notice, rows, meals_html, cost_html, i))
         DM[str(i)] = [pin(points, k) for k in d["pins"]]
 
     memo = ('<div class="notice" style="margin-top:22px">%s</div>' % data["memo"]) if data.get("memo") else ""
