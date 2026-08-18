@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="ja"><head><!-- BUILD_TAG: 2026-08-19d --><script>/*LINE_EXT*/(function(){try{var u=navigator.userAgent||'';if(/ Line\//i.test(u)&&location.search.indexOf('openExternalBrowser')<0){location.href=location.href+(location.search?'&':'?')+'openExternalBrowser=1';}}catch(e){}})();</script><meta charset="UTF-8">
+<!DOCTYPE html><html lang="ja"><head><!-- BUILD_TAG: 2026-08-19e --><script>/*LINE_EXT*/(function(){try{var u=navigator.userAgent||'';if(/ Line\//i.test(u)&&location.search.indexOf('openExternalBrowser')<0){location.href=location.href+(location.search?'&':'?')+'openExternalBrowser=1';}}catch(e){}})();</script><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>沖縄｜旅のしおり</title><link rel="manifest" href="./manifest.json"><meta name="theme-color" content="#0c7c8c"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/><link rel="stylesheet" href="https://unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css"/><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="https://unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.js"></script>
 <style>
@@ -246,7 +246,10 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
 .ft-top:hover{background:rgba(255,255,255,.14)}
 
 .day-line .wx{display:inline-flex;align-items:center;margin-left:8px;vertical-align:middle;flex:0 0 auto}
-.day-line .wx .glance{display:inline-flex;align-items:center;gap:7px;cursor:pointer;font-family:'Outfit',sans-serif;font-weight:600;font-size:.72rem;color:var(--ink-soft);background:var(--paper-2);border:1px solid var(--line);border-radius:22px;padding:2px 10px;white-space:nowrap}
+.day-line .wx .glance{display:inline-flex;align-items:center;gap:9px;cursor:pointer;font-family:'Outfit',sans-serif;font-weight:700;font-size:.95rem;color:var(--ink);background:var(--paper-2);border:1px solid var(--line);border-radius:22px;padding:4px 14px;white-space:nowrap}
+.day-line .wx .glance .ic{font-size:1.15em;line-height:1}
+.day-line .wx .glance .lo{font-weight:600;color:var(--ink-soft)}
+.day-line .wx .glance .pp{color:var(--teal);font-weight:700}
 .day-line .wx .glance:hover{background:var(--sand,#efe6d6)}
 .day-line .wx .glance .ic{font-size:1.4rem;line-height:1}
 .day-line .wx .glance .t{color:var(--ink)}
@@ -317,7 +320,7 @@ var RT={"pts": [{"n": "自宅（名古屋）", "lat": 35.1874286, "lon": 136.963
 
 
 
-console.log('BUILD_TAG: 2026-08-19d');if('serviceWorker' in navigator&&location.protocol==='https:'){try{navigator.serviceWorker.register('./sw.js');}catch(e){}}</script><script>/*FV_RESIZE*/window.addEventListener('load',function(){[400,1500,3000].forEach(function(t){setTimeout(function(){try{window.dispatchEvent(new Event('resize'));}catch(e){}},t);});});
+console.log('BUILD_TAG: 2026-08-19e');if('serviceWorker' in navigator&&location.protocol==='https:'){try{navigator.serviceWorker.register('./sw.js');}catch(e){}}</script><script>/*FV_RESIZE*/window.addEventListener('load',function(){[400,1500,3000].forEach(function(t){setTimeout(function(){try{window.dispatchEvent(new Event('resize'));}catch(e){}},t);});});
 
 
 /* 天気予報 v7：複数地点を1リクエストでバッチ取得＋sessionStorageキャッシュで高速化。アイコンはカラー統一(VS16) */
