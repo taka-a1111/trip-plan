@@ -188,7 +188,7 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
 .menu-panel a{display:block;font-size:.9rem;color:var(--ink);text-decoration:none;padding:10px 12px;border-radius:8px}
 .menu-panel a:hover{background:var(--sand)}
 .menu-h{font-size:.7rem;color:var(--ink-faint);padding:9px 12px 3px;letter-spacing:.04em}
-.totop{position:fixed;right:18px;bottom:18px;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:var(--paper-2);color:var(--teal-deep);box-shadow:var(--shadow-m);cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .25s,transform .25s,visibility .25s;z-index:80}
+.totop{position:fixed;right:18px;bottom:76px;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:var(--paper-2);color:var(--teal-deep);box-shadow:var(--shadow-m);cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .25s,transform .25s,visibility .25s;z-index:80}
 .totop.show{opacity:1;visibility:visible;transform:none}
 .totop svg{width:20px;height:20px}
 @media(max-width:680px){.totop{right:14px;bottom:14px;width:42px;height:42px}}
@@ -208,13 +208,19 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
 .tripfoot-links{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
 .tripfoot-links a{font-size:.78rem;color:var(--teal-deep);text-decoration:none;border:1px solid var(--line);border-radius:8px;padding:6px 12px;background:var(--paper-2)}
 .tripfoot-note{font-size:.78rem;color:#8a5538;background:#fff6ee;border:1px solid #f3d8c4;border-left:3px solid var(--coral);border-radius:10px;padding:10px 13px}
-.ft-days{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:4px}
-.ft-days a{display:inline-flex;flex-direction:column;align-items:center;gap:1px;margin:0;padding:8px 14px;min-width:64px;border:1px solid rgba(255,255,255,.34);border-radius:11px;color:#fff;text-decoration:none;transition:background .18s}
-.ft-days a:hover{background:rgba(255,255,255,.12)}
-.ft-days .fd-d{font-family:'Outfit',sans-serif;font-weight:700;font-size:.92rem;letter-spacing:.02em}
-.ft-days .fd-w{font-size:.62rem;color:#bfe0e4;letter-spacing:.06em}
 .ft-btns{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
 .ft-btns a{margin-top:12px}
+.daybar{position:fixed;left:0;right:0;bottom:0;z-index:85;background:rgba(246,242,234,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-top:1px solid var(--line);box-shadow:0 -3px 14px rgba(20,40,45,.08);padding:7px 0 calc(7px + env(safe-area-inset-bottom));transform:translateY(110%);transition:transform .25s;pointer-events:none}
+.daybar.show{transform:none;pointer-events:auto}
+.daybar-in{display:flex;gap:7px;overflow-x:auto;padding:0 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.daybar-in::-webkit-scrollbar{display:none}
+.daybar-in a{flex:0 0 auto;display:inline-flex;flex-direction:column;align-items:center;gap:0;padding:6px 13px;border:1px solid var(--line);border-radius:11px;background:var(--paper-2);color:var(--teal-ink);text-decoration:none;line-height:1.25}
+.daybar-in a.on{background:var(--teal-ink);border-color:var(--teal-ink);color:#fff}
+.daybar-in a.on .fd-w{color:#cfe6e9}
+.daybar .fd-d{font-family:'Outfit',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.02em}
+.daybar .fd-w{font-size:.6rem;color:var(--ink-faint);letter-spacing:.04em}
+body{padding-bottom:0}
+body.has-daybar{padding-bottom:66px}
 .tfoot{background:var(--teal-ink);color:#cfe1e4;padding:30px 18px;text-align:center;margin-top:18px}
 .tfoot .ft-title{font-family:'Shippori Mincho',serif;font-size:1.12rem;letter-spacing:.05em}
 .tfoot a{display:inline-block;margin-top:12px;color:#bfe0e4;font-size:.8rem;text-decoration:none;border:1px solid rgba(255,255,255,.3);border-radius:9px;padding:7px 16px}
@@ -314,11 +320,29 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
 </style><link rel="preconnect" href="https://api.open-meteo.com" crossorigin><link rel="dns-prefetch" href="https://api.open-meteo.com"><script>/*WXHEAD*/window.__WXP=(function(){var t=new Date();t.setHours(0,0,0,0);var sd='{{DATE_S}}',ed='{{DATE_E}}';var s=new Date(sd+'T00:00:00'),e=new Date(ed+'T00:00:00');if((s-t)/864e5>16||(t-e)/864e5>0)return null;var u='https://api.open-meteo.com/v1/forecast?latitude={{WX_LAT}}&longitude={{WX_LON}}&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_mean&models=jma_seamless,ecmwf_ifs04,gfs_seamless,icon_seamless&timezone=Asia%2FTokyo&start_date='+sd+'&end_date='+ed;return{weather:fetch(u).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}),typhoon:fetch('https://www.jma.go.jp/bosai/typhoon/data/targetTc.json').then(function(r){return r.ok?r.json():[];}).catch(function(){return[];})};})();</script></head><body>
 <nav class="nav" id="top"><div class="nav-in"><a class="brand" href="./index.html"><b>旅のしおり</b></a><div class="navright"><details class="menu-wrap"><summary class="ham" aria-label="メニュー"><svg viewBox="0 0 24 26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary><div class="menu-panel"><a href="./index.html">カレンダーへ戻る</a><div class="menu-h">この旅の日程</div>{{NAV_DAYS}}</div></details></div></div></nav><div class="fv"><header class="hero trip-hero fv-photo" style="background-image:linear-gradient(180deg,rgba(5,40,48,.32),rgba(4,38,46,.18) 38%,rgba(4,40,48,.74)),url('data:image/jpeg;base64,{{HERO_B64}}')"><div class="hero-frame">{{CREDIT}}<div class="hero-main"><h1><span class="nb">{{H1_TOP}}</span><br>{{H1_SUB}}</h1><div class="dates"><b class="en">{{DATES_LABEL}}</b></div><div class="hero-stats"><div><div class="num">{{STAT_DAYS}}</div><div class="lbl">日間</div></div><div><div class="num">{{STAT_NIGHTS}}</div><div class="lbl">泊</div></div><div><div class="num">{{STAT_SPOTS}}</div><div class="lbl">スポット</div></div></div></div></div></header><div class="fv-map"><div class="fv-map-label">この旅のスポット</div><a class="fv-gbtn rm-gbtn map-open" href="{{DIRLINK}}" target="_blank" rel="noopener">Googleマップで開く →</a><div id="tripmap"></div></div></div><div class="fvwx" id="fvwx"></div><div class="legend"><span class="lg"><span class="dot cat-sight"></span>観光</span><span class="lg"><span class="dot cat-play"></span>遊ぶ</span><span class="lg"><span class="dot cat-food"></span>グルメ</span><span class="lg"><span class="dot cat-shop"></span>買物</span><span class="lg"><span class="dot cat-onsen"></span>温泉</span><span class="lg"><span class="dot cat-stay"></span>泊まる</span><span class="lg"><span class="dot cat-move"></span>移動</span>{{LEGEND_EXTRA}}</div><main class="timeline">{{MAIN}}</main>
 
-<footer class="tfoot"><div class="ft-days">{{FOOT_DAYS}}</div><div class="ft-btns"><a href="./index.html">← カレンダーへ戻る</a><a class="ft-top" href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ 上に戻る</a></div>
+<footer class="tfoot"><div class="ft-btns"><a href="./index.html">← カレンダーへ戻る</a><a class="ft-top" href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ 上に戻る</a></div>
 </footer>
-<button class="totop" id="totop" aria-label="上に戻る"><svg viewBox="0 0 24 26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V6M6 12l6-6 6 6"/></svg></button>
+<nav class="daybar" id="daybar" aria-label="日程へ移動"><div class="daybar-in">{{FOOT_DAYS}}</div></nav><button class="totop" id="totop" aria-label="上に戻る"><svg viewBox="0 0 24 26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V6M6 12l6-6 6 6"/></svg></button>
 <script>
 var tt=document.getElementById('totop');if(tt){window.addEventListener('scroll',function(){if(window.scrollY>400)tt.classList.add('show');else tt.classList.remove('show');});tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});}
+(function(){var bar=document.getElementById('daybar');if(!bar)return;
+  var links=[].slice.call(bar.querySelectorAll('a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
+  document.body.classList.add('has-daybar');
+  function upd(){
+    if(window.scrollY>400)bar.classList.add('show');else bar.classList.remove('show');
+    var cur=-1,y=window.scrollY+140;
+    secs.forEach(function(s,i){if(s&&s.offsetTop<=y)cur=i;});
+    links.forEach(function(a,i){a.classList.toggle('on',i===cur);});
+    var act=links[cur];
+    if(act&&bar.classList.contains('show')){
+      var box=bar.querySelector('.daybar-in');
+      var l=act.offsetLeft-(box.clientWidth-act.offsetWidth)/2;
+      if(Math.abs(box.scrollLeft-l)>40)box.scrollTo({left:l,behavior:'smooth'});
+    }
+  }
+  window.addEventListener('scroll',upd,{passive:true});upd();
+})();
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
 document.querySelectorAll('.menu-panel a').forEach(function(a){a.addEventListener('click',function(){var d=document.querySelector('.menu-wrap');if(d)d.open=false;});});
