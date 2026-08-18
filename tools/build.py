@@ -146,6 +146,26 @@ def build(name, tag):
     spots = len(data["rt_order"])
     credit = ('<div style="font-size:.62rem;opacity:.55;margin:4px 0 8px">%s</div>' % data["credit"]) if data.get("credit") else ""
 
+    costs = [(d.get("dd"), d.get("id"), (d.get("cost") or {}).get("total")) for d in data["days"]]
+    nums = [c for _, _, c in costs if isinstance(c, int)]
+    cost_total = sum(nums) if nums else None
+    cost_summary = ""
+    stat_cost = ""
+    if cost_total is not None:
+        chips = "".join(
+            '<a class="cs-item" href="#%s"><span class="cs-d">%s</span>'
+            '<span class="cs-v">%s</span></a>'
+            % (i_, dd, ("0円" if c == 0 else "{:,}円".format(c)))
+            for dd, i_, c in costs if isinstance(c, int))
+        cost_summary = ('<div class="costsum"><div class="costsum-in">'
+                        '<h3>有料費の目安<span class="cs-total">合計 約{:,}円</span></h3>'
+                        '<div class="cs-list">{}</div>'
+                        '<div class="cs-note">入場料・入浴料など有料施設の合計（家族4人）。食費・ガソリン代・高速代は含みません。'
+                        '日付をタップするとその日の内訳へ移動します。</div>'
+                        '</div></div>').format(cost_total, chips)
+        stat_cost = ('<div><div class="num">%s</div><div class="lbl">有料費(円)</div></div>'
+                     % "{:,}".format(cost_total))
+
     rep = {
         "{{TITLE}}": data["title"], "{{BUILD_TAG}}": tag, "{{HERO_B64}}": hero,
         "{{H1_TOP}}": data["h1_top"], "{{H1_SUB}}": data["h1_sub"],
@@ -154,7 +174,7 @@ def build(name, tag):
         "{{DATE_S}}": data["date_s"], "{{DATE_E}}": data["date_e"],
         "{{WX_LAT}}": ",".join(lats), "{{WX_LON}}": ",".join(lons),
         "{{LEGEND_EXTRA}}": ('<span class="lg lg-pin"><span class="mno" style="width:16px;height:16px;font-size:.62rem">A</span>食事の候補</span>' if has_meals else ""),
-        "{{NAV_DAYS}}": nav, "{{DIRLINK}}": dirlink, "{{MAIN}}": main,
+        "{{NAV_DAYS}}": nav, "{{COST_SUMMARY}}": cost_summary, "{{STAT_COST}}": stat_cost, "{{DIRLINK}}": dirlink, "{{MAIN}}": main,
         "{{RT}}": json.dumps(RT, ensure_ascii=False),
         "{{DM}}": json.dumps(DM, ensure_ascii=False),
         "{{WX_DAYS}}": wxdays, "{{CREDIT}}": credit,
