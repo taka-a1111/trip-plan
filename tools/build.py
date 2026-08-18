@@ -149,6 +149,8 @@ def build(name, tag):
     costs = [(d.get("dd"), d.get("id"), (d.get("cost") or {}).get("total")) for d in data["days"]]
     nums = [c for _, _, c in costs if isinstance(c, int)]
     cost_total = sum(nums) if nums else None
+    tr = data.get("transport") or {}
+    tr_total = (tr.get("fuel", 0) + tr.get("toll", 0)) if tr else 0
     cost_summary = ""
     stat_cost = ""
     if cost_total is not None:
@@ -157,14 +159,24 @@ def build(name, tag):
             '<span class="cs-v">%s</span></a>'
             % (i_, dd, ("0円" if c == 0 else "{:,}円".format(c)))
             for dd, i_, c in costs if isinstance(c, int))
+        grand = cost_total + tr_total
+        tr_html = ""
+        if tr:
+            tr_html = ('<div class="cs-row"><span class="cs-rl">交通費（概算）</span>'
+                       '<span class="cs-rv">約{:,}円</span>'
+                       '<span class="cs-rb">{}</span></div>').format(tr_total, tr.get("note", ""))
         cost_summary = ('<div class="costsum"><div class="costsum-in">'
-                        '<h3>有料費の目安<span class="cs-total">合計 約{:,}円</span></h3>'
-                        '<div class="cs-list">{}</div>'
-                        '<div class="cs-note">入場料・入浴料など有料施設の合計（家族4人）。食費・ガソリン代・高速代は含みません。'
-                        '日付をタップするとその日の内訳へ移動します。</div>'
-                        '</div></div>').format(cost_total, chips)
-        stat_cost = ('<div><div class="num">%s</div><div class="lbl">有料費(円)</div></div>'
-                     % "{:,}".format(cost_total))
+                        '<h3>旅の費用<span class="cs-total">合計 約{grand:,}円</span>'
+                        '<span class="cs-sub">＋食費</span></h3>'
+                        '<div class="cs-row"><span class="cs-rl">施設利用料</span>'
+                        '<span class="cs-rv">約{fac:,}円</span></div>'
+                        '<div class="cs-list">{chips}</div>'
+                        '{tr}'
+                        '<div class="cs-note">家族4人分。入場料・入浴料と、ガソリン代・高速代（ETC通常料金の目安）の合計です。'
+                        '<b>食費は含みません</b>（別途かかります）。日付をタップするとその日の内訳へ移動します。</div>'
+                        '</div></div>').format(grand=grand, fac=cost_total, chips=chips, tr=tr_html)
+        stat_cost = ('<div><div class="num">%s</div><div class="lbl">費用(円)</div></div>'
+                     % "{:,}".format(grand))
 
     rep = {
         "{{TITLE}}": data["title"], "{{BUILD_TAG}}": tag, "{{HERO_B64}}": hero,
