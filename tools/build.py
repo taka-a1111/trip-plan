@@ -135,7 +135,7 @@ def build(name, tag):
     hero = base64.b64encode(open(os.path.join(ROOT, data["hero_image"]), "rb").read()).decode()
     nights = sum(1 for d in data["days"][:-1])
     spots = len(data["rt_order"])
-    credit = ('<div style="font-size:.62rem;opacity:.55;margin:4px 0 8px">%s</div>' % data["credit"]) if data.get("credit") else ""
+    credit = ('<div class="hero-credit">%s</div>' % data["credit"]) if data.get("credit") else ""
 
     rep = {
         "{{TITLE}}": data["title"], "{{BUILD_TAG}}": tag, "{{HERO_B64}}": hero,
