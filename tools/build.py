@@ -124,6 +124,11 @@ def build(name, tag):
         % (year, _iso(d_["dd"]), w["lat"], w["lon"], w["jma"], w["tk"], w["nm"],
            w.get("jarea", ""), w.get("jstn", ""))
         for d_, w in zip(data["days"], day_wx)) + "]"
+    past = {}
+    for d_ in data["days"]:
+        if d_.get("wxp"):
+            past["%s-%s" % (year, _iso(d_["dd"]))] = d_["wxp"]
+    past_js = json.dumps(past, ensure_ascii=False)
     seen, lats, lons = set(), [], []
     for w in day_wx:
         key = (w["lat"], w["lon"])
@@ -137,6 +142,14 @@ def build(name, tag):
     spots = len(data["rt_order"])
     credit = ('<div class="hero-credit">%s</div>' % data["credit"]) if data.get("credit") else ""
 
+    wear = data.get("wear")
+    wear_html = ""
+    if wear:
+        wear_html = ('<div class="wear">'
+                     '<span class="w-item"><span class="w-lb">昼</span><span>%s</span></span>'
+                     '<span class="w-item"><span class="w-lb">朝晩</span><span>%s</span></span>'
+                     '</div>') % (wear.get("day", ""), wear.get("night", ""))
+
     rep = {
         "{{TITLE}}": data["title"], "{{BUILD_TAG}}": tag, "{{HERO_B64}}": hero,
         "{{H1_TOP}}": data["h1_top"], "{{H1_SUB}}": data["h1_sub"],
@@ -145,10 +158,10 @@ def build(name, tag):
         "{{DATE_S}}": data["date_s"], "{{DATE_E}}": data["date_e"],
         "{{WX_LAT}}": ",".join(lats), "{{WX_LON}}": ",".join(lons),
         "{{LEGEND_EXTRA}}": ('<span class="lg lg-pin"><span class="mno" style="width:16px;height:16px;font-size:.62rem">A</span>食事の候補</span>' if has_meals else ""),
-        "{{NAV_DAYS}}": nav, "{{DIRLINK}}": dirlink, "{{MAIN}}": main,
+        "{{NAV_DAYS}}": nav, "{{WEAR}}": wear_html, "{{DIRLINK}}": dirlink, "{{MAIN}}": main,
         "{{RT}}": json.dumps(RT, ensure_ascii=False),
         "{{DM}}": json.dumps(DM, ensure_ascii=False),
-        "{{WX_DAYS}}": wxdays, "{{CREDIT}}": credit,
+        "{{WX_DAYS}}": wxdays, "{{WX_PAST}}": past_js, "{{CREDIT}}": credit,
     }
     h = tpl
     for k, v in rep.items():
