@@ -158,7 +158,7 @@ def build(name, tag):
         "{{DATE_S}}": data["date_s"], "{{DATE_E}}": data["date_e"],
         "{{WX_LAT}}": ",".join(lats), "{{WX_LON}}": ",".join(lons),
         "{{LEGEND_EXTRA}}": ('<span class="lg lg-pin"><span class="mno" style="width:16px;height:16px;font-size:.62rem">A</span>食事の候補</span>' if has_meals else ""),
-        "{{NAV_DAYS}}": nav, "{{WEAR}}": wear_html, "{{DIRLINK}}": dirlink, "{{MAIN}}": main,
+        "{{NAV_DAYS}}": nav, "{{WEAR}}": wear_html, "{{TRIP_KEY}}": data["name"], "{{DIRLINK}}": dirlink, "{{MAIN}}": main,
         "{{RT}}": json.dumps(RT, ensure_ascii=False),
         "{{DM}}": json.dumps(DM, ensure_ascii=False),
         "{{WX_DAYS}}": wxdays, "{{WX_PAST}}": past_js, "{{CREDIT}}": credit,
