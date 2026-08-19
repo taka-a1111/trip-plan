@@ -116,10 +116,6 @@ def build(name, tag):
                "&travelmode=driving&waypoints={w}").format(la=home["lat"], lo=home["lon"], w=wps)
 
     nav = "".join('<a href="#%s">%s</a>' % (d["id"], d["badge"]) for d in data["days"])
-    foot_days = "".join(
-        '<a href="#%s"><span class="fd-d">%s</span><span class="fd-w">%s・%s</span></a>'
-        % (d["id"], d["dd"], d["dw"], d["badge"])
-        for d in data["days"])
     wx = data["wx"]
     year = data["date_s"][:4]
     day_wx = [dict(wx, **d_.get("wx", {})) for d_ in data["days"]]
@@ -149,7 +145,7 @@ def build(name, tag):
         "{{DATE_S}}": data["date_s"], "{{DATE_E}}": data["date_e"],
         "{{WX_LAT}}": ",".join(lats), "{{WX_LON}}": ",".join(lons),
         "{{LEGEND_EXTRA}}": ('<span class="lg lg-pin"><span class="mno" style="width:16px;height:16px;font-size:.62rem">A</span>食事の候補</span>' if has_meals else ""),
-        "{{NAV_DAYS}}": nav, "{{FOOT_DAYS}}": foot_days, "{{DIRLINK}}": dirlink, "{{MAIN}}": main,
+        "{{NAV_DAYS}}": nav, "{{DIRLINK}}": dirlink, "{{MAIN}}": main,
         "{{RT}}": json.dumps(RT, ensure_ascii=False),
         "{{DM}}": json.dumps(DM, ensure_ascii=False),
         "{{WX_DAYS}}": wxdays, "{{CREDIT}}": credit,
