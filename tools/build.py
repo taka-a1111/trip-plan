@@ -125,21 +125,22 @@ def build(name, tag):
     def render_meals(meals, pinned=False):
         if not meals:
             return ""
-        groups = ""
+        blocks = ""
         for g in meals:
-            items = ""
+            rows = ""
             for it in g["items"]:
-                items += ('<li><div class="mtop"><span class="mno">%s</span>'
-                          '<a class="mname" href="%s" target="_blank" rel="noopener">%s</a></div>'
-                          '<span class="mmeta">%s</span></li>'
-                          % (it["lb"], gmap(it["q"]), it["name"], it.get("meta", "")))
+                rows += ('<tr><th scope="row"><a class="fshop" href="%s" target="_blank" rel="noopener">%s</a></th>'
+                         '<td class="mt-rv">%s</td><td class="mt-hr">%s</td><td class="mt-off">%s</td>'
+                         '<td class="mt-ft">%s</td></tr>'
+                         % (gmap(it["q"]), it["name"], it.get("rv", "—"),
+                            it.get("hr", "—"), it.get("off", "—"), it.get("ft") or it.get("meta", "")))
             lab_cls = "ml-l" if g.get("slot") == "昼" else "ml-d"
-            groups += ('<div class="meal"><span class="mlab %s">%s</span>'
-                       '<ul class="mlist">%s</ul></div>' % (lab_cls, g.get("slot", "夜"), items))
-        hint = ("A・B… は地図のオレンジのピン" if pinned
-                else "店名をタップするとGoogleマップが開きます")
-        return ('<div class="mhead">食事の候補<span class="mhint">%s</span></div>'
-                '<div class="meals">%s</div>' % (hint, groups))
+            blocks += ('<div class="mslot"><span class="mlab %s">%s</span>'
+                       '<div class="mtable-wrap"><table class="mtable"><thead><tr>'
+                       '<th>店舗名</th><th>口コミ</th><th>営業時間</th><th>定休日</th><th>特徴</th>'
+                       '</tr></thead><tbody>%s</tbody></table></div></div>' % (lab_cls, g.get("slot", "夜"), rows))
+        return ('<div class="mhead">食事の候補<span class="mhint">表は横にスライドできます</span></div>'
+                '<div class="meals">%s</div>' % blocks)
 
     sections, DM, has_meals, has_meal_pins = [], {}, False, False
     for i, d in enumerate(data["days"]):
