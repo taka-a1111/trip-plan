@@ -166,12 +166,20 @@ def build(name, tag):
             photo = ('<div class="day-photo"><img src="data:image/jpeg;base64,%s" alt="%s" loading="lazy">%s</div>'
                      % (b64, ph.get("alt", ""), cr))
         spots_q = [points[r["key"]]["q"] for r in d["rows"] if r["type"] != "move"]
-        if i == 0:
-            org, dst = "%s,%s" % (data["home"]["lat"], data["home"]["lon"]), spots_q[-1] if spots_q else ""
-        elif i == len(data["days"]) - 1:
-            org, dst = spots_q[0] if spots_q else "", "%s,%s" % (data["home"]["lat"], data["home"]["lon"])
-        else:
-            org = dst = spots_q[-1] if spots_q else ""
+
+        def _stay(day):
+            """その日の宿泊地（最後のstay行）"""
+            last = ""
+            for r in day["rows"]:
+                if r["type"] != "move" and points[r["key"]].get("k") == "stay":
+                    last = points[r["key"]]["q"]
+            return last
+
+        home_q = "%s,%s" % (data["home"]["lat"], data["home"]["lon"])
+        org = _stay(data["days"][i - 1]) if i > 0 else home_q
+        dst = _stay(d) or home_q
+        if not org:
+            org = home_q
         route = ('<div class="rtwrap"><button class="rtbtn" type="button" data-org="%s" data-dst="%s" '
                  'data-sp="%s">この日の動きを地図で開く</button></div>'
                  % (org, dst, "|".join(spots_q)))
