@@ -138,10 +138,11 @@ def build(name, tag):
                             it.get("hr") or "—", it.get("off") or "—"))
             sl = g.get("slot", "夜")
             lab_cls = "ml-l" if sl == "昼" else ("ml-s" if sl == "買い出し" else "ml-d")
+            lab = "買い<br>出し" if sl == "買い出し" else sl
             blocks += ('<div class="mslot"><span class="mlab %s">%s</span>'
                        '<div class="mtable-wrap"><table class="mtable"><thead><tr>'
                        '<th class="mt-ck"></th><th>店舗名</th><th>口コミ</th><th>予算（1人あたり）</th><th>営業時間</th><th>定休日</th>'
-                       '</tr></thead><tbody>%s</tbody></table></div></div>' % (lab_cls, g.get("slot", "夜"), rows))
+                       '</tr></thead><tbody>%s</tbody></table></div></div>' % (lab_cls, lab, rows))
         return ('<div class="mhead">食事の候補<span class="mhint">表は横にスライドできます</span></div>'
                 '<div class="meals">%s</div>' % blocks)
 
