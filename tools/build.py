@@ -51,12 +51,13 @@ def render_row(points, row, counter):
         links += '<a class="lnk lnk-rsv" href="%s" target="_blank" rel="noopener">予約</a>' % p["reserve"]
     name = row.get("name_override") or p["n"]
     plan = ('<span class="s-plan">%s</span>' % row["plan"]) if row.get("plan") else ""
-    return ('<li class="spot-row"><div class="spot-main"><div class="spot-meta">'
+    main_cls = " is-main" if row.get("main") else ""
+    return ('<li class="spot-row%s"><div class="spot-main"><div class="spot-meta">'
             '<span class="spot-no %s">%d</span>%s<span class="ctag cat-%s">%s</span>'
             '<span class="s-name">%s</span>%s%s</div>'
             '<div class="s-note">%s</div></div>'
             '<div class="spot-links">%s</div></li>'
-            % (no_cls, counter[0], plan, row["cat"], row["cat_lbl"], name, time_html, badges, row["note"], links))
+            % (main_cls, no_cls, counter[0], plan, row["cat"], row["cat_lbl"], name, time_html, badges, row["note"], links))
 
 
 def build(name, tag):
@@ -141,7 +142,12 @@ def build(name, tag):
 
     hero = base64.b64encode(open(os.path.join(ROOT, data["hero_image"]), "rb").read()).decode()
     nights = sum(1 for d in data["days"][:-1])
-    spots = len(data["rt_order"])
+    spots = len([k for k in data["rt_order"]
+                 if points[k].get("k") == "spot" and points[k].get("cat_hint") != "onsen"])
+    onsen_keys = {r["key"] for d_ in data["days"] for r in d_["rows"]
+                  if r.get("type") == "spot" and r.get("cat") == "onsen"}
+    spots = len([k for k in data["rt_order"]
+                 if points[k].get("k") == "spot" and k not in onsen_keys])
     credit = ('<div class="hero-credit">%s</div>' % data["credit"]) if data.get("credit") else ""
 
     wear = data.get("wear")
