@@ -124,11 +124,10 @@ def build(name, tag):
         sections.append(
             '<section class="day reveal" id="%s"><div class="day-line">'
             '<div class="day-date"><span class="dd">%s</span><span class="dw">%s</span></div>'
-            '<span class="day-badge">%s</span><div class="day-tags">%s</div>'
-            '<span class="day-caret" aria-hidden="true"></span></div>'
-            '<h2 class="day-theme">%s</h2><div class="day-in">%s%s'
+            '<span class="day-badge">%s</span><div class="day-tags">%s</div></div>'
+            '<h2 class="day-theme">%s</h2>%s%s'
             '<ul class="spot-list%s">%s</ul>%s'
-            '<div class="daymap" id="daymap%d"></div></div></section>'
+            '<div class="daymap" id="daymap%d"></div></section>'
             % (d["id"], d["dd"], d["dw"], d["badge"], tags, d["theme"], photo, notice,
                ("" if any(r.get("plan") for r in d["rows"]) else " np"), rows, meals_html, i))
         DM[str(i)] = [pin(points, k) for k in d["pins"]]
@@ -144,6 +143,8 @@ def build(name, tag):
                "&travelmode=driving&waypoints={w}").format(la=home["lat"], lo=home["lon"], w=wps)
 
     nav = "".join('<a href="#%s">%s</a>' % (d["id"], d["badge"]) for d in data["days"])
+    daybar = "".join('<a href="#%s" data-day="%s">%s<small>%s</small></a>'
+                     % (d["id"], d["id"], d["dd"], d["dw"]) for d in data["days"])
     wx = data["wx"]
     year = data["date_s"][:4]
     day_wx = [dict(wx, **d_.get("wx", {})) for d_ in data["days"]]
@@ -191,7 +192,7 @@ def build(name, tag):
         "{{DATE_S}}": data["date_s"], "{{DATE_E}}": data["date_e"],
         "{{WX_LAT}}": ",".join(lats), "{{WX_LON}}": ",".join(lons),
         "{{LEGEND_EXTRA}}": ('<span class="lg lg-pin"><span class="mno" style="width:16px;height:16px;font-size:.62rem">A</span>食事の候補</span>' if has_meals else ""),
-        "{{NAV_DAYS}}": nav, "{{WEAR}}": wear_html, "{{TRIP_KEY}}": data["name"], "{{DIRLINK}}": dirlink, "{{MAIN}}": main,
+        "{{NAV_DAYS}}": nav, "{{DAY_BAR}}": daybar, "{{WEAR}}": wear_html, "{{TRIP_KEY}}": data["name"], "{{DIRLINK}}": dirlink, "{{MAIN}}": main,
         "{{RT}}": json.dumps(RT, ensure_ascii=False),
         "{{DM}}": json.dumps(DM, ensure_ascii=False),
         "{{WX_DAYS}}": wxdays, "{{WX_PAST}}": past_js, "{{CREDIT}}": credit,
