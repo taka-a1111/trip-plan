@@ -212,6 +212,11 @@ def build(name, tag):
         if d_.get("wxp"):
             past["%s-%s" % (year, _iso(d_["dd"]))] = d_["wxp"]
     past_js = json.dumps(past, ensure_ascii=False)
+    norm = {}
+    for d_ in data["days"]:
+        if d_.get("wxn"):
+            norm["%s-%s" % (year, _iso(d_["dd"]))] = d_["wxn"]
+    norm_js = json.dumps(norm, ensure_ascii=False)
     seen, lats, lons = set(), [], []
     for w in day_wx:
         key = (w["lat"], w["lon"])
@@ -249,7 +254,7 @@ def build(name, tag):
         "{{NAV_DAYS}}": nav, "{{DAY_BAR}}": daybar, "{{WEAR}}": wear_html, "{{TRIP_KEY}}": data["name"], "{{DIRLINK}}": dirlink, "{{MAIN}}": main,
         "{{RT}}": json.dumps(RT, ensure_ascii=False),
         "{{DM}}": json.dumps(DM, ensure_ascii=False),
-        "{{WX_DAYS}}": wxdays, "{{WX_PAST}}": past_js, "{{CREDIT}}": credit,
+        "{{WX_DAYS}}": wxdays, "{{WX_PAST}}": past_js, "{{WX_NORM}}": norm_js, "{{CREDIT}}": credit,
     }
     h = tpl
     for k, v in rep.items():
