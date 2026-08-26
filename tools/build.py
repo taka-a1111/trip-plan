@@ -44,7 +44,7 @@ def render_row(points, row, counter):
     counter[0] += 1
     no_cls = "sn-stay" if p["k"] == "stay" else "sn-spot"
     badges = "".join('<span class="bdg %s">%s</span>' % (c, t) for c, t in row.get("badges", []))
-    time_html = ('<span class="s-time">%s</span>' % row["time"]) if row.get("time") else ""
+    time_html = ('<span class="s-time">%s</span>' % row["time"]) if (row.get("time") and not row.get("fields")) else ""
     links = '<a class="lnk" href="%s" target="_blank" rel="noopener">地図</a>' % gmap(p["q"])
     if p.get("official"):
         links += '<a class="lnk lnk-of" href="%s" target="_blank" rel="noopener">公式</a>' % p["official"]
@@ -54,15 +54,31 @@ def render_row(points, row, counter):
     plan = ('<span class="s-plan">%s</span>' % row["plan"]) if row.get("plan") else ""
     main_cls = " is-main" if row.get("main") else ""
     star = '<span class="s-star">今日の目玉</span>' if row.get("main") else ""
+
+    def _fv(v):
+        """値がリストなら実店舗（名前＋地図リンク＋ひとこと）として描画する"""
+        if isinstance(v, list):
+            return "".join(
+                '<span class="fshop-row">'
+                '<a class="fshop" href="%s" target="_blank" rel="noopener">%s</a>'
+                '<span class="fshop-meta">%s</span></span>'
+                % (gmap(x["q"]), x["name"], x.get("meta", "")) for x in v)
+        return v
+
+    flds = ""
+    if row.get("fields"):
+        flds = '<div class="s-fields">%s</div>' % "".join(
+            '<div class="fld"><span class="fk">%s</span><span class="fv">%s</span></div>'
+            % (k, _fv(v)) for k, v in row["fields"])
     note_html = ('<div class="s-note">%s</div>' % row["note"]) if row.get("note") else ""
     return ('<li class="spot-row%s"><div class="s-rail">%s</div>'
             '<div class="s-node"><span class="spot-no %s cat-%s">%d</span></div>'
             '<div class="spot-main">'
             '<div class="spot-meta"><span class="s-name">%s</span>%s</div>'
             '<div class="s-facts"><span class="ctag cat-%s">%s</span>%s%s</div>'
-            '%s<div class="spot-links">%s</div></div></li>'
+            '%s%s<div class="spot-links">%s</div></div></li>'
             % (main_cls, plan, no_cls, row["cat"], counter[0], name, star,
-               row["cat"], row["cat_lbl"], time_html, badges, note_html, links))
+               row["cat"], row["cat_lbl"], time_html, badges, note_html, flds, links))
 
 
 def build(name, tag):
