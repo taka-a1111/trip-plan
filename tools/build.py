@@ -122,10 +122,11 @@ def build(name, tag):
         sections.append(
             '<section class="day reveal" id="%s"><div class="day-line">'
             '<div class="day-date"><span class="dd">%s</span><span class="dw">%s</span></div>'
-            '<span class="day-badge">%s</span><div class="day-tags">%s</div></div>'
-            '<h2 class="day-theme">%s</h2>%s%s'
+            '<span class="day-badge">%s</span><div class="day-tags">%s</div>'
+            '<span class="day-caret" aria-hidden="true"></span></div>'
+            '<h2 class="day-theme">%s</h2><div class="day-in">%s%s'
             '<ul class="spot-list%s">%s</ul>%s'
-            '<div class="daymap" id="daymap%d"></div></section>'
+            '<div class="daymap" id="daymap%d"></div></div></section>'
             % (d["id"], d["dd"], d["dw"], d["badge"], tags, d["theme"], photo, notice,
                ("" if any(r.get("plan") for r in d["rows"]) else " np"), rows, meals_html, i))
         DM[str(i)] = [pin(points, k) for k in d["pins"]]
