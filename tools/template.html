@@ -373,16 +373,15 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
 /* ---- 本文を全幅に（2026-08-26） ---- */
 .spot-list::before{display:none}
 .spot-row{grid-template-columns:auto 26px minmax(0,1fr);column-gap:5px;row-gap:0;padding:12px 12px 13px;align-items:start}
-.s-rail{grid-column:1;grid-row:1;text-align:right;padding-top:3px}
-.s-node{grid-column:2;grid-row:1;padding-top:1px}
+.s-rail{grid-column:1;grid-row:1;text-align:right;padding-top:0;align-self:center}
+.s-node{grid-column:2;grid-row:1;padding-top:0;align-self:center}
 .spot-head{grid-column:3;grid-row:1;min-width:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:3px 8px}
 .spot-body{grid-column:1/-1;grid-row:2;min-width:0;margin-top:7px}
 .spot-body .s-facts{margin-top:0}
 .s-facts:empty{display:none}
 .spot-head .ctag{font-size:.7rem;padding:3px 9px;border-radius:5px;flex:none}
 .spot-body .s-note:first-of-type{margin-top:6px}
-.spot-row.is-move .s-rail{padding-top:1px}
-.spot-row.is-move .mv-node{margin-top:7px}
+.spot-row.is-move .mv-node{margin-top:0}
 .spot-row.is-move .spot-body:empty{display:none}
 .spot-row.is-move .spot-body{margin-top:5px}
 .s-fields{padding:10px 13px}

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="ja"><head><!-- BUILD_TAG: 2026-08-26f --><script>/*LINE_EXT*/(function(){try{var u=navigator.userAgent||'';if(/ Line\//i.test(u)&&location.search.indexOf('openExternalBrowser')<0){location.href=location.href+(location.search?'&':'?')+'openExternalBrowser=1';}}catch(e){}})();</script><meta charset="UTF-8">
+<!DOCTYPE html><html lang="ja"><head><!-- BUILD_TAG: 2026-08-26g --><script>/*LINE_EXT*/(function(){try{var u=navigator.userAgent||'';if(/ Line\//i.test(u)&&location.search.indexOf('openExternalBrowser')<0){location.href=location.href+(location.search?'&':'?')+'openExternalBrowser=1';}}catch(e){}})();</script><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>石川・福井｜旅のしおり</title><link rel="manifest" href="./manifest.json"><meta name="theme-color" content="#0c7c8c"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/><link rel="stylesheet" href="https://unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css"/><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="https://unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.js"></script>
 <style>
@@ -373,16 +373,15 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
 /* ---- 本文を全幅に（2026-08-26） ---- */
 .spot-list::before{display:none}
 .spot-row{grid-template-columns:auto 26px minmax(0,1fr);column-gap:5px;row-gap:0;padding:12px 12px 13px;align-items:start}
-.s-rail{grid-column:1;grid-row:1;text-align:right;padding-top:3px}
-.s-node{grid-column:2;grid-row:1;padding-top:1px}
+.s-rail{grid-column:1;grid-row:1;text-align:right;padding-top:0;align-self:center}
+.s-node{grid-column:2;grid-row:1;padding-top:0;align-self:center}
 .spot-head{grid-column:3;grid-row:1;min-width:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:3px 8px}
 .spot-body{grid-column:1/-1;grid-row:2;min-width:0;margin-top:7px}
 .spot-body .s-facts{margin-top:0}
 .s-facts:empty{display:none}
 .spot-head .ctag{font-size:.7rem;padding:3px 9px;border-radius:5px;flex:none}
 .spot-body .s-note:first-of-type{margin-top:6px}
-.spot-row.is-move .s-rail{padding-top:1px}
-.spot-row.is-move .mv-node{margin-top:7px}
+.spot-row.is-move .mv-node{margin-top:0}
 .spot-row.is-move .spot-body:empty{display:none}
 .spot-row.is-move .spot-body{margin-top:5px}
 .s-fields{padding:10px 13px}
@@ -452,7 +451,7 @@ var RT={"pts": [{"n": "自宅（名古屋）", "lat": 35.1874286, "lon": 136.963
 
 
 
-console.log('BUILD_TAG: 2026-08-26f');if('serviceWorker' in navigator&&location.protocol==='https:'){try{navigator.serviceWorker.register('./sw.js');}catch(e){}}</script><script>/*DAYFOLD*/(function(){function go(){var days=[].slice.call(document.querySelectorAll('.day'));if(days.length<2)return;var btn=document.getElementById('dayall');function sync(){var closed=days.filter(function(d){return d.classList.contains('is-closed');}).length;if(btn)btn.textContent=closed?'すべての日を開く':'すべての日を閉じる';}
+console.log('BUILD_TAG: 2026-08-26g');if('serviceWorker' in navigator&&location.protocol==='https:'){try{navigator.serviceWorker.register('./sw.js');}catch(e){}}</script><script>/*DAYFOLD*/(function(){function go(){var days=[].slice.call(document.querySelectorAll('.day'));if(days.length<2)return;var btn=document.getElementById('dayall');function sync(){var closed=days.filter(function(d){return d.classList.contains('is-closed');}).length;if(btn)btn.textContent=closed?'すべての日を開く':'すべての日を閉じる';}
 function open(d,on){d.classList.toggle('is-closed',!on);if(on){var i=days.indexOf(d);setTimeout(function(){if(window.__initDayMap)window.__initDayMap(String(i));if(window.__refitDayMap)window.__refitDayMap(String(i));try{window.dispatchEvent(new Event('resize'));}catch(e){}},80);}sync();}
 days.forEach(function(d){var toggle=function(e){if(e.target.closest('a'))return;open(d,d.classList.contains('is-closed'));};var h=d.querySelector('.day-line'),th=d.querySelector('.day-theme');if(h)h.addEventListener('click',toggle);if(th)th.addEventListener('click',toggle);});
 var t=new Date();t.setHours(0,0,0,0);var s=new Date('2026-09-19T00:00:00'),e=new Date('2026-09-24T00:00:00');var idx=0;if(t>=s&&t<=e)idx=Math.round((t-s)/864e5);if(idx<0||idx>=days.length)idx=0;
