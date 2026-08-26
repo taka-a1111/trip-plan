@@ -34,10 +34,11 @@ def render_row(points, row, counter):
     if row["type"] == "move":
         badges = "".join('<span class="bdg %s">%s</span>' % (c, t) for c, t in row.get("badges", []))
         note = ('<div class="s-note">%s</div>' % row["note"]) if row.get("note") else ""
+        plan = ('<span class="s-plan">%s</span>' % row["plan"]) if row.get("plan") else ""
         return ('<li class="spot-row"><div class="spot-main"><div class="spot-meta">'
-                '<span class="ctag cat-move">移動</span><span class="s-name">%s</span>'
+                '%s<span class="ctag cat-move">移動</span><span class="s-name">%s</span>'
                 '<span class="bdg b-move">%s</span>%s</div>%s</div></li>'
-                % (row["name"], row["dur"], badges, note))
+                % (plan, row["name"], row["dur"], badges, note))
     p = points[row["key"]]
     counter[0] += 1
     no_cls = "sn-stay" if p["k"] == "stay" else "sn-spot"
@@ -49,12 +50,13 @@ def render_row(points, row, counter):
     if p.get("reserve"):
         links += '<a class="lnk lnk-rsv" href="%s" target="_blank" rel="noopener">予約</a>' % p["reserve"]
     name = row.get("name_override") or p["n"]
+    plan = ('<span class="s-plan">%s</span>' % row["plan"]) if row.get("plan") else ""
     return ('<li class="spot-row"><div class="spot-main"><div class="spot-meta">'
-            '<span class="spot-no %s">%d</span><span class="ctag cat-%s">%s</span>'
+            '<span class="spot-no %s">%d</span>%s<span class="ctag cat-%s">%s</span>'
             '<span class="s-name">%s</span>%s%s</div>'
             '<div class="s-note">%s</div></div>'
             '<div class="spot-links">%s</div></li>'
-            % (no_cls, counter[0], row["cat"], row["cat_lbl"], name, time_html, badges, row["note"], links))
+            % (no_cls, counter[0], plan, row["cat"], row["cat_lbl"], name, time_html, badges, row["note"], links))
 
 
 def build(name, tag):
