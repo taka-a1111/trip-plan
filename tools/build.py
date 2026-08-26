@@ -130,11 +130,11 @@ def build(name, tag):
             rows = ""
             for it in g["items"]:
                 mid = "%s-%s-%s" % ((d or {}).get("id", ""), g.get("slot", ""), it["name"])
-                rows += ('<tr data-mk="%s" data-shop="%s"><td class="mt-ck"><span class="mck"></span></td>'
+                rows += ('<tr data-mk="%s" data-shop="%s" data-q="%s"><td class="mt-ck"><span class="mck"></span></td>'
                          '<th scope="row"><a class="fshop" href="%s" target="_blank" rel="noopener">%s</a></th>'
                          '<td class="mt-rv">%s</td><td class="mt-bg">%s</td>'
                          '<td class="mt-hr">%s</td><td class="mt-off">%s</td></tr>'
-                         % (mid, it.get("br") or it["name"], gmap(it["q"]), it["name"], it.get("rv") or "—", it.get("bg") or "—",
+                         % (mid, it.get("br") or it["name"], it["q"], gmap(it["q"]), it["name"], it.get("rv") or "—", it.get("bg") or "—",
                             it.get("hr") or "—", it.get("off") or "—"))
             sl = g.get("slot", "夜")
             lab_cls = "ml-l" if sl == "昼" else ("ml-s" if sl == "買い出し" else "ml-d")
@@ -165,15 +165,25 @@ def build(name, tag):
             cr = ('<span class="ph-credit">%s</span>' % ph["credit"]) if ph.get("credit") else ""
             photo = ('<div class="day-photo"><img src="data:image/jpeg;base64,%s" alt="%s" loading="lazy">%s</div>'
                      % (b64, ph.get("alt", ""), cr))
+        spots_q = [points[r["key"]]["q"] for r in d["rows"] if r["type"] != "move"]
+        if i == 0:
+            org, dst = "%s,%s" % (data["home"]["lat"], data["home"]["lon"]), spots_q[-1] if spots_q else ""
+        elif i == len(data["days"]) - 1:
+            org, dst = spots_q[0] if spots_q else "", "%s,%s" % (data["home"]["lat"], data["home"]["lon"])
+        else:
+            org = dst = spots_q[-1] if spots_q else ""
+        route = ('<div class="rtwrap"><button class="rtbtn" type="button" data-org="%s" data-dst="%s" '
+                 'data-sp="%s">この日の動きを地図で開く</button></div>'
+                 % (org, dst, "|".join(spots_q)))
         sections.append(
             '<section class="day reveal" id="%s"><div class="day-line">'
             '<div class="day-date"><span class="dd">%s</span><span class="dw">%s</span></div>'
             '<span class="day-badge">%s</span><div class="day-tags">%s</div></div>'
             '<h2 class="day-theme">%s</h2>%s%s'
-            '<ul class="spot-list%s">%s</ul>%s'
+            '<ul class="spot-list%s">%s</ul>%s%s'
             '<div class="daymap" id="daymap%d"></div></section>'
             % (d["id"], d["dd"], d["dw"], d["badge"], tags, d["theme"], photo, notice,
-               ("" if any(r.get("plan") for r in d["rows"]) else " np"), rows, meals_html, i))
+               ("" if any(r.get("plan") for r in d["rows"]) else " np"), rows, meals_html, route, i))
         DM[str(i)] = [pin(points, k) for k in d["pins"]]
 
     memo = ('<div class="notice" style="margin-top:22px">%s</div>' % data["memo"]) if data.get("memo") else ""
