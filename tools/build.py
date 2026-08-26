@@ -37,8 +37,9 @@ def render_row(points, row, counter):
         plan = ('<span class="s-plan">%s</span>' % row["plan"]) if row.get("plan") else ""
         return ('<li class="spot-row is-move"><div class="s-rail">%s</div>'
                 '<div class="s-node"><span class="mv-node"></span></div>'
-                '<div class="spot-main"><div class="mv-line">'
-                '<span class="mv-name">%s</span><span class="mv-dur">%s</span>%s</div>%s</div></li>'
+                '<div class="spot-head"><span class="mv-name">%s</span>'
+                '<span class="mv-dur">%s</span>%s</div>'
+                '<div class="spot-body">%s</div></li>'
                 % (plan, row["name"], row["dur"], badges, note))
     p = points[row["key"]]
     counter[0] += 1
@@ -73,9 +74,10 @@ def render_row(points, row, counter):
     note_html = ('<div class="s-note">%s</div>' % row["note"]) if row.get("note") else ""
     return ('<li class="spot-row%s"><div class="s-rail">%s</div>'
             '<div class="s-node"><span class="spot-no %s cat-%s">%d</span></div>'
-            '<div class="spot-main">'
-            '<div class="spot-meta"><span class="s-name">%s</span>%s</div>'
-            '<div class="s-facts"><span class="ctag cat-%s">%s</span>%s%s</div>'
+            '<div class="spot-head"><span class="s-name">%s</span>%s'
+            '<span class="ctag cat-%s">%s</span></div>'
+            '<div class="spot-body">'
+            '<div class="s-facts">%s%s</div>'
             '%s%s<div class="spot-links">%s</div></div></li>'
             % (main_cls, plan, no_cls, row["cat"], counter[0], name, star,
                row["cat"], row["cat_lbl"], time_html, badges, note_html, flds, links))
