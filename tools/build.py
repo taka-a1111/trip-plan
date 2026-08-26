@@ -35,9 +35,10 @@ def render_row(points, row, counter):
         badges = "".join('<span class="bdg %s">%s</span>' % (c, t) for c, t in row.get("badges", []))
         note = ('<div class="s-note">%s</div>' % row["note"]) if row.get("note") else ""
         plan = ('<span class="s-plan">%s</span>' % row["plan"]) if row.get("plan") else ""
-        return ('<li class="spot-row"><div class="spot-main"><div class="spot-meta">'
-                '%s<span class="ctag cat-move">移動</span><span class="s-name">%s</span>'
-                '<span class="bdg b-move">%s</span>%s</div>%s</div></li>'
+        return ('<li class="spot-row is-move"><div class="s-rail">%s</div>'
+                '<div class="s-node"><span class="mv-node"></span></div>'
+                '<div class="spot-main"><div class="mv-line">'
+                '<span class="mv-name">%s</span><span class="mv-dur">%s</span>%s</div>%s</div></li>'
                 % (plan, row["name"], row["dur"], badges, note))
     p = points[row["key"]]
     counter[0] += 1
@@ -52,12 +53,16 @@ def render_row(points, row, counter):
     name = row.get("name_override") or p["n"]
     plan = ('<span class="s-plan">%s</span>' % row["plan"]) if row.get("plan") else ""
     main_cls = " is-main" if row.get("main") else ""
-    return ('<li class="spot-row%s"><div class="spot-main"><div class="spot-meta">'
-            '<span class="spot-no %s">%d</span>%s<span class="ctag cat-%s">%s</span>'
-            '<span class="s-name">%s</span>%s%s</div>'
-            '<div class="s-note">%s</div></div>'
-            '<div class="spot-links">%s</div></li>'
-            % (main_cls, no_cls, counter[0], plan, row["cat"], row["cat_lbl"], name, time_html, badges, row["note"], links))
+    star = '<span class="s-star">今日の目玉</span>' if row.get("main") else ""
+    note_html = ('<div class="s-note">%s</div>' % row["note"]) if row.get("note") else ""
+    return ('<li class="spot-row%s"><div class="s-rail">%s</div>'
+            '<div class="s-node"><span class="spot-no %s cat-%s">%d</span></div>'
+            '<div class="spot-main">'
+            '<div class="spot-meta"><span class="s-name">%s</span>%s</div>'
+            '<div class="s-facts"><span class="ctag cat-%s">%s</span>%s%s</div>'
+            '%s<div class="spot-links">%s</div></div></li>'
+            % (main_cls, plan, no_cls, row["cat"], counter[0], name, star,
+               row["cat"], row["cat_lbl"], time_html, badges, note_html, links))
 
 
 def build(name, tag):
@@ -103,9 +108,10 @@ def build(name, tag):
             '<div class="day-date"><span class="dd">%s</span><span class="dw">%s</span></div>'
             '<span class="day-badge">%s</span><div class="day-tags">%s</div></div>'
             '<h2 class="day-theme">%s</h2>%s%s'
-            '<ul class="spot-list">%s</ul>%s'
+            '<ul class="spot-list%s">%s</ul>%s'
             '<div class="daymap" id="daymap%d"></div></section>'
-            % (d["id"], d["dd"], d["dw"], d["badge"], tags, d["theme"], photo, notice, rows, meals_html, i))
+            % (d["id"], d["dd"], d["dw"], d["badge"], tags, d["theme"], photo, notice,
+               ("" if any(r.get("plan") for r in d["rows"]) else " np"), rows, meals_html, i))
         DM[str(i)] = [pin(points, k) for k in d["pins"]]
 
     memo = ('<div class="notice" style="margin-top:22px">%s</div>' % data["memo"]) if data.get("memo") else ""
