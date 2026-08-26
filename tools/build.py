@@ -122,22 +122,24 @@ def build(name, tag):
     tpl = open(os.path.join(ROOT, "tools", "template.html"), encoding="utf-8").read()
     points = data["points"]
 
-    def render_meals(meals, pinned=False):
+    def render_meals(meals, pinned=False, d=None):
         if not meals:
             return ""
         blocks = ""
         for g in meals:
             rows = ""
             for it in g["items"]:
-                rows += ('<tr><th scope="row"><a class="fshop" href="%s" target="_blank" rel="noopener">%s</a></th>'
+                mid = "%s-%s-%s" % ((d or {}).get("id", ""), g.get("slot", ""), it["name"])
+                rows += ('<tr data-mk="%s"><td class="mt-ck"><span class="mck"></span></td>'
+                         '<th scope="row"><a class="fshop" href="%s" target="_blank" rel="noopener">%s</a></th>'
                          '<td class="mt-rv">%s</td><td class="mt-bg">%s</td>'
                          '<td class="mt-hr">%s</td><td class="mt-off">%s</td></tr>'
-                         % (gmap(it["q"]), it["name"], it.get("rv") or "—", it.get("bg") or "—",
+                         % (mid, gmap(it["q"]), it["name"], it.get("rv") or "—", it.get("bg") or "—",
                             it.get("hr") or "—", it.get("off") or "—"))
             lab_cls = "ml-l" if g.get("slot") == "昼" else "ml-d"
             blocks += ('<div class="mslot"><span class="mlab %s">%s</span>'
                        '<div class="mtable-wrap"><table class="mtable"><thead><tr>'
-                       '<th>店舗名</th><th>口コミ</th><th>予算（1人あたり）</th><th>営業時間</th><th>定休日</th>'
+                       '<th class="mt-ck"></th><th>店舗名</th><th>口コミ</th><th>予算（1人あたり）</th><th>営業時間</th><th>定休日</th>'
                        '</tr></thead><tbody>%s</tbody></table></div></div>' % (lab_cls, g.get("slot", "夜"), rows))
         return ('<div class="mhead">食事の候補<span class="mhint">表は横にスライドできます</span></div>'
                 '<div class="meals">%s</div>' % blocks)
@@ -147,7 +149,7 @@ def build(name, tag):
         counter = [0]
         rows = "".join(render_row(points, r, counter) for r in d["rows"])
         pinned = any(isinstance(x, dict) and x.get("lb") for x in d["pins"])
-        meals_html = render_meals(d.get("meals"), pinned)
+        meals_html = render_meals(d.get("meals"), pinned, d)
         if pinned:
             has_meal_pins = True
         if d.get("meals"):
