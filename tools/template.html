@@ -400,6 +400,28 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
   .spot-list.np .spot-row{grid-template-columns:auto 28px minmax(0,1fr)}
 }
 .notice a{color:#a8492a;font-weight:700;text-decoration:none;border-bottom:1px solid rgba(168,73,42,.45)}
+/* ---- スポットをカード化＋項目表の整理（2026-08-27） ---- */
+.spot-list{background:none;border:none;box-shadow:none;padding:0;overflow:visible}
+.spot-row{background:var(--paper-2);border:1px solid var(--line);border-left:4px solid var(--line);
+  border-radius:12px;box-shadow:var(--shadow-s);margin-bottom:10px;padding:12px 13px 13px}
+.spot-row:last-child{margin-bottom:0;border-bottom:1px solid var(--line)}
+.row-sight{border-left-color:var(--teal)}
+.row-play{border-left-color:var(--coral)}
+.row-food{border-left-color:var(--gold)}
+.row-shop{border-left-color:var(--slate)}
+.row-onsen{border-left-color:#955d84}
+.row-stay{border-left-color:var(--teal-ink)}
+.spot-row.is-main{background:linear-gradient(90deg,rgba(12,124,140,.10),rgba(12,124,140,0) 74%),var(--paper-2)}
+.spot-row.is-move{background:none;border:none;border-left:none;box-shadow:none;border-radius:0;
+  margin:0 0 4px;padding:4px 13px 8px}
+.spot-row.is-move+.spot-row{margin-top:0}
+.s-fields{grid-template-columns:5em minmax(0,1fr);gap:0 12px;padding:11px 13px}
+.fld .fk{text-align:right;white-space:normal;padding:8px 0 8px}
+.fld .fv{padding:8px 0 8px}
+.fld:first-child .fk,.fld:first-child .fv{padding-top:0}
+.fld:last-child .fk,.fld:last-child .fv{padding-bottom:0}
+.fld+.fld .fk,.fld+.fld .fv{border-top:1px dotted #ded6c6}
+@media(min-width:700px){.s-fields{grid-template-columns:5.5em minmax(0,1fr)}}
 /* ---- 食事の候補（横スクロールの表） ---- */
 .meals{padding:2px 0}
 .mslot{display:flex;gap:10px;padding:12px 12px;align-items:flex-start}

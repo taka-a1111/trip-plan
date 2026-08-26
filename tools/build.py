@@ -106,14 +106,14 @@ def render_row(points, row, counter):
             '<div class="fld"><span class="fk">%s</span><span class="fv">%s</span></div>'
             % (k, _fv(v)) for k, v in row["fields"])
     note_html = ('<div class="s-note">%s</div>' % row["note"]) if row.get("note") else ""
-    return ('<li class="spot-row%s"><div class="s-rail">%s</div>'
+    return ('<li class="spot-row row-%s%s"><div class="s-rail">%s</div>'
             '<div class="s-node"><span class="spot-no %s cat-%s">%d</span></div>'
             '<div class="spot-head"><span class="s-name">%s</span>%s'
             '<span class="ctag cat-%s">%s</span></div>'
             '<div class="spot-body">'
             '<div class="s-facts">%s%s</div>'
             '%s%s<div class="spot-links">%s</div></div></li>'
-            % (main_cls, plan, no_cls, row["cat"], counter[0], name, star,
+            % (row["cat"], main_cls, plan, no_cls, row["cat"], counter[0], name, star,
                row["cat"], row["cat_lbl"], time_html, badges, note_html, flds, links))
 
 
