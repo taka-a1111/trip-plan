@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="ja"><head><!-- BUILD_TAG: 2026-08-26w --><script>/*LINE_EXT*/(function(){try{var u=navigator.userAgent||'';if(/ Line\//i.test(u)&&location.search.indexOf('openExternalBrowser')<0){location.href=location.href+(location.search?'&':'?')+'openExternalBrowser=1';}}catch(e){}})();</script><meta charset="UTF-8">
+<!DOCTYPE html><html lang="ja"><head><!-- BUILD_TAG: 2026-08-26x --><script>/*LINE_EXT*/(function(){try{var u=navigator.userAgent||'';if(/ Line\//i.test(u)&&location.search.indexOf('openExternalBrowser')<0){location.href=location.href+(location.search?'&':'?')+'openExternalBrowser=1';}}catch(e){}})();</script><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>須原・伊勢｜旅のしおり</title><link rel="manifest" href="./manifest.json"><meta name="theme-color" content="#0c7c8c"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/><link rel="stylesheet" href="https://unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css"/><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="https://unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.js"></script>
 <style>
@@ -419,6 +419,9 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
 .mtable tr.on{background:rgba(12,124,140,.09)}
 .mtable tr.on .fshop{color:var(--teal-deep)}
 .mtable tr.on td,.mtable tr.on th{font-weight:700}
+.mtable tr.dim{opacity:.42}
+.mtable tr.dim .fshop{color:var(--ink-soft);border-bottom-color:rgba(77,97,104,.3)}
+.mtable tr.dim .mck{border-color:#b9c6c9}
 /* ---- 画面下の日付バー（2026-08-26） ---- */
 .daybar{position:fixed;left:50%;transform:translateX(-50%) translateY(10px);bottom:14px;z-index:85;
   display:flex;gap:3px;align-items:stretch;max-width:calc(100vw - 20px);overflow-x:auto;
@@ -490,7 +493,7 @@ var RT={"pts": [{"n": "自宅（名古屋）", "lat": 35.1874286, "lon": 136.963
 
 
 
-console.log('BUILD_TAG: 2026-08-26w');if('serviceWorker' in navigator&&location.protocol==='https:'){try{navigator.serviceWorker.register('./sw.js');}catch(e){}}</script><script>/*MEALCK*/(function(){function go(){var K='meal_suhara_v1',st={};try{st=JSON.parse(localStorage.getItem(K)||'{}')}catch(e){}document.querySelectorAll('.mtable tr[data-mk]').forEach(function(tr){var id=tr.getAttribute('data-mk');if(st[id])tr.classList.add('on');var cell=tr.querySelector('td.mt-ck');if(!cell)return;cell.addEventListener('click',function(){tr.classList.toggle('on');st[id]=tr.classList.contains('on');if(!st[id])delete st[id];try{localStorage.setItem(K,JSON.stringify(st))}catch(e){}});});}if(document.readyState!=='loading')go();else document.addEventListener('DOMContentLoaded',go);})();</script><script>/*DAYBAR*/(function(){function go(){var bar=document.getElementById('daybar');if(!bar)return;
+console.log('BUILD_TAG: 2026-08-26x');if('serviceWorker' in navigator&&location.protocol==='https:'){try{navigator.serviceWorker.register('./sw.js');}catch(e){}}</script><script>/*MEALCK*/(function(){function go(){var K='meal_suhara_v1',st={};try{st=JSON.parse(localStorage.getItem(K)||'{}')}catch(e){}var rows=[].slice.call(document.querySelectorAll('.mtable tr[data-mk]'));if(!rows.length)return;function paint(){var picked={};rows.forEach(function(tr){if(tr.classList.contains('on'))picked[tr.getAttribute('data-shop')]=1;});rows.forEach(function(tr){var dup=!tr.classList.contains('on')&&picked[tr.getAttribute('data-shop')];tr.classList.toggle('dim',!!dup);});}rows.forEach(function(tr){var id=tr.getAttribute('data-mk');if(st[id])tr.classList.add('on');var cell=tr.querySelector('td.mt-ck');if(!cell)return;cell.addEventListener('click',function(){tr.classList.toggle('on');if(tr.classList.contains('on'))st[id]=true;else delete st[id];try{localStorage.setItem(K,JSON.stringify(st))}catch(e){}paint();});});paint();}if(document.readyState!=='loading')go();else document.addEventListener('DOMContentLoaded',go);})();</script><script>/*DAYBAR*/(function(){function go(){var bar=document.getElementById('daybar');if(!bar)return;
 var links=[].slice.call(bar.querySelectorAll('a'));
 var days=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
 if(!days.length||!days[0])return;
