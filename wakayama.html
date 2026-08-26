@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="ja"><head><!-- BUILD_TAG: 2026-08-26u --><script>/*LINE_EXT*/(function(){try{var u=navigator.userAgent||'';if(/ Line\//i.test(u)&&location.search.indexOf('openExternalBrowser')<0){location.href=location.href+(location.search?'&':'?')+'openExternalBrowser=1';}}catch(e){}})();</script><meta charset="UTF-8">
+<!DOCTYPE html><html lang="ja"><head><!-- BUILD_TAG: 2026-08-26v --><script>/*LINE_EXT*/(function(){try{var u=navigator.userAgent||'';if(/ Line\//i.test(u)&&location.search.indexOf('openExternalBrowser')<0){location.href=location.href+(location.search?'&':'?')+'openExternalBrowser=1';}}catch(e){}})();</script><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>白浜・伊賀｜旅のしおり</title><link rel="manifest" href="./manifest.json"><meta name="theme-color" content="#0c7c8c"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/><link rel="stylesheet" href="https://unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css"/><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="https://unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.js"></script>
 <style>
@@ -399,18 +399,18 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
 .mslot{display:flex;gap:10px;padding:12px 12px;align-items:flex-start}
 .mslot+.mslot{border-top:1px solid var(--line)}
 .mtable-wrap{flex:1 1 auto;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch}
-.mtable{border-collapse:collapse;min-width:770px;font-size:.86rem;line-height:1.55}
+.mtable{border-collapse:collapse;width:max-content;min-width:100%;font-size:.86rem;line-height:1.5}
 .mtable thead th{font-size:.72rem;font-weight:700;color:var(--teal-deep);text-align:left;white-space:nowrap;
   padding:0 12px 6px 0;border-bottom:1px solid var(--line)}
-.mtable td,.mtable th[scope="row"]{padding:9px 12px 9px 0;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+.mtable td,.mtable th[scope="row"]{padding:6px 14px 6px 0;border-bottom:1px solid var(--line);vertical-align:middle;text-align:left;white-space:nowrap}
 .mtable tbody tr:last-child td,.mtable tbody tr:last-child th{border-bottom:none}
 .mtable th[scope="row"]{white-space:nowrap;font-weight:700}
 .mt-bg{white-space:nowrap;font-family:'Outfit',sans-serif;font-weight:700;color:var(--teal-deep)}
 .mt-rv{white-space:nowrap;font-family:'Outfit',sans-serif;font-weight:600;color:#4d6168}
 .mt-hr{white-space:nowrap;font-family:'Outfit',sans-serif;color:#33474d}
 .mt-off{white-space:nowrap;color:#33474d}
-.mt-ft{min-width:230px;color:#33474d}
-@media(max-width:680px){.mslot{padding:12px 10px;gap:8px}.mtable{min-width:750px}}
+.mt-ft{display:none}
+@media(max-width:680px){.mslot{padding:12px 10px;gap:8px}.mtable{font-size:.84rem}}
 /* ---- 画面下の日付バー（2026-08-26） ---- */
 .daybar{position:fixed;left:50%;transform:translateX(-50%) translateY(10px);bottom:14px;z-index:85;
   display:flex;gap:3px;align-items:stretch;max-width:calc(100vw - 20px);overflow-x:auto;
@@ -482,7 +482,7 @@ var RT={"pts": [{"n": "自宅（名古屋）", "lat": 35.1874286, "lon": 136.963
 
 
 
-console.log('BUILD_TAG: 2026-08-26u');if('serviceWorker' in navigator&&location.protocol==='https:'){try{navigator.serviceWorker.register('./sw.js');}catch(e){}}</script><script>/*DAYBAR*/(function(){function go(){var bar=document.getElementById('daybar');if(!bar)return;
+console.log('BUILD_TAG: 2026-08-26v');if('serviceWorker' in navigator&&location.protocol==='https:'){try{navigator.serviceWorker.register('./sw.js');}catch(e){}}</script><script>/*DAYBAR*/(function(){function go(){var bar=document.getElementById('daybar');if(!bar)return;
 var links=[].slice.call(bar.querySelectorAll('a'));
 var days=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
 if(!days.length||!days[0])return;
