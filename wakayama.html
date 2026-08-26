@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="ja"><head><!-- BUILD_TAG: 2026-08-26h --><script>/*LINE_EXT*/(function(){try{var u=navigator.userAgent||'';if(/ Line\//i.test(u)&&location.search.indexOf('openExternalBrowser')<0){location.href=location.href+(location.search?'&':'?')+'openExternalBrowser=1';}}catch(e){}})();</script><meta charset="UTF-8">
+<!DOCTYPE html><html lang="ja"><head><!-- BUILD_TAG: 2026-08-26i --><script>/*LINE_EXT*/(function(){try{var u=navigator.userAgent||'';if(/ Line\//i.test(u)&&location.search.indexOf('openExternalBrowser')<0){location.href=location.href+(location.search?'&':'?')+'openExternalBrowser=1';}}catch(e){}})();</script><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>白浜・伊賀｜旅のしおり</title><link rel="manifest" href="./manifest.json"><meta name="theme-color" content="#0c7c8c"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/><link rel="stylesheet" href="https://unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css"/><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="https://unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.js"></script>
 <style>
@@ -405,9 +405,13 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
 .daybar a{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;
   font-family:'Outfit',sans-serif;font-weight:700;font-size:.82rem;line-height:1.05;color:var(--ink-soft);
   text-decoration:none;padding:6px 9px 5px;border-radius:20px;white-space:nowrap;transition:.15s}
-.daybar a small{font-family:'Shippori Mincho',serif;font-size:.6rem;font-weight:700;color:var(--ink-faint);margin-top:2px}
+.daybar a small{font-family:'Shippori Mincho',serif;font-size:.64rem;font-weight:700;color:var(--ink-faint);margin-top:2px}
+.daybar a small.dw-sun{color:#d94f3d}
+.daybar a small.dw-sat{color:#e0862a}
 .daybar a.on{background:var(--teal);color:#fff}
-.daybar a.on small{color:rgba(255,255,255,.85)}
+.daybar a.on small{color:rgba(255,255,255,.9)}
+.daybar a.on small.dw-sun{color:#ffd7d0}
+.daybar a.on small.dw-sat{color:#ffe3bd}
 .daybar a:active{background:var(--sand)}
 body{padding-bottom:76px}
 .totop{bottom:82px}
@@ -448,7 +452,7 @@ body{padding-bottom:76px}
 
 <footer class="tfoot"><div class="ft-btns"><a href="./index.html">← カレンダーへ戻る</a><a class="ft-top" href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ 上に戻る</a></div>
 </footer>
-<nav class="daybar" id="daybar" aria-label="日付で移動"><a href="#day1" data-day="day1">7/18<small>土</small></a><a href="#day2" data-day="day2">7/19<small>日</small></a><a href="#day3" data-day="day3">7/20<small>月</small></a><a href="#day4" data-day="day4">7/21<small>火</small></a></nav><button class="totop" id="totop" aria-label="上に戻る"><svg viewBox="0 0 24 26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V6M6 12l6-6 6 6"/></svg></button>
+<nav class="daybar" id="daybar" aria-label="日付で移動"><a href="#day1" data-day="day1">7/18<small class="dwm dw-sat">土</small></a><a href="#day2" data-day="day2">7/19<small class="dwm dw-sun">日</small></a><a href="#day3" data-day="day3">7/20<small class="dwm dw-sun">月</small></a><a href="#day4" data-day="day4">7/21<small class="dwm">火</small></a></nav><button class="totop" id="totop" aria-label="上に戻る"><svg viewBox="0 0 24 26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V6M6 12l6-6 6 6"/></svg></button>
 <script>
 var tt=document.getElementById('totop');if(tt){window.addEventListener('scroll',function(){if(window.scrollY>400)tt.classList.add('show');else tt.classList.remove('show');});tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});}
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
@@ -460,7 +464,7 @@ var RT={"pts": [{"n": "自宅（名古屋）", "lat": 35.1874286, "lon": 136.963
 
 
 
-console.log('BUILD_TAG: 2026-08-26h');if('serviceWorker' in navigator&&location.protocol==='https:'){try{navigator.serviceWorker.register('./sw.js');}catch(e){}}</script><script>/*DAYBAR*/(function(){function go(){var bar=document.getElementById('daybar');if(!bar)return;
+console.log('BUILD_TAG: 2026-08-26i');if('serviceWorker' in navigator&&location.protocol==='https:'){try{navigator.serviceWorker.register('./sw.js');}catch(e){}}</script><script>/*DAYBAR*/(function(){function go(){var bar=document.getElementById('daybar');if(!bar)return;
 var links=[].slice.call(bar.querySelectorAll('a'));
 var days=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
 if(!days.length||!days[0])return;

@@ -405,9 +405,13 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
 .daybar a{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;
   font-family:'Outfit',sans-serif;font-weight:700;font-size:.82rem;line-height:1.05;color:var(--ink-soft);
   text-decoration:none;padding:6px 9px 5px;border-radius:20px;white-space:nowrap;transition:.15s}
-.daybar a small{font-family:'Shippori Mincho',serif;font-size:.6rem;font-weight:700;color:var(--ink-faint);margin-top:2px}
+.daybar a small{font-family:'Shippori Mincho',serif;font-size:.64rem;font-weight:700;color:var(--ink-faint);margin-top:2px}
+.daybar a small.dw-sun{color:#d94f3d}
+.daybar a small.dw-sat{color:#e0862a}
 .daybar a.on{background:var(--teal);color:#fff}
-.daybar a.on small{color:rgba(255,255,255,.85)}
+.daybar a.on small{color:rgba(255,255,255,.9)}
+.daybar a.on small.dw-sun{color:#ffd7d0}
+.daybar a.on small.dw-sat{color:#ffe3bd}
 .daybar a:active{background:var(--sand)}
 body{padding-bottom:76px}
 .totop{bottom:82px}

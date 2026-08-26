@@ -14,6 +14,40 @@ import urllib.parse
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+
+def _nth_monday(y, m, n):
+    d = datetime.date(y, m, 1)
+    d += datetime.timedelta(days=(7 - d.weekday()) % 7)  # 最初の月曜
+    return d + datetime.timedelta(days=7 * (n - 1))
+
+
+def holidays(year):
+    """日本の祝日（振替休日・国民の休日を含む）を date の集合で返す"""
+    fixed = [(1, 1), (2, 11), (2, 23), (4, 29), (5, 3), (5, 4), (5, 5),
+             (8, 11), (11, 3), (11, 23)]
+    hs = {datetime.date(year, m, d) for m, d in fixed}
+    hs.add(_nth_monday(year, 1, 2))    # 成人の日
+    hs.add(_nth_monday(year, 7, 3))    # 海の日
+    hs.add(_nth_monday(year, 9, 3))    # 敬老の日
+    hs.add(_nth_monday(year, 10, 2))   # スポーツの日
+    # 春分・秋分（1980〜2099年の近似式）
+    hs.add(datetime.date(year, 3, int(20.8431 + 0.242194 * (year - 1980) - (year - 1980) // 4)))
+    hs.add(datetime.date(year, 9, int(23.2488 + 0.242194 * (year - 1980) - (year - 1980) // 4)))
+    # 振替休日：日曜と重なったら次の平日
+    for d in sorted(hs):
+        if d.weekday() == 6:
+            n = d + datetime.timedelta(days=1)
+            while n in hs:
+                n += datetime.timedelta(days=1)
+            hs.add(n)
+    # 国民の休日：祝日に挟まれた平日
+    for d in sorted(hs):
+        n = d + datetime.timedelta(days=2)
+        mid = d + datetime.timedelta(days=1)
+        if n in hs and mid not in hs and mid.weekday() < 6:
+            hs.add(mid)
+    return hs
+
 def gmap(q):
     return "https://www.google.com/maps/search/?api=1&query=" + urllib.parse.quote(q)
 
@@ -143,8 +177,20 @@ def build(name, tag):
                "&travelmode=driving&waypoints={w}").format(la=home["lat"], lo=home["lon"], w=wps)
 
     nav = "".join('<a href="#%s">%s</a>' % (d["id"], d["badge"]) for d in data["days"])
-    daybar = "".join('<a href="#%s" data-day="%s">%s<small>%s</small></a>'
-                     % (d["id"], d["id"], d["dd"], d["dw"]) for d in data["days"])
+    hs = holidays(int(data["date_s"][:4]))
+
+    def dwcls(dd, dw):
+        m, dy = [int(x) for x in dd.split("/")]
+        dt = datetime.date(int(data["date_s"][:4]), m, dy)
+        if dt in hs or dt.weekday() == 6:
+            return " dw-sun"
+        if dt.weekday() == 5:
+            return " dw-sat"
+        return ""
+
+    daybar = "".join('<a href="#%s" data-day="%s">%s<small class="dwm%s">%s</small></a>'
+                     % (d["id"], d["id"], d["dd"], dwcls(d["dd"], d["dw"]), d["dw"])
+                     for d in data["days"])
     wx = data["wx"]
     year = data["date_s"][:4]
     day_wx = [dict(wx, **d_.get("wx", {})) for d_ in data["days"]]
