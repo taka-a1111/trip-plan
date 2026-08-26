@@ -136,7 +136,8 @@ def build(name, tag):
                          '<td class="mt-hr">%s</td><td class="mt-off">%s</td></tr>'
                          % (mid, it.get("br") or it["name"], gmap(it["q"]), it["name"], it.get("rv") or "—", it.get("bg") or "—",
                             it.get("hr") or "—", it.get("off") or "—"))
-            lab_cls = "ml-l" if g.get("slot") == "昼" else "ml-d"
+            sl = g.get("slot", "夜")
+            lab_cls = "ml-l" if sl == "昼" else ("ml-s" if sl == "買い出し" else "ml-d")
             blocks += ('<div class="mslot"><span class="mlab %s">%s</span>'
                        '<div class="mtable-wrap"><table class="mtable"><thead><tr>'
                        '<th class="mt-ck"></th><th>店舗名</th><th>口コミ</th><th>予算（1人あたり）</th><th>営業時間</th><th>定休日</th>'
