@@ -122,7 +122,7 @@ def build(name, tag):
     tpl = open(os.path.join(ROOT, "tools", "template.html"), encoding="utf-8").read()
     points = data["points"]
 
-    def render_meals(meals):
+    def render_meals(meals, pinned=False):
         if not meals:
             return ""
         groups = ""
@@ -136,14 +136,19 @@ def build(name, tag):
             lab_cls = "ml-l" if g.get("slot") == "昼" else "ml-d"
             groups += ('<div class="meal"><span class="mlab %s">%s</span>'
                        '<ul class="mlist">%s</ul></div>' % (lab_cls, g.get("slot", "夜"), items))
-        return ('<div class="mhead">食事の候補<span class="mhint">A・B… は地図のオレンジのピン</span></div>'
-                '<div class="meals">%s</div>' % groups)
+        hint = ("A・B… は地図のオレンジのピン" if pinned
+                else "店名をタップするとGoogleマップが開きます")
+        return ('<div class="mhead">食事の候補<span class="mhint">%s</span></div>'
+                '<div class="meals">%s</div>' % (hint, groups))
 
-    sections, DM, has_meals = [], {}, False
+    sections, DM, has_meals, has_meal_pins = [], {}, False, False
     for i, d in enumerate(data["days"]):
         counter = [0]
         rows = "".join(render_row(points, r, counter) for r in d["rows"])
-        meals_html = render_meals(d.get("meals"))
+        pinned = any(isinstance(x, dict) and x.get("lb") for x in d["pins"])
+        meals_html = render_meals(d.get("meals"), pinned)
+        if pinned:
+            has_meal_pins = True
         if d.get("meals"):
             has_meals = True
         tags = "".join('<span class="day-tag %s">%s</span>' % (c, t) for c, t in d["tags"])
@@ -237,7 +242,7 @@ def build(name, tag):
         "{{STAT_DAYS}}": str(len(data["days"])), "{{STAT_NIGHTS}}": str(nights), "{{STAT_SPOTS}}": str(spots),
         "{{DATE_S}}": data["date_s"], "{{DATE_E}}": data["date_e"],
         "{{WX_LAT}}": ",".join(lats), "{{WX_LON}}": ",".join(lons),
-        "{{LEGEND_EXTRA}}": ('<span class="lg lg-pin"><span class="mno" style="width:16px;height:16px;font-size:.62rem">A</span>食事の候補</span>' if has_meals else ""),
+        "{{LEGEND_EXTRA}}": ('<span class="lg lg-pin"><span class="mno" style="width:16px;height:16px;font-size:.62rem">A</span>食事の候補</span>' if has_meal_pins else ""),
         "{{NAV_DAYS}}": nav, "{{DAY_BAR}}": daybar, "{{WEAR}}": wear_html, "{{TRIP_KEY}}": data["name"], "{{DIRLINK}}": dirlink, "{{MAIN}}": main,
         "{{RT}}": json.dumps(RT, ensure_ascii=False),
         "{{DM}}": json.dumps(DM, ensure_ascii=False),
