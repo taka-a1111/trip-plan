@@ -130,11 +130,11 @@ def build(name, tag):
             rows = ""
             for it in g["items"]:
                 mid = "%s-%s-%s" % ((d or {}).get("id", ""), g.get("slot", ""), it["name"])
-                rows += ('<tr data-mk="%s" data-shop="%s" data-q="%s"><td class="mt-ck"><span class="mck"></span></td>'
+                rows += ('<tr data-mk="%s" data-shop="%s" data-q="%s" data-la="%s" data-lo="%s"><td class="mt-ck"><span class="mck"></span></td>'
                          '<th scope="row"><a class="fshop" href="%s" target="_blank" rel="noopener">%s</a></th>'
                          '<td class="mt-rv">%s</td><td class="mt-bg">%s</td>'
                          '<td class="mt-hr">%s</td><td class="mt-off">%s</td></tr>'
-                         % (mid, it.get("br") or it["name"], it["q"], gmap(it["q"]), it["name"], it.get("rv") or "—", it.get("bg") or "—",
+                         % (mid, it.get("br") or it["name"], it["q"], it.get("la", ""), it.get("lo", ""), gmap(it["q"]), it["name"], it.get("rv") or "—", it.get("bg") or "—",
                             it.get("hr") or "—", it.get("off") or "—"))
             sl = g.get("slot", "夜")
             lab_cls = "ml-l" if sl == "昼" else ("ml-s" if sl == "買い出し" else "ml-d")
