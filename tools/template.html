@@ -468,6 +468,7 @@ console.log('BUILD_TAG: {{BUILD_TAG}}');if('serviceWorker' in navigator&&locatio
 var links=[].slice.call(bar.querySelectorAll('a'));
 var days=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
 if(!days.length||!days[0])return;
+function absTop(el){var y=0;while(el){y+=el.offsetTop;el=el.offsetParent;}return y;}
 var pack=document.getElementById('pack'),pb=document.getElementById('packToggle');
 if(pack&&pb){pack.classList.add('is-closed');pb.addEventListener('click',function(){pack.classList.toggle('is-closed');pb.textContent=pack.classList.contains('is-closed')?'開く':'閉じる';});}
 function mark(){var y=window.scrollY+90,idx=-1;days.forEach(function(d,i){if(d&&d.offsetTop<=y)idx=i;});
@@ -475,10 +476,17 @@ links.forEach(function(a,i){a.classList.toggle('on',i===idx);});
 if(idx>=0){var a=links[idx];var l=a.offsetLeft-(bar.clientWidth-a.offsetWidth)/2;bar.scrollTo({left:l,behavior:'smooth'});}}
 function vis(){bar.classList.toggle('show',window.scrollY>260);}
 links.forEach(function(a,i){a.addEventListener('click',function(e){e.preventDefault();var d=days[i];if(!d)return;
-var top=d.getBoundingClientRect().top+window.scrollY-64;window.scrollTo({top:top,behavior:'smooth'});
+window.scrollTo({top:Math.max(absTop(d)-72,0),behavior:'smooth'});
 if(history.replaceState)history.replaceState(null,'',a.getAttribute('href'));});});
 var t=null;window.addEventListener('scroll',function(){vis();if(t)return;t=setTimeout(function(){t=null;mark();},120);},{passive:true});
-vis();mark();}
+vis();mark();
+/* 旅行中は開いたときに当日の先頭へ */
+var now=new Date();now.setHours(0,0,0,0);var ds=new Date('{{DATE_S}}T00:00:00'),de=new Date('{{DATE_E}}T00:00:00');
+if(!location.hash&&now>=ds&&now<=de){var di=Math.round((now-ds)/864e5);var target=days[di];
+if(target){var moved=false;['wheel','touchstart','keydown'].forEach(function(ev){window.addEventListener(ev,function(){moved=true;},{passive:true,once:true});});
+var jump=function(){if(moved)return;window.scrollTo(0,Math.max(absTop(target)-72,0));vis();mark();};
+setTimeout(jump,150);setTimeout(jump,800);}}
+}
 if(document.readyState!=='loading')go();else document.addEventListener('DOMContentLoaded',go);})();</script><script>/*FV_RESIZE*/window.addEventListener('load',function(){[400,1500,3000].forEach(function(t){setTimeout(function(){try{window.dispatchEvent(new Event('resize'));}catch(e){}},t);});});
 
 

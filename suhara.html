@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="ja"><head><!-- BUILD_TAG: 2026-08-26i --><script>/*LINE_EXT*/(function(){try{var u=navigator.userAgent||'';if(/ Line\//i.test(u)&&location.search.indexOf('openExternalBrowser')<0){location.href=location.href+(location.search?'&':'?')+'openExternalBrowser=1';}}catch(e){}})();</script><meta charset="UTF-8">
+<!DOCTYPE html><html lang="ja"><head><!-- BUILD_TAG: 2026-08-26j --><script>/*LINE_EXT*/(function(){try{var u=navigator.userAgent||'';if(/ Line\//i.test(u)&&location.search.indexOf('openExternalBrowser')<0){location.href=location.href+(location.search?'&':'?')+'openExternalBrowser=1';}}catch(e){}})();</script><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>須原・伊勢｜旅のしおり</title><link rel="manifest" href="./manifest.json"><meta name="theme-color" content="#0c7c8c"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/><link rel="stylesheet" href="https://unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css"/><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="https://unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.js"></script>
 <style>
@@ -464,10 +464,11 @@ var RT={"pts": [{"n": "自宅（名古屋）", "lat": 35.1874286, "lon": 136.963
 
 
 
-console.log('BUILD_TAG: 2026-08-26i');if('serviceWorker' in navigator&&location.protocol==='https:'){try{navigator.serviceWorker.register('./sw.js');}catch(e){}}</script><script>/*DAYBAR*/(function(){function go(){var bar=document.getElementById('daybar');if(!bar)return;
+console.log('BUILD_TAG: 2026-08-26j');if('serviceWorker' in navigator&&location.protocol==='https:'){try{navigator.serviceWorker.register('./sw.js');}catch(e){}}</script><script>/*DAYBAR*/(function(){function go(){var bar=document.getElementById('daybar');if(!bar)return;
 var links=[].slice.call(bar.querySelectorAll('a'));
 var days=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
 if(!days.length||!days[0])return;
+function absTop(el){var y=0;while(el){y+=el.offsetTop;el=el.offsetParent;}return y;}
 var pack=document.getElementById('pack'),pb=document.getElementById('packToggle');
 if(pack&&pb){pack.classList.add('is-closed');pb.addEventListener('click',function(){pack.classList.toggle('is-closed');pb.textContent=pack.classList.contains('is-closed')?'開く':'閉じる';});}
 function mark(){var y=window.scrollY+90,idx=-1;days.forEach(function(d,i){if(d&&d.offsetTop<=y)idx=i;});
@@ -475,10 +476,17 @@ links.forEach(function(a,i){a.classList.toggle('on',i===idx);});
 if(idx>=0){var a=links[idx];var l=a.offsetLeft-(bar.clientWidth-a.offsetWidth)/2;bar.scrollTo({left:l,behavior:'smooth'});}}
 function vis(){bar.classList.toggle('show',window.scrollY>260);}
 links.forEach(function(a,i){a.addEventListener('click',function(e){e.preventDefault();var d=days[i];if(!d)return;
-var top=d.getBoundingClientRect().top+window.scrollY-64;window.scrollTo({top:top,behavior:'smooth'});
+window.scrollTo({top:Math.max(absTop(d)-72,0),behavior:'smooth'});
 if(history.replaceState)history.replaceState(null,'',a.getAttribute('href'));});});
 var t=null;window.addEventListener('scroll',function(){vis();if(t)return;t=setTimeout(function(){t=null;mark();},120);},{passive:true});
-vis();mark();}
+vis();mark();
+/* 旅行中は開いたときに当日の先頭へ */
+var now=new Date();now.setHours(0,0,0,0);var ds=new Date('2026-10-10T00:00:00'),de=new Date('2026-10-12T00:00:00');
+if(!location.hash&&now>=ds&&now<=de){var di=Math.round((now-ds)/864e5);var target=days[di];
+if(target){var moved=false;['wheel','touchstart','keydown'].forEach(function(ev){window.addEventListener(ev,function(){moved=true;},{passive:true,once:true});});
+var jump=function(){if(moved)return;window.scrollTo(0,Math.max(absTop(target)-72,0));vis();mark();};
+setTimeout(jump,150);setTimeout(jump,800);}}
+}
 if(document.readyState!=='loading')go();else document.addEventListener('DOMContentLoaded',go);})();</script><script>/*FV_RESIZE*/window.addEventListener('load',function(){[400,1500,3000].forEach(function(t){setTimeout(function(){try{window.dispatchEvent(new Event('resize'));}catch(e){}},t);});});
 
 
