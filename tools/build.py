@@ -134,7 +134,7 @@ def build(name, tag):
                          '<th scope="row"><a class="fshop" href="%s" target="_blank" rel="noopener">%s</a></th>'
                          '<td class="mt-rv">%s</td><td class="mt-bg">%s</td>'
                          '<td class="mt-hr">%s</td><td class="mt-off">%s</td></tr>'
-                         % (mid, it["name"], gmap(it["q"]), it["name"], it.get("rv") or "—", it.get("bg") or "—",
+                         % (mid, it.get("br") or it["name"], gmap(it["q"]), it["name"], it.get("rv") or "—", it.get("bg") or "—",
                             it.get("hr") or "—", it.get("off") or "—"))
             lab_cls = "ml-l" if g.get("slot") == "昼" else "ml-d"
             blocks += ('<div class="mslot"><span class="mlab %s">%s</span>'
