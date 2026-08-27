@@ -326,7 +326,7 @@
      "fields": [
       [
        "料金",
-       "<span class=\"amn\">👨‍🦰 400円　🧒 150円（小学生）・50円（小学生未満）</span><span class=\"amn\">👪 1,000〜1,100円</span><span class=\"amn\">🅿️ 無料</span>"
+       "<span class=\"amn\">👨‍🦰 400円　🧒 150円（小学生）・50円（小学生未満）</span><span class=\"amn\">👪 1,000円</span><span class=\"amn\">🅿️ 無料</span>"
       ],
       [
        "営業",
@@ -594,7 +594,7 @@
      "fields": [
       [
        "料金",
-       "<span class=\"amn\">👨‍🦰 2,200円　🧒 1,600円（小中学生）</span><span class=\"amn\">👪 7,600円（前売で2,000円引き）</span><span class=\"amn\">🅿️ 無料</span>"
+       "<span class=\"amn\">👨‍🦰 2,200円　🧒 1,200円（小中学生）・600円（3歳以上）</span><span class=\"amn\">👪 6,200円（前売で1割引ほど）</span><span class=\"amn\">🅿️ 無料</span>"
       ],
       [
        "営業",
@@ -623,7 +623,7 @@
      "fields": [
       [
        "料金",
-       "<span class=\"amn\">👨‍🦰 500円ほど</span><span class=\"amn\">👪 1,300円前後</span><span class=\"amn\">🅿️ 無料</span>"
+       "<span class=\"amn\">👨‍🦰 500円　🧒 200円（小学生）</span><span class=\"amn\">👪 1,200〜1,400円</span><span class=\"amn\">🅿️ 無料</span>"
       ],
       [
        "営業",
@@ -878,7 +878,7 @@
      "fields": [
       [
        "料金",
-       "<span class=\"amn\">👨‍🦰 320円　🧒 100円（6〜17歳）</span><span class=\"amn\">👪 約840円</span><span class=\"amn\">🅿️ 有料（兼六駐車場など）</span>"
+       "<span class=\"amn\">👨‍🦰 320円　🧒 100円（6〜17歳）</span><span class=\"amn\">👪 840円</span><span class=\"amn\">🅿️ 有料（兼六駐車場など）</span>"
       ],
       [
        "営業",
@@ -966,7 +966,7 @@
      "fields": [
       [
        "料金",
-       "<span class=\"amn\">👨‍🦰 400円　🧒 150円（小学生）・50円（小学生未満）</span><span class=\"amn\">👪 1,000〜1,100円</span><span class=\"amn\">🅿️ 無料</span>"
+       "<span class=\"amn\">👨‍🦰 400円　🧒 150円（小学生）・50円（小学生未満）</span><span class=\"amn\">👪 1,000円</span><span class=\"amn\">🅿️ 無料</span>"
       ],
       [
        "営業",
@@ -1224,7 +1224,7 @@
      "fields": [
       [
        "料金",
-       "<span class=\"amn\">👨‍🦰 600円ほど　🧒 300円ほど（小学生）</span><span class=\"amn\">👪 約1,800円</span><span class=\"amn\">🅿️ 無料</span>"
+       "<span class=\"amn\">👨‍🦰 600円ほど　🧒 300円ほど（小学生）</span><span class=\"amn\">👪 1,500〜1,800円</span><span class=\"amn\">🅿️ 無料</span>"
       ],
       [
        "営業",
@@ -1283,7 +1283,7 @@
      "fields": [
       [
        "料金",
-       "<span class=\"amn\">👨‍🦰 500円　🧒 150円（6〜12歳）・70円（3〜6歳）</span><span class=\"amn\">👪 約1,300円</span><span class=\"amn\">🅿️ 無料</span>"
+       "<span class=\"amn\">👨‍🦰 500円　🧒 150円（6〜12歳）・70円（3〜6歳）</span><span class=\"amn\">👪 1,300円</span><span class=\"amn\">🅿️ 無料</span>"
       ],
       [
        "営業",
@@ -1559,7 +1559,7 @@
      "fields": [
       [
        "料金",
-       "<span class=\"amn\">👨‍🦰 410円　🧒 200円ほど（小中学生）</span><span class=\"amn\">👪 約1,200円</span><span class=\"amn\">🅿️ 無料</span>"
+       "<span class=\"amn\">👨‍🦰 410円　🧒 200円（6歳〜中学生）</span><span class=\"amn\">👪 1,220円</span><span class=\"amn\">🅿️ 無料</span>"
       ],
       [
        "営業",
@@ -1589,7 +1589,7 @@
      "fields": [
       [
        "料金",
-       "<span class=\"amn\">👨‍🦰 840円　🧒 410円（小中学生）・110円（3歳以上）</span><span class=\"amn\">👪 約2,100円</span><span class=\"amn\">🅿️ 無料</span>"
+       "<span class=\"amn\">👨‍🦰 840円　🧒 410円（3歳以上中学生未満）</span><span class=\"amn\">👪 2,500円</span><span class=\"amn\">🅿️ 無料</span>"
       ],
       [
        "営業",
@@ -1618,7 +1618,7 @@
      "fields": [
       [
        "料金",
-       "<span class=\"amn\">👨‍🦰 500円　🧒 150円（小学生）・70円（幼児）</span><span class=\"amn\">👪 約1,200円</span><span class=\"amn\">🅿️ 無料</span>"
+       "<span class=\"amn\">👨‍🦰 500円　🧒 150円（小学生）・70円（幼児）</span><span class=\"amn\">👪 1,220円</span><span class=\"amn\">🅿️ 無料</span>"
       ],
       [
        "営業",
@@ -1905,7 +1905,7 @@
      "fields": [
       [
        "料金",
-       "<span class=\"amn\">👨‍🦰 500円　🧒 150円（小学生）・70円（幼児）</span><span class=\"amn\">👪 約1,300円</span><span class=\"amn\">🅿️ 無料</span>"
+       "<span class=\"amn\">👨‍🦰 500円　🧒 150円（小学生）・70円（幼児）</span><span class=\"amn\">👪 1,220円</span><span class=\"amn\">🅿️ 無料</span>"
       ],
       [
        "営業",
