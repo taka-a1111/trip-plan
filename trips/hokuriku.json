@@ -257,7 +257,7 @@
      "fields": [
       [
        "料金",
-       "入場無料<span class=\"amn\">🅿️ <b class=\"ok\">◯</b> 無料</span>"
+       "<span class=\"amn\">入場無料</span><span class=\"amn\">🅿️ 無料</span>"
       ],
       [
        "営業",
@@ -297,7 +297,7 @@
       ],
       [
        "料金",
-       "5泊6日・大人2＋子ども2で総額10,500円（現地で現金払い）<span class=\"amn\">🅿️ <b class=\"ok\">◯</b> 無料</span>"
+       "<span class=\"amn\">5泊6日・大人2＋子ども2で総額10,500円（現地で現金払い）</span><span class=\"amn\">🅿️ 無料</span>"
       ],
       [
        "予約",
@@ -326,7 +326,7 @@
      "fields": [
       [
        "料金",
-       "大人400円・小学生150円・小学生未満50円（家族4人 1,000〜1,100円）<span class=\"amn\">🅿️ <b class=\"ok\">◯</b> 無料</span>"
+       "<span class=\"amn\">👨‍🦰 400円　🧒 150円（小学生）・50円（小学生未満）</span><span class=\"amn\">👪 1,000〜1,100円</span><span class=\"amn\">🅿️ 無料</span>"
       ],
       [
        "営業",
@@ -565,7 +565,7 @@
      "fields": [
       [
        "料金",
-       "見学無料（遊覧船は使わない方針）<span class=\"amn\">🅿️ <b class=\"hf\">△</b> 有料が中心で1回500円ほど</span>"
+       "<span class=\"amn\">見学無料（遊覧船は使わない方針）</span><span class=\"amn\">🅿️ 1回500円ほど（有料が中心）</span>"
       ],
       [
        "営業",
@@ -594,7 +594,7 @@
      "fields": [
       [
        "料金",
-       "大人2,200円・小中1,600円（前売で500円引き）<span class=\"amn\">🅿️ <b class=\"ok\">◯</b> 無料</span>"
+       "<span class=\"amn\">👨‍🦰 2,200円　🧒 1,600円（小中学生）</span><span class=\"amn\">👪 7,600円（前売で2,000円引き）</span><span class=\"amn\">🅿️ 無料</span>"
       ],
       [
        "営業",
@@ -623,7 +623,7 @@
      "fields": [
       [
        "料金",
-       "大人500円ほど（家族4人 1,300円前後）<span class=\"amn\">🅿️ <b class=\"ok\">◯</b> 無料</span>"
+       "<span class=\"amn\">👨‍🦰 500円ほど</span><span class=\"amn\">👪 1,300円前後</span><span class=\"amn\">🅿️ 無料</span>"
       ],
       [
        "営業",
@@ -878,7 +878,7 @@
      "fields": [
       [
        "料金",
-       "大人320円・小人100円（家族4人 約840円）<span class=\"amn\">🅿️ <b class=\"hf\">△</b> 有料（兼六駐車場など</span>"
+       "<span class=\"amn\">👨‍🦰 320円　🧒 100円（6〜17歳）</span><span class=\"amn\">👪 約840円</span><span class=\"amn\">🅿️ 有料（兼六駐車場など）</span>"
       ],
       [
        "営業",
@@ -908,7 +908,7 @@
      "fields": [
       [
        "料金",
-       "コレクション展 一般450円・小中高生無料（家族4人 900円）。交流ゾーンは無料<span class=\"amn\">🅿️ <b class=\"hf\">△</b> 有料</span>"
+       "<span class=\"amn\">👨‍🦰 450円　🧒 無料（小中高生）</span><span class=\"amn\">👪 900円（交流ゾーンは無料）</span><span class=\"amn\">🅿️ 地下319台。休日は最初の30分350円、以降30分ごとに150円</span>"
       ],
       [
        "営業",
@@ -937,7 +937,7 @@
      "fields": [
       [
        "料金",
-       "店ごとに異なる<span class=\"amn\">🅿️ <b class=\"hf\">△</b> 有料</span>"
+       "<span class=\"amn\">店ごとに異なる</span><span class=\"amn\">🅿️ 有料（買い物の金額で割引あり）</span>"
       ],
       [
        "営業",
@@ -966,7 +966,7 @@
      "fields": [
       [
        "料金",
-       "大人400円・小学生150円・小学生未満50円（家族4人 1,000〜1,100円）<span class=\"amn\">🅿️ <b class=\"ok\">◯</b> 無料</span>"
+       "<span class=\"amn\">👨‍🦰 400円　🧒 150円（小学生）・50円（小学生未満）</span><span class=\"amn\">👪 1,000〜1,100円</span><span class=\"amn\">🅿️ 無料</span>"
       ],
       [
        "営業",
@@ -1224,7 +1224,7 @@
      "fields": [
       [
        "料金",
-       "大人600円ほど<span class=\"amn\">🅿️ <b class=\"ok\">◯</b> 無料</span>"
+       "<span class=\"amn\">👨‍🦰 600円ほど　🧒 300円ほど（小学生）</span><span class=\"amn\">👪 約1,800円</span><span class=\"amn\">🅿️ 無料</span>"
       ],
       [
        "営業",
@@ -1254,7 +1254,7 @@
      "fields": [
       [
        "料金",
-       "入場無料。餌は200〜300円<span class=\"amn\">🅿️ <b class=\"ok\">◯</b> 無料</span>"
+       "<span class=\"amn\">入場無料（餌は200〜300円）</span><span class=\"amn\">🅿️ 無料</span>"
       ],
       [
        "営業",
@@ -1283,7 +1283,7 @@
      "fields": [
       [
        "料金",
-       "大人500円・6〜12歳150円・3〜6歳70円（家族4人 約1,300円）<span class=\"amn\">🅿️ <b class=\"ok\">◯</b> 無料</span>"
+       "<span class=\"amn\">👨‍🦰 500円　🧒 150円（6〜12歳）・70円（3〜6歳）</span><span class=\"amn\">👪 約1,300円</span><span class=\"amn\">🅿️ 無料</span>"
       ],
       [
        "営業",
@@ -1324,7 +1324,7 @@
       ],
       [
        "料金",
-       "5泊6日・大人2＋子ども2で総額10,500円（現地で現金払い）<span class=\"amn\">🅿️ <b class=\"ok\">◯</b> 無料</span>"
+       "<span class=\"amn\">5泊6日・大人2＋子ども2で総額10,500円（現地で現金払い）</span><span class=\"amn\">🅿️ 無料</span>"
       ],
       [
        "予約",
@@ -1559,7 +1559,7 @@
      "fields": [
       [
        "料金",
-       "大人410円・小中200円ほど（家族4人 約1,200円）<span class=\"amn\">🅿️ <b class=\"ok\">◯</b> 無料</span>"
+       "<span class=\"amn\">👨‍🦰 410円　🧒 200円ほど（小中学生）</span><span class=\"amn\">👪 約1,200円</span><span class=\"amn\">🅿️ 無料</span>"
       ],
       [
        "営業",
@@ -1589,7 +1589,7 @@
      "fields": [
       [
        "料金",
-       "大人800円ほど（子どもは年齢で変わる）<span class=\"amn\">🅿️ <b class=\"ok\">◯</b> 無料</span>"
+       "<span class=\"amn\">👨‍🦰 840円　🧒 410円（小中学生）・110円（3歳以上）</span><span class=\"amn\">👪 約2,100円</span><span class=\"amn\">🅿️ 無料</span>"
       ],
       [
        "営業",
@@ -1618,7 +1618,7 @@
      "fields": [
       [
        "料金",
-       "大人500円・小学生150円・幼児70円（家族4人 約1,200円）<span class=\"amn\">🅿️ <b class=\"ok\">◯</b> 無料</span>"
+       "<span class=\"amn\">👨‍🦰 500円　🧒 150円（小学生）・70円（幼児）</span><span class=\"amn\">👪 約1,200円</span><span class=\"amn\">🅿️ 無料</span>"
       ],
       [
        "営業",
@@ -1659,7 +1659,7 @@
       ],
       [
        "料金",
-       "5泊6日・大人2＋子ども2で総額10,500円（現地で現金払い）<span class=\"amn\">🅿️ <b class=\"ok\">◯</b> 無料</span>"
+       "<span class=\"amn\">5泊6日・大人2＋子ども2で総額10,500円（現地で現金払い）</span><span class=\"amn\">🅿️ 無料</span>"
       ],
       [
        "予約",
@@ -1905,7 +1905,7 @@
      "fields": [
       [
        "料金",
-       "大人500円・小学生150円・幼児70円（家族4人 約1,300円）<span class=\"amn\">🅿️ <b class=\"ok\">◯</b> 無料</span>"
+       "<span class=\"amn\">👨‍🦰 500円　🧒 150円（小学生）・70円（幼児）</span><span class=\"amn\">👪 約1,300円</span><span class=\"amn\">🅿️ 無料</span>"
       ],
       [
        "営業",
