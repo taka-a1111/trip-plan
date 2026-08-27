@@ -623,7 +623,7 @@
      "fields": [
       [
        "料金",
-       "<span class=\"amn\">👨‍🦰 500円　🧒 200円（小学生）</span><span class=\"amn\">👪 1,200〜1,400円</span><span class=\"amn\">🅿️ 無料</span>"
+       "<span class=\"amn\">👨‍🦰 500円　🧒 200円（小学生以下）</span><span class=\"amn\">👪 1,400円</span><span class=\"amn\">🅿️ 無料</span>"
       ],
       [
        "営業",
@@ -1224,7 +1224,7 @@
      "fields": [
       [
        "料金",
-       "<span class=\"amn\">👨‍🦰 600円ほど　🧒 300円ほど（小学生）</span><span class=\"amn\">👪 1,500〜1,800円</span><span class=\"amn\">🅿️ 無料</span>"
+       "<span class=\"amn\">👨‍🦰 800円　🧒 500円（小中高生）・未就学は無料</span><span class=\"amn\">👪 2,100円</span><span class=\"amn\">🅿️ 無料</span>"
       ],
       [
        "営業",
