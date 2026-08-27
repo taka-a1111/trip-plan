@@ -56,12 +56,12 @@ def pin(points, ref):
     """refはキー文字列 or {"key":..., "lb":"A"}"""
     if isinstance(ref, dict):
         p = points[ref["key"]]
-        out = {"n": p["n"], "lat": p["lat"], "lon": p["lon"], "k": p["k"]}
+        out = {"n": p["n"], "lat": p["lat"], "lon": p["lon"], "k": p["k"], "c": p.get("c", "")}
         if ref.get("lb"):
             out["lb"] = ref["lb"]
         return out
     p = points[ref]
-    return {"n": p["n"], "lat": p["lat"], "lon": p["lon"], "k": p["k"]}
+    return {"n": p["n"], "lat": p["lat"], "lon": p["lon"], "k": p["k"], "c": p.get("c", "")}
 
 
 def render_row(points, row, counter):

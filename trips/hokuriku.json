@@ -28,7 +28,8 @@
    "lon": 136.0896824,
    "k": "spot",
    "q": "かにファクトリー 甲羅組 敦賀",
-   "official": "https://www.kanifactory.com/"
+   "official": "https://www.kanifactory.com/",
+   "c": "play"
   },
   "camp": {
    "n": "西俣キャンプ場（フリーサイト G）",
@@ -37,7 +38,8 @@
    "k": "stay",
    "q": "西俣キャンプ場 小松市",
    "official": "https://nishimata-camp.com/",
-   "reserve": "https://www.nap-camp.com/"
+   "reserve": "https://www.nap-camp.com/",
+   "c": "stay"
   },
   "tojinbo": {
    "n": "東尋坊",
@@ -45,7 +47,8 @@
    "lon": 136.1255242,
    "k": "spot",
    "q": "東尋坊 坂井市",
-   "official": "https://kanko-sakai.com/"
+   "official": "https://kanko-sakai.com/",
+   "c": "sight"
   },
   "aqua": {
    "n": "越前松島水族館",
@@ -53,7 +56,8 @@
    "lon": 136.147069,
    "k": "spot",
    "q": "越前松島水族館",
-   "official": "https://echizen-aquarium.com/"
+   "official": "https://echizen-aquarium.com/",
+   "c": "play"
   },
   "m21": {
    "n": "金沢21世紀美術館",
@@ -61,7 +65,8 @@
    "lon": 136.6585251,
    "k": "spot",
    "q": "金沢21世紀美術館",
-   "official": "https://www.kanazawa21.jp/"
+   "official": "https://www.kanazawa21.jp/",
+   "c": "sight"
   },
   "kenroku": {
    "n": "兼六園",
@@ -69,7 +74,8 @@
    "lon": 136.6626515,
    "k": "spot",
    "q": "兼六園 金沢",
-   "official": "https://www.kanazawa-kankoukyoukai.or.jp/spot/detail_10106.html"
+   "official": "https://www.kanazawa-kankoukyoukai.or.jp/spot/detail_10106.html",
+   "c": "sight"
   },
   "omicho": {
    "n": "近江町市場",
@@ -77,7 +83,8 @@
    "lon": 136.6558651,
    "k": "spot",
    "q": "近江町市場 金沢",
-   "official": "https://www.kanazawa-kankoukyoukai.or.jp/spot/detail_10030.html"
+   "official": "https://www.kanazawa-kankoukyoukai.or.jp/spot/detail_10030.html",
+   "c": "food"
   },
   "hills": {
    "n": "サイエンスヒルズこまつ",
@@ -93,7 +100,8 @@
    "lon": 136.5264331,
    "k": "spot",
    "q": "ハニベ巌窟院 小松市",
-   "official": "https://www.komatsuguide.jp/spot/detail_174.html"
+   "official": "https://www.komatsuguide.jp/spot/detail_174.html",
+   "c": "sight"
   },
   "insect": {
    "n": "石川県ふれあい昆虫館",
@@ -101,7 +109,8 @@
    "lon": 136.6334388,
    "k": "spot",
    "q": "石川県ふれあい昆虫館",
-   "official": "https://www.furekon.jp/"
+   "official": "https://www.furekon.jp/",
+   "c": "play"
   },
   "zoo": {
    "n": "いしかわ動物園",
@@ -109,7 +118,8 @@
    "lon": 136.5459045,
    "k": "spot",
    "q": "いしかわ動物園 能美市",
-   "official": "https://www.ishikawazoo.jp/"
+   "official": "https://www.ishikawazoo.jp/",
+   "c": "play"
   },
   "usagi": {
    "n": "月うさぎの里",
@@ -117,7 +127,8 @@
    "lon": 136.2755826,
    "k": "spot",
    "q": "月うさぎの里 加賀市",
-   "official": "https://www.tsukiusaginosato.com/"
+   "official": "https://www.tsukiusaginosato.com/",
+   "c": "play"
   },
   "train": {
    "n": "トレインパーク白山",
@@ -133,7 +144,8 @@
    "lon": 136.4854859,
    "k": "spot",
    "q": "せせらぎの郷 小松市清流町",
-   "official": "https://www.k-seseragi.com/"
+   "official": "https://www.k-seseragi.com/",
+   "c": "onsen"
   },
   "saionji": {
    "n": "西圓寺温泉",
@@ -141,7 +153,8 @@
    "lon": 136.4792423,
    "k": "spot",
    "q": "西圓寺温泉 小松市野田町",
-   "official": "https://bussien.com/store/spa_saienji.php"
+   "official": "https://bussien.com/store/spa_saienji.php",
+   "c": "onsen"
   },
   "yamashiro": {
    "n": "山代温泉 総湯",
@@ -149,7 +162,8 @@
    "lon": 136.3614642,
    "k": "spot",
    "q": "山代温泉 総湯",
-   "official": "https://www.tabimati.net/spot/detail_148.html"
+   "official": "https://www.tabimati.net/spot/detail_148.html",
+   "c": "onsen"
   },
   "yourport": {
    "n": "三国温泉 ゆあぽーと",
@@ -157,7 +171,8 @@
    "lon": 136.135791,
    "k": "spot",
    "q": "三国温泉ゆあぽーと 坂井市",
-   "official": "https://yourport.biz/"
+   "official": "https://yourport.biz/",
+   "c": "onsen"
   },
   "awazu": {
    "n": "粟津温泉 総湯",
@@ -165,7 +180,8 @@
    "lon": 136.4464638,
    "k": "spot",
    "q": "粟津温泉総湯 小松市",
-   "official": "https://www.komatsuguide.jp/spot/detail_158.html"
+   "official": "https://www.komatsuguide.jp/spot/detail_158.html",
+   "c": "onsen"
   }
  },
  "rt_order": [
@@ -300,6 +316,11 @@
        "ゴミ回収なしで全量持ち帰り（獣害対策）。直火・花火・ペット不可、22時以降は静かに"
       ]
      ]
+    },
+    {
+     "type": "move",
+     "name": "西俣キャンプ場 から せせらぎの郷（約14km）",
+     "dur": "約15分"
     },
     {
      "type": "spot",
@@ -569,6 +590,11 @@
      ]
     },
     {
+     "type": "move",
+     "name": "東尋坊 から 越前松島水族館（約3.3km）",
+     "dur": "約5分"
+    },
+    {
      "type": "spot",
      "key": "aqua",
      "cat": "play",
@@ -597,6 +623,11 @@
      ]
     },
     {
+     "type": "move",
+     "name": "越前松島水族館 から 三国温泉 ゆあぽーと（約5.2km）",
+     "dur": "約5分"
+    },
+    {
      "type": "spot",
      "key": "yourport",
      "cat": "onsen",
@@ -623,6 +654,11 @@
        "無料"
       ]
      ]
+    },
+    {
+     "type": "move",
+     "name": "三国温泉 ゆあぽーと から 西俣キャンプ場（約56km）",
+     "dur": "約55分"
     },
     {
      "type": "spot",
@@ -875,6 +911,11 @@
      ]
     },
     {
+     "type": "move",
+     "name": "兼六園 から 金沢21世紀美術館（約0.4km）",
+     "dur": "約5分"
+    },
+    {
      "type": "spot",
      "key": "m21",
      "cat": "sight",
@@ -902,6 +943,11 @@
        "有料。地下の市役所・美術館駐車場319台で、休日は最初の30分350円、以降30分ごとに150円"
       ]
      ]
+    },
+    {
+     "type": "move",
+     "name": "金沢21世紀美術館 から 近江町市場（約1.8km）",
+     "dur": "約5分"
     },
     {
      "type": "spot",
@@ -932,6 +978,11 @@
      ]
     },
     {
+     "type": "move",
+     "name": "近江町市場 から せせらぎの郷（約37km）",
+     "dur": "約40分"
+    },
+    {
      "type": "spot",
      "key": "seseragi_go",
      "cat": "onsen",
@@ -958,6 +1009,11 @@
        "無料"
       ]
      ]
+    },
+    {
+     "type": "move",
+     "name": "せせらぎの郷 から 西俣キャンプ場（約14km）",
+     "dur": "約15分"
     },
     {
      "type": "spot",
@@ -1213,6 +1269,11 @@
      ]
     },
     {
+     "type": "move",
+     "name": "ハニベ巌窟院 から 月うさぎの里（約29km）",
+     "dur": "約25分"
+    },
+    {
      "type": "spot",
      "key": "usagi",
      "cat": "play",
@@ -1242,6 +1303,11 @@
      ]
     },
     {
+     "type": "move",
+     "name": "月うさぎの里 から 山代温泉 総湯（約9.4km）",
+     "dur": "約10分"
+    },
+    {
      "type": "spot",
      "key": "yamashiro",
      "cat": "onsen",
@@ -1268,6 +1334,11 @@
        "無料"
       ]
      ]
+    },
+    {
+     "type": "move",
+     "name": "山代温泉 総湯 から 西俣キャンプ場（約28km）",
+     "dur": "約30分"
     },
     {
      "type": "spot",
@@ -1545,6 +1616,11 @@
      ]
     },
     {
+     "type": "move",
+     "name": "石川県ふれあい昆虫館 から いしかわ動物園（約11km）",
+     "dur": "約15分"
+    },
+    {
      "type": "spot",
      "key": "zoo",
      "cat": "play",
@@ -1574,6 +1650,11 @@
      ]
     },
     {
+     "type": "move",
+     "name": "いしかわ動物園 から 西圓寺温泉（約9.1km）",
+     "dur": "約15分"
+    },
+    {
      "type": "spot",
      "key": "saionji",
      "cat": "onsen",
@@ -1600,6 +1681,11 @@
        "無料"
       ]
      ]
+    },
+    {
+     "type": "move",
+     "name": "西圓寺温泉 から 西俣キャンプ場（約20km）",
+     "dur": "約20分"
     },
     {
      "type": "spot",
@@ -1847,6 +1933,11 @@
      "name": "朝食・撤収（チェックアウト 11:00）",
      "dur": "午前いっぱい",
      "note": "温水シャワーを使ってから出発すると帰りが快適"
+    },
+    {
+     "type": "move",
+     "name": "西俣キャンプ場 から 粟津温泉 総湯（約16km）",
+     "dur": "約20分"
     },
     {
      "type": "spot",
