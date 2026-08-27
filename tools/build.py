@@ -196,7 +196,22 @@ def build(name, tag):
         DM[str(i)] = [pin(points, k) for k in d["pins"]]
 
     memo = ('<div class="notice" id="memo" style="margin-top:22px">%s</div>' % data["memo"]) if data.get("memo") else ""
-    main = "".join(sections) + memo
+    rain = ""
+    if data.get("rain"):
+        cards = ""
+        for i, x in enumerate(data["rain"], 1):
+            cards += ('<li class="rain-item"><span class="rno">%d</span><div class="rbody">'
+                      '<a class="rname" href="%s" target="_blank" rel="noopener">%s</a>'
+                      '<div class="rmeta">%s</div><div class="rnote">%s</div></div></li>'
+                      % (i, gmap(x["q"]), x["n"], x.get("meta", ""), x.get("note", "")))
+        rain = ('<section class="rain reveal" id="rain"><h2 class="rain-h">雨の日の候補</h2>'
+                '<p class="rain-lead">名古屋から東尋坊までの間にある室内施設。'
+                'その日の朝に雨なら、行き先をここへ振り替える。</p>'
+                '<div class="daymap" id="daymaprain"></div>'
+                '<ul class="rain-list">%s</ul></section>' % cards)
+        DM["rain"] = [{"n": x["n"], "lat": x["la"], "lon": x["lo"], "k": "spot", "c": "play"}
+                      for x in data["rain"]]
+    main = "".join(sections) + memo + rain
 
     home = dict(data["home"], k="home")
     RT = {"pts": [home] + [pin(points, k) for k in data["rt_order"]],
