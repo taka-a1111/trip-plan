@@ -269,7 +269,7 @@
       ],
       [
        "駐車場",
-       "無料"
+       "🅿️ <b class=\"ok\">◯</b> 無料"
       ]
      ]
     },
@@ -309,11 +309,11 @@
       ],
       [
        "駐車場",
-       "無料。搬入・搬出のときだけサイトへ乗り入れ可で、済んだら駐車場へ"
+       "🅿️ <b class=\"ok\">◯</b> 無料。搬入・搬出のときだけサイトへ乗り入れ可で、済んだら駐車場へ"
       ],
       [
        "ルール",
-       "ゴミ回収なしで全量持ち帰り（獣害対策）。直火・花火・ペット不可、22時以降は静かに"
+       "<span class=\"amn\">🚯 ゴミ回収なし・全量持ち帰り（獣害対策）</span><span class=\"amn\">🔥 直火 <b class=\"ng\">✕</b></span><span class=\"amn\">🎆 花火 <b class=\"ng\">✕</b></span><span class=\"amn\">🐕 ペット <b class=\"ng\">✕</b></span><span class=\"amn\">🔇 22時以降は静かに</span>"
       ]
      ]
     },
@@ -346,11 +346,11 @@
       ],
       [
        "備品",
-       "<span class=\"amn\">🧴 シャンプー <b class=\"ng\">✕</b></span><span class=\"amn\">🧼 ボディソープ <b class=\"ng\">✕</b></span><span class=\"amn\">🌬️ ドライヤー <b class=\"ok\">◯</b> 無料</span><span class=\"fnote\">石けん類は持参</span>"
+       "<span class=\"amn\">🧼 せっけん・ボディソープ <b class=\"ng\">✕</b></span><span class=\"amn\">🧴 シャンプー・リンス <b class=\"ng\">✕</b></span><span class=\"amn\">🌬️ ドライヤー <b class=\"ok\">◯</b> 無料</span><span class=\"fnote\">せっけん類は持参</span>"
       ],
       [
        "駐車場",
-       "無料"
+       "🅿️ <b class=\"ok\">◯</b> 無料"
       ]
      ]
     }
@@ -589,7 +589,7 @@
       ],
       [
        "駐車場",
-       "有料が中心で1回500円ほど。15分ほど歩けば無料の市営駐車場もある"
+       "🅿️ <b class=\"hf\">△</b> 有料が中心で1回500円ほど。15分歩けば無料の市営駐車場もある"
       ]
      ]
     },
@@ -622,7 +622,7 @@
       ],
       [
        "駐車場",
-       "無料"
+       "🅿️ <b class=\"ok\">◯</b> 無料"
       ]
      ]
     },
@@ -655,11 +655,11 @@
       ],
       [
        "備品",
-       "<span class=\"amn\">🧴 シャンプー <b class=\"ok\">◯</b></span><span class=\"amn\">🧼 ボディソープ <b class=\"ok\">◯</b></span><span class=\"amn\">🌬️ ドライヤー <b class=\"ok\">◯</b> 無料</span><span class=\"fnote\">タオルのみ持参（館内で販売あり）</span>"
+       "<span class=\"amn\">🧼 せっけん・ボディソープ <b class=\"ok\">◯</b></span><span class=\"amn\">🧴 シャンプー・リンス <b class=\"ok\">◯</b></span><span class=\"amn\">🌬️ ドライヤー <b class=\"ok\">◯</b> 無料</span>"
       ],
       [
        "駐車場",
-       "無料"
+       "🅿️ <b class=\"ok\">◯</b> 無料（80台）"
       ]
      ]
     },
@@ -914,7 +914,7 @@
       ],
       [
        "駐車場",
-       "有料（兼六駐車場など。周辺に無料はない）"
+       "🅿️ <b class=\"hf\">△</b> 有料（兼六駐車場など。周辺に無料はない）"
       ]
      ]
     },
@@ -948,7 +948,7 @@
       ],
       [
        "駐車場",
-       "有料。地下の市役所・美術館駐車場319台で、休日は最初の30分350円、以降30分ごとに150円"
+       "🅿️ <b class=\"hf\">△</b> 有料。地下319台で、休日は最初の30分350円、以降30分ごとに150円"
       ]
      ]
     },
@@ -981,7 +981,7 @@
       ],
       [
        "駐車場",
-       "有料。買い物の金額で割引あり"
+       "🅿️ <b class=\"hf\">△</b> 有料。買い物の金額で割引あり"
       ]
      ]
     },
@@ -1014,11 +1014,11 @@
       ],
       [
        "備品",
-       "<span class=\"amn\">🧴 シャンプー <b class=\"ng\">✕</b></span><span class=\"amn\">🧼 ボディソープ <b class=\"ng\">✕</b></span><span class=\"amn\">🌬️ ドライヤー <b class=\"ok\">◯</b> 無料</span><span class=\"fnote\">石けん類は持参</span>"
+       "<span class=\"amn\">🧼 せっけん・ボディソープ <b class=\"ng\">✕</b></span><span class=\"amn\">🧴 シャンプー・リンス <b class=\"ng\">✕</b></span><span class=\"amn\">🌬️ ドライヤー <b class=\"ok\">◯</b> 無料</span><span class=\"fnote\">せっけん類は持参</span>"
       ],
       [
        "駐車場",
-       "無料"
+       "🅿️ <b class=\"ok\">◯</b> 無料"
       ]
      ]
     },
@@ -1276,7 +1276,7 @@
       ],
       [
        "駐車場",
-       "無料"
+       "🅿️ <b class=\"ok\">◯</b> 無料"
       ]
      ]
     },
@@ -1310,7 +1310,7 @@
       ],
       [
        "駐車場",
-       "無料"
+       "🅿️ <b class=\"ok\">◯</b> 無料"
       ]
      ]
     },
@@ -1343,11 +1343,11 @@
       ],
       [
        "備品",
-       "<span class=\"amn\">🧴 シャンプー <b class=\"ng\">✕</b></span><span class=\"amn\">🧼 ボディソープ <b class=\"ng\">✕</b></span><span class=\"amn\">🌬️ ドライヤー <b class=\"hf\">△</b> 1分10円</span><span class=\"fnote\">石けん類・タオルは館内で販売</span>"
+       "<span class=\"amn\">🧼 せっけん・ボディソープ <b class=\"ng\">✕</b></span><span class=\"amn\">🧴 シャンプー・リンス <b class=\"ng\">✕</b></span><span class=\"amn\">🌬️ ドライヤー <b class=\"hf\">△</b> 1分10円</span><span class=\"fnote\">せっけん類・タオルは館内で販売</span>"
       ],
       [
        "駐車場",
-       "無料"
+       "🅿️ <b class=\"ok\">◯</b> 無料"
       ]
      ]
     },
@@ -1384,11 +1384,11 @@
       ],
       [
        "駐車場",
-       "無料。搬入・搬出のときだけサイトへ乗り入れ可で、済んだら駐車場へ"
+       "🅿️ <b class=\"ok\">◯</b> 無料。搬入・搬出のときだけサイトへ乗り入れ可で、済んだら駐車場へ"
       ],
       [
        "ルール",
-       "ゴミ回収なしで全量持ち帰り（獣害対策）。直火・花火・ペット不可、22時以降は静かに"
+       "<span class=\"amn\">🚯 ゴミ回収なし・全量持ち帰り（獣害対策）</span><span class=\"amn\">🔥 直火 <b class=\"ng\">✕</b></span><span class=\"amn\">🎆 花火 <b class=\"ng\">✕</b></span><span class=\"amn\">🐕 ペット <b class=\"ng\">✕</b></span><span class=\"amn\">🔇 22時以降は静かに</span>"
       ]
      ]
     }
@@ -1627,7 +1627,7 @@
       ],
       [
        "駐車場",
-       "無料"
+       "🅿️ <b class=\"ok\">◯</b> 無料"
       ]
      ]
     },
@@ -1661,7 +1661,7 @@
       ],
       [
        "駐車場",
-       "無料"
+       "🅿️ <b class=\"ok\">◯</b> 無料"
       ]
      ]
     },
@@ -1694,11 +1694,11 @@
       ],
       [
        "備品",
-       "<span class=\"amn\">🧴 シャンプー <b class=\"ok\">◯</b></span><span class=\"amn\">🧼 ボディソープ <b class=\"ok\">◯</b></span><span class=\"amn\">🌬️ ドライヤー <b class=\"ok\">◯</b> 無料</span><span class=\"fnote\">タオルのみ持参</span>"
+       "<span class=\"amn\">🧼 せっけん・ボディソープ <b class=\"ok\">◯</b></span><span class=\"amn\">🧴 シャンプー・リンス <b class=\"ok\">◯</b></span><span class=\"amn\">🌬️ ドライヤー <b class=\"ok\">◯</b> 無料</span>"
       ],
       [
        "駐車場",
-       "無料"
+       "🅿️ <b class=\"ok\">◯</b> 無料（15台）"
       ]
      ]
     },
@@ -1735,11 +1735,11 @@
       ],
       [
        "駐車場",
-       "無料。搬入・搬出のときだけサイトへ乗り入れ可で、済んだら駐車場へ"
+       "🅿️ <b class=\"ok\">◯</b> 無料。搬入・搬出のときだけサイトへ乗り入れ可で、済んだら駐車場へ"
       ],
       [
        "ルール",
-       "ゴミ回収なしで全量持ち帰り（獣害対策）。直火・花火・ペット不可、22時以降は静かに"
+       "<span class=\"amn\">🚯 ゴミ回収なし・全量持ち帰り（獣害対策）</span><span class=\"amn\">🔥 直火 <b class=\"ng\">✕</b></span><span class=\"amn\">🎆 花火 <b class=\"ng\">✕</b></span><span class=\"amn\">🐕 ペット <b class=\"ng\">✕</b></span><span class=\"amn\">🔇 22時以降は静かに</span>"
       ]
      ]
     }
@@ -1989,11 +1989,11 @@
       ],
       [
        "備品",
-       "<span class=\"amn\">🧴 シャンプー <b class=\"ng\">✕</b></span><span class=\"amn\">🧼 ボディソープ <b class=\"ng\">✕</b></span><span class=\"amn\">🌬️ ドライヤー <b class=\"hf\">△</b> 有料</span><span class=\"fnote\">石けん類は券売機で販売</span>"
+       "<span class=\"amn\">🧼 せっけん・ボディソープ <b class=\"ng\">✕</b></span><span class=\"amn\">🧴 シャンプー・リンス <b class=\"ng\">✕</b></span><span class=\"amn\">🌬️ ドライヤー <b class=\"hf\">△</b> 有料</span><span class=\"fnote\">せっけん類は券売機で販売</span>"
       ],
       [
        "駐車場",
-       "無料"
+       "🅿️ <b class=\"ok\">◯</b> 無料（10台）"
       ]
      ]
     },
