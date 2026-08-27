@@ -138,12 +138,13 @@ def build(name, tag):
                             it.get("hr") or "—", it.get("off") or "—"))
             sl = g.get("slot", "夜")
             lab_cls = "ml-l" if sl == "昼" else ("ml-s" if sl == "買い出し" else "ml-d")
-            lab = "買い<br>出し" if sl == "買い出し" else sl
+            lab = "スー<br>パー" if sl == "買い出し" else sl
+            col1 = {"昼": "昼の候補", "夜": "夜の候補", "買い出し": "スーパーの候補"}.get(sl, "候補")
             blocks += ('<div class="mslot"><span class="mlab %s">%s</span>'
                        '<div class="mtable-wrap"><table class="mtable"><thead><tr>'
-                       '<th class="mt-ck"></th><th>店舗名</th><th>口コミ</th><th>予算（1人あたり）</th><th>営業時間</th><th>定休日</th>'
-                       '</tr></thead><tbody>%s</tbody></table></div></div>' % (lab_cls, lab, rows))
-        return ('<div class="mhead">食事の候補<span class="mhint">表は横にスライドできます</span></div>'
+                       '<th class="mt-ck"></th><th>%s</th><th>口コミ</th><th>予算（1人あたり）</th><th>営業時間</th><th>定休日</th>'
+                       '</tr></thead><tbody>%s</tbody></table></div></div>' % (lab_cls, lab, col1, rows))
+        return ('<div class="mhead">食事と買い出しの候補<span class="mhint">チェックすると地図にピンが出ます</span></div>'
                 '<div class="meals">%s</div>' % blocks)
 
     sections, DM, has_meals, has_meal_pins = [], {}, False, False
@@ -188,10 +189,10 @@ def build(name, tag):
             '<div class="day-date"><span class="dd">%s</span><span class="dw">%s</span></div>'
             '<span class="day-badge">%s</span><div class="day-tags">%s</div></div>'
             '<h2 class="day-theme">%s</h2>%s%s'
-            '<ul class="spot-list%s">%s</ul>%s%s'
-            '<div class="daymap" id="daymap%d"></div></section>'
+            '<ul class="spot-list%s">%s</ul>'
+            '<div class="daymap" id="daymap%d"></div>%s%s</section>'
             % (d["id"], d["dd"], d["dw"], d["badge"], tags, d["theme"], photo, notice,
-               ("" if any(r.get("plan") for r in d["rows"]) else " np"), rows, meals_html, route, i))
+               ("" if any(r.get("plan") for r in d["rows"]) else " np"), rows, i, meals_html, route))
         DM[str(i)] = [pin(points, k) for k in d["pins"]]
 
     memo = ('<div class="notice" style="margin-top:22px">%s</div>' % data["memo"]) if data.get("memo") else ""
