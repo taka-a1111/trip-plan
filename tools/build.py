@@ -195,7 +195,7 @@ def build(name, tag):
                ("" if any(r.get("plan") for r in d["rows"]) else " np"), rows, i, meals_html, route))
         DM[str(i)] = [pin(points, k) for k in d["pins"]]
 
-    memo = ('<div class="notice" style="margin-top:22px">%s</div>' % data["memo"]) if data.get("memo") else ""
+    memo = ('<div class="notice" id="memo" style="margin-top:22px">%s</div>' % data["memo"]) if data.get("memo") else ""
     main = "".join(sections) + memo
 
     home = dict(data["home"], k="home")
@@ -238,6 +238,18 @@ def build(name, tag):
         if d_.get("wxn"):
             norm["%s-%s" % (year, _iso(d_["dd"]))] = d_["wxn"]
     norm_js = json.dumps(norm, ensure_ascii=False)
+
+    def _stay_q(day):
+        last = ""
+        for r in day["rows"]:
+            if r["type"] != "move" and points[r["key"]].get("k") == "stay":
+                last = points[r["key"]]["q"]
+        return last
+
+    home_q = "%s,%s" % (data["home"]["lat"], data["home"]["lon"])
+    nav_stays = json.dumps(
+        [{"d": "%s-%s" % (year, _iso(x["dd"])), "q": _stay_q(x) or home_q} for x in data["days"]],
+        ensure_ascii=False)
     seen, lats, lons = set(), [], []
     for w in day_wx:
         key = (w["lat"], w["lon"])
@@ -271,11 +283,10 @@ def build(name, tag):
         "{{STAT_DAYS}}": str(len(data["days"])), "{{STAT_NIGHTS}}": str(nights), "{{STAT_SPOTS}}": str(spots),
         "{{DATE_S}}": data["date_s"], "{{DATE_E}}": data["date_e"],
         "{{WX_LAT}}": ",".join(lats), "{{WX_LON}}": ",".join(lons),
-        "{{LEGEND_EXTRA}}": ('<span class="lg lg-pin"><span class="mno" style="width:16px;height:16px;font-size:.62rem">A</span>食事の候補</span>' if has_meal_pins else ""),
-        "{{NAV_DAYS}}": nav, "{{DAY_BAR}}": daybar, "{{WEAR}}": wear_html, "{{TRIP_KEY}}": data["name"], "{{DIRLINK}}": dirlink, "{{MAIN}}": main,
+        "{{LEGEND_EXTRA}}": ('<span class="lg lg-pin"><span class="mno" style="width:16px;height:16px;font-size:.62rem">A</span>食事の候補</span>' if has_meal_pins else ""), "{{DAY_BAR}}": daybar, "{{WEAR}}": wear_html, "{{TRIP_KEY}}": data["name"], "{{DIRLINK}}": dirlink, "{{MAIN}}": main,
         "{{RT}}": json.dumps(RT, ensure_ascii=False),
         "{{DM}}": json.dumps(DM, ensure_ascii=False),
-        "{{WX_DAYS}}": wxdays, "{{WX_PAST}}": past_js, "{{WX_NORM}}": norm_js, "{{CREDIT}}": credit,
+        "{{WX_DAYS}}": wxdays, "{{WX_PAST}}": past_js, "{{WX_NORM}}": norm_js, "{{NAV_STAYS}}": nav_stays, "{{CREDIT}}": credit,
     }
     h = tpl
     for k, v in rep.items():
