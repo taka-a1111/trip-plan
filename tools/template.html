@@ -415,15 +415,15 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
 .spot-row.is-move{background:none;border:none;border-left:none;box-shadow:none;border-radius:0;
   margin:0 0 4px;padding:4px 13px 8px}
 .spot-row.is-move+.spot-row{margin-top:0}
-.s-fields{grid-template-columns:5em minmax(0,1fr);gap:0 12px;padding:11px 13px}
-.fld .fk{text-align:center;white-space:normal;padding:8px 0 8px;align-self:center;background:rgba(12,124,140,.055);border-radius:6px;margin:6px 0}
-.fld .fv{padding:8px 0 8px}
-.fld:first-child .fk,.fld:first-child .fv{padding-top:0}
-.fld:first-child .fk{margin-top:0}
-.fld:last-child .fk{margin-bottom:0}
-.fld:last-child .fk,.fld:last-child .fv{padding-bottom:0}
-.fld+.fld .fk,.fld+.fld .fv{border-top:1px dotted #ded6c6}
-@media(min-width:700px){.s-fields{grid-template-columns:5.5em minmax(0,1fr)}}
+
+
+
+
+
+
+
+
+
 .rtwrap{margin:12px 0 2px;text-align:center}
 .rtbtn{font-family:'Zen Kaku Gothic New',sans-serif;font-size:.86rem;font-weight:700;color:#fff;
   background:var(--teal);border:none;border-radius:22px;padding:10px 20px;cursor:pointer;box-shadow:var(--shadow-s)}
@@ -450,6 +450,16 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
 .s-fields .hf{color:#c39327;font-weight:800;font-size:1.02em}
 .s-fields .amn{display:block;white-space:normal;line-height:1.75}
 .s-fields .fnote{display:block;margin-top:2px;font-size:.86em;color:#4d6168;white-space:normal}
+.s-fields{display:block;padding:10px 13px;line-height:1.7}
+.fld{display:block;padding:6px 0}
+.fld:first-child{padding-top:0}
+.fld:last-child{padding-bottom:0}
+.fld+.fld{border-top:1px dotted #ded6c6}
+.fld .fk{display:inline;background:none;border:none;padding:0;margin:0 7px 0 0;
+  font-size:.78rem;font-weight:800;color:var(--teal-deep);letter-spacing:.03em}
+.fld .fv{display:inline;padding:0;border:none}
+.s-fields .amn{display:inline;margin-right:10px}
+.s-fields .fnote{display:inline;margin-left:6px}
 /* ---- 食事の候補（横スクロールの表） ---- */
 .meals{padding:2px 0}
 .mslot{display:flex;gap:10px;padding:12px 12px;align-items:flex-start}
