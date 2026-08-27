@@ -200,10 +200,17 @@ def build(name, tag):
     if data.get("rain"):
         cards = ""
         for i, x in enumerate(data["rain"], 1):
+            rows_ = ''
+            for lab, val in (("料金", x.get("fee")), ("", x.get("fam")), ("", x.get("park")),
+                             ("営業", x.get("hr")), ("定休", x.get("off"))):
+                if val:
+                    rows_ += ('<div class="rfld"><span class="rk">%s</span><span class="rv">%s</span></div>'
+                              % (lab, val))
             cards += ('<li class="rain-item"><span class="rno">%d</span><div class="rbody">'
                       '<a class="rname" href="%s" target="_blank" rel="noopener">%s</a>'
-                      '<div class="rmeta">%s</div><div class="rnote">%s</div></div></li>'
-                      % (i, gmap(x["q"]), x["n"], x.get("meta", ""), x.get("note", "")))
+                      '<div class="rmeta">%s</div><div class="rnote">%s</div>'
+                      '<div class="rfields">%s</div></div></li>'
+                      % (i, gmap(x["q"]), x["n"], x.get("rv", ""), x.get("note", ""), rows_))
         rain = ('<section class="rain reveal" id="rain"><h2 class="rain-h">雨の日の候補</h2>'
                 '<p class="rain-lead">名古屋から東尋坊までの間にある室内施設。'
                 'その日の朝に雨なら、行き先をここへ振り替える。</p>'
