@@ -346,7 +346,7 @@
       ],
       [
        "備品",
-       "石けん類の備え付けなし（シャンプー・ボディソープは持参）。ドライヤーは脱衣所に無料であり"
+       "<span class=\"amn\">🧴 シャンプー <b class=\"ng\">✕</b></span><span class=\"amn\">🧼 ボディソープ <b class=\"ng\">✕</b></span><span class=\"amn\">🌬️ ドライヤー <b class=\"ok\">◯</b> 無料</span><span class=\"fnote\">石けん類は持参</span>"
       ],
       [
        "駐車場",
@@ -655,7 +655,7 @@
       ],
       [
        "備品",
-       "ボディソープ・シャンプー・リンスの備え付けあり。ドライヤーも無料。タオルは持参（館内で販売あり）"
+       "<span class=\"amn\">🧴 シャンプー <b class=\"ok\">◯</b></span><span class=\"amn\">🧼 ボディソープ <b class=\"ok\">◯</b></span><span class=\"amn\">🌬️ ドライヤー <b class=\"ok\">◯</b> 無料</span><span class=\"fnote\">タオルのみ持参（館内で販売あり）</span>"
       ],
       [
        "駐車場",
@@ -1014,7 +1014,7 @@
       ],
       [
        "備品",
-       "石けん類の備え付けなし（シャンプー・ボディソープは持参）。ドライヤーは脱衣所に無料であり"
+       "<span class=\"amn\">🧴 シャンプー <b class=\"ng\">✕</b></span><span class=\"amn\">🧼 ボディソープ <b class=\"ng\">✕</b></span><span class=\"amn\">🌬️ ドライヤー <b class=\"ok\">◯</b> 無料</span><span class=\"fnote\">石けん類は持参</span>"
       ],
       [
        "駐車場",
@@ -1343,7 +1343,7 @@
       ],
       [
        "備品",
-       "アメニティの備え付けなし（浴用タオル・石けん類は館内で販売）。ドライヤーは有料で1分10円"
+       "<span class=\"amn\">🧴 シャンプー <b class=\"ng\">✕</b></span><span class=\"amn\">🧼 ボディソープ <b class=\"ng\">✕</b></span><span class=\"amn\">🌬️ ドライヤー <b class=\"hf\">△</b> 1分10円</span><span class=\"fnote\">石けん類・タオルは館内で販売</span>"
       ],
       [
        "駐車場",
@@ -1694,7 +1694,7 @@
       ],
       [
        "備品",
-       "シャンプー・ボディソープの備え付けあり。ドライヤーは無料"
+       "<span class=\"amn\">🧴 シャンプー <b class=\"ok\">◯</b></span><span class=\"amn\">🧼 ボディソープ <b class=\"ok\">◯</b></span><span class=\"amn\">🌬️ ドライヤー <b class=\"ok\">◯</b> 無料</span><span class=\"fnote\">タオルのみ持参</span>"
       ],
       [
        "駐車場",
@@ -1989,7 +1989,7 @@
       ],
       [
        "備品",
-       "石けん類の備え付けなし（券売機で販売）。ドライヤーも有料。持参が確実"
+       "<span class=\"amn\">🧴 シャンプー <b class=\"ng\">✕</b></span><span class=\"amn\">🧼 ボディソープ <b class=\"ng\">✕</b></span><span class=\"amn\">🌬️ ドライヤー <b class=\"hf\">△</b> 有料</span><span class=\"fnote\">石けん類は券売機で販売</span>"
       ],
       [
        "駐車場",
