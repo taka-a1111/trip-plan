@@ -368,11 +368,12 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
 .s-note{font-size:.86rem;color:#3f5359;margin-top:5px;line-height:1.7}
 .spot-links{display:flex;flex-direction:row;flex-wrap:wrap;gap:6px;margin-top:9px;flex-shrink:1}
 .spot-links .lnk{font-size:.8rem;font-weight:700;padding:5px 15px;border-radius:20px;text-align:center}
-.spot-row.is-move{padding-top:9px;padding-bottom:9px;background:#faf8f3}
+.spot-row.is-move{padding-top:3px;padding-bottom:3px;background:none}
 .mv-line{display:flex;flex-wrap:wrap;align-items:center;gap:4px 7px}
-.mv-name{font-size:.9rem;font-weight:500;color:var(--ink-soft);line-height:1.5;min-width:0;overflow-wrap:break-word}
-.mv-dur{font-family:'Outfit',sans-serif;font-weight:600;font-size:.79rem;color:#4d6168;background:#e6edef;border-radius:20px;padding:2px 9px;white-space:nowrap}
-.mv-node{width:11px;height:11px;border-radius:50%;background:var(--paper-2);border:2px solid #c6ced0;box-shadow:0 0 0 3px #faf8f3;margin-top:6px}
+.mv-name{font-size:.82rem;font-weight:600;color:#6c8087;line-height:1.3;min-width:0;overflow-wrap:break-word}
+.spot-row.is-move .spot-head{gap:0;align-items:baseline;flex-wrap:wrap}
+.mv-dur{font-family:'Outfit',sans-serif;font-weight:600;font-size:.79rem;color:#6c8087;background:none;border-radius:0;padding:0 0 0 8px;white-space:nowrap}
+.mv-node{width:7px;height:7px;border-radius:50%;background:#c6ced0;border:none;box-shadow:none;margin-top:0}
 .spot-row.is-main{background:linear-gradient(90deg,rgba(12,124,140,.09),rgba(12,124,140,0) 74%)}
 .spot-row.is-main .s-name{font-size:1.1rem;color:var(--teal-ink)}
 .spot-row.is-main .s-rail .s-plan{color:var(--coral)}
@@ -413,9 +414,10 @@ html{scroll-behavior:smooth;scroll-padding-top:62px}
 .row-onsen{border-left-color:#955d84}
 .row-stay{border-left-color:var(--teal-ink)}
 .spot-row.is-main{background:linear-gradient(90deg,rgba(12,124,140,.10),rgba(12,124,140,0) 74%),var(--paper-2)}
-.spot-row.is-move{background:none;border:none;border-left:none;box-shadow:none;border-radius:0;
-  margin:0 0 4px;padding:4px 13px 8px}
+.spot-row.is-move{background:none;border:none;border-left:none;box-shadow:none;border-radius:0;margin:0;padding:3px 13px}
 .spot-row.is-move+.spot-row{margin-top:0}
+.spot-row.is-move .spot-body:empty{display:none}
+.spot-row.is-move .s-plan{font-size:.82rem}
 
 
 
