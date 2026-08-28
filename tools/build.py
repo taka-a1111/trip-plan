@@ -155,12 +155,40 @@ def build(name, tag):
                 '<span class="s-caret" aria-hidden="true"></span></div>'
                 '<div class="meals">%s</div></div>' % blocks)
 
+    def render_rain(day):
+        """その日の雨天候補（食事と同じ表形式・チェックで地図にピンが立つ）"""
+        idx = day.get("rain")
+        if not idx:
+            return ""
+        rows = ""
+        for n, j in enumerate(idx, 1):
+            x = data["rain"][j - 1]
+            lb = chr(64 + n)  # A/B/C（スポットの番号ピンと混ざらないよう英字にする）
+            mid = "%s-rain-%s" % (day.get("id", ""), x["n"])
+            rows += ('<tr data-mk="%s" data-shop="%s" data-q="%s" data-la="%s" data-lo="%s" data-pn="%s">'
+                     '<td class="mt-ck"><span class="mck"></span></td>'
+                     '<th scope="row"><span class="rnum">%s</span>'
+                     '<a class="fshop" href="%s" target="_blank" rel="noopener">%s</a></th>'
+                     '<td class="mt-rv">%s</td><td class="mt-bg">%s</td>'
+                     '<td class="mt-hr">%s</td><td class="mt-off">%s</td></tr>'
+                     % (mid, x["n"], x["q"], x["la"], x["lo"], lb, lb, gmap(x["q"]), x["n"],
+                        x.get("rv") or "—", x.get("fam") or x.get("fee") or "—",
+                        x.get("hr") or "—", x.get("off") or "—"))
+        return ('<div class="mwrap is-fold rwrap"><div class="mhead" role="button" tabindex="0">'
+                '雨の日の候補<span class="mhint">タップで開く</span>'
+                '<span class="s-caret" aria-hidden="true"></span></div>'
+                '<div class="meals"><div class="mslot"><span class="mlab ml-r">雨</span>'
+                '<div class="mtable-wrap"><table class="mtable"><thead><tr>'
+                '<th class="mt-ck"></th><th>室内の候補</th><th>口コミ</th><th>料金（家族4人）</th>'
+                '<th>営業時間</th><th>定休日</th>'
+                '</tr></thead><tbody>%s</tbody></table></div></div></div></div>' % rows)
+
     sections, DM, has_meals, has_meal_pins = [], {}, False, False
     for i, d in enumerate(data["days"]):
         counter = [0]
         rows = "".join(render_row(points, r, counter) for r in d["rows"])
         pinned = any(isinstance(x, dict) and x.get("lb") for x in d["pins"])
-        meals_html = render_meals(d.get("meals"), pinned, d)
+        meals_html = render_meals(d.get("meals"), pinned, d) + render_rain(d)
         if pinned:
             has_meal_pins = True
         if d.get("meals"):
@@ -204,36 +232,7 @@ def build(name, tag):
         DM[str(i)] = [pin(points, k) for k in d["pins"]]
 
     memo = ('<div class="notice" id="memo" style="margin-top:22px">%s</div>' % data["memo"]) if data.get("memo") else ""
-    rain = ""
-    if data.get("rain"):
-        cards = ""
-        for i, x in enumerate(data["rain"], 1):
-            rows_ = ''
-            for lab, val in (("料金", x.get("fee")), ("", x.get("fam")), ("", x.get("park")),
-                             ("営業", x.get("hr")), ("定休", x.get("off"))):
-                if val:
-                    rows_ += ('<div class="rfld"><span class="rk">%s</span><span class="rv">%s</span></div>'
-                              % (lab, val))
-            rlinks = '<a class="lnk" href="%s" target="_blank" rel="noopener">地図</a>' % gmap(x["q"])
-            if x.get("official"):
-                rlinks += ('<a class="lnk lnk-of" href="%s" target="_blank" rel="noopener">公式</a>'
-                           % x["official"])
-            cards += ('<li class="rain-item is-fold">'
-                      '<div class="rhead" role="button" tabindex="0"><span class="rno">%d</span>'
-                      '<span class="rname">%s</span><span class="s-caret" aria-hidden="true"></span></div>'
-                      '<div class="spot-links">%s</div>'
-                      '<div class="rbody">'
-                      '<div class="rmeta">%s</div><div class="rnote">%s</div>'
-                      '<div class="rfields">%s</div></div></li>'
-                      % (i, x["n"], rlinks, x.get("rv", ""), x.get("note", ""), rows_))
-        rain = ('<section class="rain reveal" id="rain"><h2 class="rain-h">雨の日の候補</h2>'
-                '<p class="rain-lead">名古屋から東尋坊までの間にある室内施設。'
-                'その日の朝に雨なら、行き先をここへ振り替える。</p>'
-                '<div class="daymap" id="daymaprain"></div>'
-                '<ul class="rain-list">%s</ul></section>' % cards)
-        DM["rain"] = [{"n": x["n"], "lat": x["la"], "lon": x["lo"], "k": "spot", "c": "play"}
-                      for x in data["rain"]]
-    main = "".join(sections) + memo + rain
+    main = "".join(sections) + memo
 
     home = dict(data["home"], k="home")
     RT = {"pts": [home] + [pin(points, k) for k in data["rt_order"]],
@@ -315,10 +314,10 @@ def build(name, tag):
     wear = data.get("wear")
     wear_html = ""
     if wear:
-        wear_html = ('<div class="wear">'
-                     '<span class="w-item"><span class="w-lb">昼</span><span>%s</span></span>'
-                     '<span class="w-item"><span class="w-lb">朝晩</span><span>%s</span></span>'
-                     '</div>') % (wear.get("day", ""), wear.get("night", ""))
+        items = [("昼", wear.get("day")), ("夜", wear.get("night")), ("寝", wear.get("sleep"))]
+        wear_html = ('<div class="wear">%s</div>' % "".join(
+            '<span class="w-item"><span class="w-lb">%s</span><span>%s</span></span>' % (k, v)
+            for k, v in items if v))
 
     rep = {
         "{{TITLE}}": data["title"], "{{BUILD_TAG}}": tag, "{{HERO_B64}}": hero,

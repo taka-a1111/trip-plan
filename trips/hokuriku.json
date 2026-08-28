@@ -529,7 +529,12 @@
    "wxn": {
     "hi": 28,
     "lo": 22
-   }
+   },
+   "rain": [
+    5,
+    4,
+    6
+   ]
   },
   {
    "id": "day2",
@@ -837,7 +842,12 @@
    "wxn": {
     "hi": 29,
     "lo": 21
-   }
+   },
+   "rain": [
+    2,
+    1,
+    4
+   ]
   },
   {
    "id": "day3",
@@ -1188,7 +1198,12 @@
    "wxn": {
     "hi": 27,
     "lo": 20
-   }
+   },
+   "rain": [
+    10,
+    9,
+    7
+   ]
   },
   {
    "id": "day4",
@@ -1523,7 +1538,12 @@
    "wxn": {
     "hi": 26,
     "lo": 18
-   }
+   },
+   "rain": [
+    8,
+    7,
+    6
+   ]
   },
   {
    "id": "day5",
@@ -1858,7 +1878,12 @@
    "wxn": {
     "hi": 25,
     "lo": 18
-   }
+   },
+   "rain": [
+    10,
+    8,
+    7
+   ]
   },
   {
    "id": "day6",
@@ -2039,13 +2064,19 @@
    "wxn": {
     "hi": 25,
     "lo": 17
-   }
+   },
+   "rain": [
+    9,
+    8,
+    5
+   ]
   }
  ],
  "memo": "<b>出発前に確認：</b><a href=\"https://www.google.com/maps/search/?api=1&query=%E3%81%8B%E3%81%AB%E3%83%95%E3%82%A1%E3%82%AF%E3%83%88%E3%83%AA%E3%83%BC%20by%20%E7%94%B2%E7%BE%85%E7%B5%84\" target=\"_blank\" rel=\"noopener\">かにファクトリー</a>は不定休なので前日に公式で営業確認。<a href=\"https://www.google.com/maps/search/?api=1&query=%E9%87%91%E6%B2%A221%E4%B8%96%E7%B4%80%E7%BE%8E%E8%A1%93%E9%A4%A8\" target=\"_blank\" rel=\"noopener\">21世紀美術館</a>《スイミング・プール》は当日9時から時間指定の予約。キャンプ場のシャワー室にコンセントがあるかは未確認（<a href=\"tel:0761678100\">0761-67-8100</a>）。<br><b>クマ対策：</b>9月は木の実を求めて行動範囲が広がる時期。食料・お菓子・生ゴミは就寝前に必ず車内へ。出発前に小松市・加賀市の出没情報を確認する。<br><b>増水：</b>雨の翌日は西俣川の水位が上がる。川あそびは現地で判断する。<br><b>外したスポット：</b>山中温泉（<a href=\"https://www.google.com/maps/search/?api=1&query=%E3%81%93%E3%81%8A%E3%82%8D%E3%81%8E%E6%A9%8B%20%E5%B1%B1%E4%B8%AD%E6%B8%A9%E6%B3%89\" target=\"_blank\" rel=\"noopener\">こおろぎ橋</a>・<a href=\"https://www.google.com/maps/search/?api=1&query=%E5%B1%B1%E4%B8%AD%E6%B8%A9%E6%B3%89%20%E8%8F%8A%E3%81%AE%E6%B9%AF\" target=\"_blank\" rel=\"noopener\">菊の湯</a>）、<a href=\"https://www.google.com/maps/search/?api=1&query=%E9%82%A3%E8%B0%B7%E5%AF%BA%20%E5%B0%8F%E6%9D%BE%E5%B8%82\" target=\"_blank\" rel=\"noopener\">那谷寺</a>、<a href=\"https://www.google.com/maps/search/?api=1&query=%E7%99%BD%E5%B1%B1%E6%AF%94%E5%92%A9%E7%A5%9E%E7%A4%BE\" target=\"_blank\" rel=\"noopener\">白山比咩神社</a>。運転時間の短縮と、子どもが楽しめる場所の優先のため。行きたくなったら5日目か6日目の半日と入れ替える。",
  "wear": {
-  "day": "半袖に薄手の長袖を羽織れる形。25〜27℃で動くと暑いが、海沿いは風が涼しい",
-  "night": "長袖＋薄手のフリース。19〜20℃まで下がり、川沿いはさらに冷える。寝袋は3シーズン用が安心"
+  "day": "半袖＋薄手の長袖",
+  "night": "長袖＋薄手のフリース",
+  "sleep": "3シーズン用の寝袋"
  },
  "rain": [
   {
