@@ -90,7 +90,9 @@ def render_row(points, row, counter):
     name = row.get("name_override") or p["n"]
     plan = ('<span class="s-plan">%s</span>' % row["plan"]) if row.get("plan") else ""
     main_cls = " is-main" if row.get("main") else ""
-    star = '<span class="s-star">今日の目玉</span>' if row.get("main") else ""
+    star = ('<span class="s-star" role="img" aria-label="今日の目玉" title="今日の目玉">'
+            '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.95 6.55.95-4.73 4.62 1.12 6.53L12 17.57l-5.84 3.08 1.12-6.53L2.55 9.5l6.55-.95z"/></svg>'
+            '</span>') if row.get("main") else ""
 
     def _fv(v):
         """値がリストなら実店舗（名前＋地図リンク＋ひとこと）として描画する"""

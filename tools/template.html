@@ -366,7 +366,8 @@ html{scroll-behavior:smooth;scroll-padding-top:58px}
 .spot-no.cat-stay{background:var(--teal-ink)}
 .spot-meta{display:flex;flex-wrap:wrap;align-items:baseline;gap:3px 8px}
 .s-name{flex:0 1 auto;min-width:0;font-weight:700;font-size:1.08rem;line-height:1.42;color:var(--ink);word-break:keep-all;overflow-wrap:anywhere}
-.s-star{font-size:.7rem;font-weight:700;letter-spacing:.04em;color:var(--coral);border:1px solid rgba(232,105,63,.5);border-radius:20px;padding:1px 8px;white-space:nowrap;background:#fff6f1}
+.s-star{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#fff1e9}
+.s-star svg{width:16px;height:16px;fill:var(--coral)}
 .s-facts{display:flex;flex-wrap:wrap;align-items:center;gap:5px 6px;margin-top:5px}
 .s-facts .ctag{font-size:.7rem;padding:3px 9px;border-radius:5px}
 .s-facts .s-time{font-family:'Outfit',sans-serif;font-weight:500;font-size:.78rem;color:var(--ink-soft);background:none;border:1px solid var(--line);border-radius:20px;padding:1px 8px}
@@ -392,7 +393,7 @@ html{scroll-behavior:smooth;scroll-padding-top:58px}
 .spot-head{grid-column:3;grid-row:1;min-width:0;position:relative;padding-right:20px;display:flex;flex-wrap:wrap;align-items:center;gap:3px 8px}
 .s-meta{display:inline-flex;align-items:center;gap:6px;flex:0 0 auto}
 /* 目玉バッジのない行は名前とタグを必ず同じ行に置く（名前は折り返す） */
-.spot-row.is-fold:not(.is-main) .spot-head{flex-wrap:nowrap}
+.spot-row.is-fold .spot-head{flex-wrap:nowrap}
 .spot-body{grid-column:1/-1;grid-row:2;min-width:0;margin-top:7px}
 .spot-body .s-facts{margin-top:0}
 .s-facts:empty{display:none}
