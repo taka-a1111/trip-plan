@@ -67,7 +67,9 @@ def pin(points, ref):
 def render_row(points, row, counter):
     if row["type"] == "move":
         badges = "".join('<span class="bdg %s">%s</span>' % (c, t) for c, t in row.get("badges", []))
-        note = ('<div class="s-note">%s</div>' % row["note"]) if row.get("note") else ""
+        # 移動行は説明文を出さない（区間・距離・所要のみ）。
+        # フライトなど予約番号・締切を残す行だけ "keep_note": true で例外にする。
+        note = ('<div class="s-note">%s</div>' % row["note"]) if (row.get("note") and row.get("keep_note")) else ""
         plan = ('<span class="s-plan">%s</span>' % row["plan"]) if row.get("plan") else ""
         return ('<li class="spot-row is-move"><div class="s-rail">%s</div>'
                 '<div class="s-node"><span class="mv-node"></span></div>'
@@ -292,6 +294,13 @@ def build(name, tag):
                  if points[k].get("k") == "spot" and k not in onsen_keys])
     credit = ('<div class="hero-credit">%s</div>' % data["credit"]) if data.get("credit") else ""
 
+    # ヘッダーに出す旅名と日付（h1_topの先頭語を旅名として使う。nav_titleがあればそちら）
+    nav_title = data.get("nav_title") or data["h1_top"].split(" ")[0].split("\u3000")[0]
+    def _md(iso):
+        y, m, dd = iso.split("-")
+        return "%d/%d" % (int(m), int(dd))
+    nav_dates = "%s \u2013 %s" % (_md(data["date_s"]), _md(data["date_e"]))
+
     wear = data.get("wear")
     wear_html = ""
     if wear:
@@ -306,6 +315,7 @@ def build(name, tag):
         "{{DATES_LABEL}}": data["dates_label"],
         "{{STAT_DAYS}}": str(len(data["days"])), "{{STAT_NIGHTS}}": str(nights), "{{STAT_SPOTS}}": str(spots),
         "{{DATE_S}}": data["date_s"], "{{DATE_E}}": data["date_e"],
+        "{{NAV_TITLE}}": nav_title, "{{NAV_DATES}}": nav_dates,
         "{{WX_LAT}}": ",".join(lats), "{{WX_LON}}": ",".join(lons),
         "{{LEGEND_EXTRA}}": ('<span class="lg lg-pin"><span class="mno" style="width:16px;height:16px;font-size:.62rem">A</span>食事の候補</span>' if has_meal_pins else ""), "{{DAY_BAR}}": daybar, "{{WEAR}}": wear_html, "{{TRIP_KEY}}": data["name"], "{{DIRLINK}}": dirlink, "{{MAIN}}": main,
         "{{RT}}": json.dumps(RT, ensure_ascii=False),
