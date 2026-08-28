@@ -110,8 +110,9 @@ def render_row(points, row, counter):
     note_html = ('<div class="s-note">%s</div>' % row["note"]) if row.get("note") else ""
     return ('<li class="spot-row is-fold row-%s%s"><div class="s-rail">%s</div>'
             '<div class="s-node"><span class="spot-no %s cat-%s">%d</span></div>'
-            '<div class="spot-head" role="button" tabindex="0"><span class="s-name">%s</span>%s'
-            '<span class="ctag cat-%s">%s</span><span class="s-caret" aria-hidden="true"></span></div>'
+            '<div class="spot-head" role="button" tabindex="0"><span class="s-name">%s</span>'
+            '<span class="s-meta">%s<span class="ctag cat-%s">%s</span></span>'
+            '<span class="s-caret" aria-hidden="true"></span></div>'
             '<div class="spot-body">'
             '<div class="s-facts">%s%s</div>'
             '%s%s<div class="spot-links">%s</div></div></li>'
