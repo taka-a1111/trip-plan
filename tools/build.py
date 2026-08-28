@@ -115,11 +115,12 @@ def render_row(points, row, counter):
             '<div class="spot-head" role="button" tabindex="0"><span class="s-name">%s</span>'
             '<span class="s-meta">%s<span class="ctag cat-%s">%s</span></span>'
             '<span class="s-caret" aria-hidden="true"></span></div>'
+            '<div class="spot-links">%s</div>'
             '<div class="spot-body">'
             '<div class="s-facts">%s%s</div>'
-            '%s%s<div class="spot-links">%s</div></div></li>'
+            '%s%s</div></li>'
             % (row["cat"], main_cls, plan, no_cls, row["cat"], counter[0], name, star,
-               row["cat"], row["cat_lbl"], time_html, badges, note_html, flds, links))
+               row["cat"], row["cat_lbl"], links, time_html, badges, note_html, flds))
 
 
 def build(name, tag):
@@ -213,11 +214,18 @@ def build(name, tag):
                 if val:
                     rows_ += ('<div class="rfld"><span class="rk">%s</span><span class="rv">%s</span></div>'
                               % (lab, val))
-            cards += ('<li class="rain-item"><span class="rno">%d</span><div class="rbody">'
-                      '<a class="rname" href="%s" target="_blank" rel="noopener">%s</a>'
+            rlinks = '<a class="lnk" href="%s" target="_blank" rel="noopener">地図</a>' % gmap(x["q"])
+            if x.get("official"):
+                rlinks += ('<a class="lnk lnk-of" href="%s" target="_blank" rel="noopener">公式</a>'
+                           % x["official"])
+            cards += ('<li class="rain-item is-fold">'
+                      '<div class="rhead" role="button" tabindex="0"><span class="rno">%d</span>'
+                      '<span class="rname">%s</span><span class="s-caret" aria-hidden="true"></span></div>'
+                      '<div class="spot-links">%s</div>'
+                      '<div class="rbody">'
                       '<div class="rmeta">%s</div><div class="rnote">%s</div>'
                       '<div class="rfields">%s</div></div></li>'
-                      % (i, gmap(x["q"]), x["n"], x.get("rv", ""), x.get("note", ""), rows_))
+                      % (i, x["n"], rlinks, x.get("rv", ""), x.get("note", ""), rows_))
         rain = ('<section class="rain reveal" id="rain"><h2 class="rain-h">雨の日の候補</h2>'
                 '<p class="rain-lead">名古屋から東尋坊までの間にある室内施設。'
                 'その日の朝に雨なら、行き先をここへ振り替える。</p>'
