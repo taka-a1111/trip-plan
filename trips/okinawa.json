@@ -22,7 +22,7 @@
  },
  "points": {
   "p01": {
-   "n": "国際通り（夜の散策・買い物）",
+   "n": "国際通り",
    "lat": 26.2151469,
    "lon": 127.684745,
    "k": "spot",
@@ -30,7 +30,7 @@
    "official": "https://naha-kokusaidori.okinawa/"
   },
   "p02": {
-   "n": "Mr.KINJO in Nica's 牧志駅 II（那覇・牧志）",
+   "n": "Mr.KINJO in Nica's 牧志駅 II",
    "lat": 26.2196156,
    "lon": 127.6882496,
    "k": "stay",
@@ -148,7 +148,7 @@
    "official": "https://churaumi.okinawa/"
   },
   "p18": {
-   "n": "海洋博公園（無料イルカショー）",
+   "n": "海洋博公園",
    "lat": 26.6945,
    "lon": 127.8765,
    "k": "spot",
@@ -156,7 +156,7 @@
    "official": "https://oki-park.jp/kaiyohaku/"
   },
   "p19": {
-   "n": "コンフォート・ヴィラ（本部町）",
+   "n": "コンフォート・ヴィラ",
    "lat": 26.6774673,
    "lon": 127.889142,
    "k": "stay",
@@ -208,7 +208,7 @@
    "official": "https://naminouegu.jp/"
   },
   "p26": {
-   "n": "Mr.KINJO in HAIBISU西町（那覇・辻）",
+   "n": "Mr.KINJO in HAIBISU西町",
    "lat": 26.2154606,
    "lon": 127.6707433,
    "k": "stay",
@@ -216,7 +216,7 @@
    "official": "https://mrkinjo.jp/"
   },
   "p27": {
-   "n": "浜屋（沖縄そば）",
+   "n": "浜屋",
    "lat": 26.3293112,
    "lon": 127.744315,
    "k": "meal",
@@ -251,7 +251,7 @@
    "q": "ピパーチキッチン 那覇市西"
   },
   "p32": {
-   "n": "おきなわワールド（玉泉洞）",
+   "n": "おきなわワールド",
    "lat": 26.1404807,
    "lon": 127.7489447,
    "k": "spot",
@@ -267,7 +267,7 @@
    "official": "https://www.himeyuri.or.jp/"
   },
   "p34": {
-   "n": "Mr.KINJO in NISHIZAKI Ⅱ（糸満）",
+   "n": "Mr.KINJO in NISHIZAKI Ⅱ",
    "lat": 26.142419,
    "lon": 127.670828,
    "k": "stay",
