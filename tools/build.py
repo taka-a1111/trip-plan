@@ -144,8 +144,10 @@ def build(name, tag):
                        '<div class="mtable-wrap"><table class="mtable"><thead><tr>'
                        '<th class="mt-ck"></th><th>%s</th><th>口コミ</th><th>予算（1人あたり）</th><th>営業時間</th><th>定休日</th>'
                        '</tr></thead><tbody>%s</tbody></table></div></div>' % (lab_cls, lab, col1, rows))
-        return ('<div class="mhead">食事と買い出しの候補<span class="mhint">チェックすると地図にピンが出ます</span></div>'
-                '<div class="meals">%s</div>' % blocks)
+        return ('<div class="mwrap is-fold"><div class="mhead" role="button" tabindex="0">'
+                '食事と買い出しの候補<span class="mhint">タップで開く</span>'
+                '<span class="s-caret" aria-hidden="true"></span></div>'
+                '<div class="meals">%s</div></div>' % blocks)
 
     sections, DM, has_meals, has_meal_pins = [], {}, False, False
     for i, d in enumerate(data["days"]):
