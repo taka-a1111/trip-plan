@@ -91,8 +91,9 @@
    "lat": 36.401922,
    "lon": 136.4556816,
    "k": "spot",
-   "q": "サイエンスヒルズこまつ",
-   "official": "https://science-hills-komatsu.jp/"
+   "q": "サイエンスヒルズこまつ ひととものづくり科学館",
+   "official": "https://science-hills-komatsu.jp/",
+   "c": "play"
   },
   "hanibe": {
    "n": "ハニベ巌窟院",
@@ -110,15 +111,6 @@
    "k": "spot",
    "q": "石川県ふれあい昆虫館",
    "official": "https://www.furekon.jp/",
-   "c": "play"
-  },
-  "zoo": {
-   "n": "いしかわ動物園",
-   "lat": 36.4331479,
-   "lon": 136.5459045,
-   "k": "spot",
-   "q": "いしかわ動物園 能美市",
-   "official": "https://www.ishikawazoo.jp/",
    "c": "play"
   },
   "usagi": {
@@ -203,7 +195,6 @@
   "omicho",
   "hanibe",
   "usagi",
-  "zoo",
   "insect",
   "train",
   "hills",
@@ -220,7 +211,7 @@
   "tojinbo",
   "m21",
   "hanibe",
-  "zoo",
+  "hills",
   "insect"
  ],
  "days": [
@@ -1568,8 +1559,8 @@
      "5泊目"
     ]
    ],
-   "theme": "ふれあい昆虫館といしかわ動物園",
-   "notice": "この旅で一番の子ども向け。どちらも屋根のある展示が多く、雨でも遊べる。",
+   "theme": "ふれあい昆虫館とサイエンスヒルズこまつ",
+   "notice": "この旅で一番の子ども向け。どちらも屋根のある展示なので雨でも一日遊べる。",
    "photo": {
     "file": "assets/day_hokuriku_6.jpg",
     "alt": "チョウ（イメージ）",
@@ -1604,42 +1595,46 @@
        "定休",
        "火曜（9/23は営業）"
       ]
-     ]
+     ],
+     "main": true
     },
     {
      "type": "move",
-     "name": "約11km",
-     "dur": "約15分"
+     "name": "約20km",
+     "dur": "約25分"
     },
     {
      "type": "spot",
-     "key": "zoo",
+     "key": "hills",
      "cat": "play",
      "cat_lbl": "遊ぶ",
-     "time": "9:00–16:30",
+     "time": "9:30–17:00",
      "badges": [],
-     "note": "池を中心にコンパクトにまとまった動物園。展示が近くて見やすい。",
-     "plan": "13:00",
-     "main": true,
+     "note": "ものづくりの展示で遊ぶ「ワンダーランド」は無料。ドーム型の3Dスタジオで科学番組やプラネタリウムを上映する。JR小松駅の東口すぐで、隣がこまつの杜。",
+     "plan": "13:30",
      "fields": [
       [
        "料金",
-       "<span class=\"amn\">👨‍🦰 840円　🧒 410円（3歳以上中学生未満）</span><span class=\"amn\">👪 2,500円</span><span class=\"amn\">🅿️ 無料</span>"
+       "<span class=\"amn\">🎟️ ワンダーランド（展示場）無料</span><span class=\"amn\">🎬 3Dスタジオ 👨‍🦰 500円　🧒 250円（3歳以上高校生以下）</span><span class=\"amn\">👪 1,500円（3Dスタジオを4人で観る場合）</span><span class=\"amn\">🅿️ 専用駐車場なし。市営ヒルズパーキング（500円以上の観覧券で最大250円割引）</span>"
       ],
       [
        "営業",
-       "9:00–16:30"
+       "9:30–17:00（9/19〜23は特別開館。通常は10:00–17:00）"
       ],
       [
        "定休",
-       "無休"
+       "月曜（祝日の場合は翌日）。9/23は営業"
+      ],
+      [
+       "所要",
+       "2〜3時間"
       ]
      ]
     },
     {
      "type": "move",
-     "name": "約9.1km",
-     "dur": "約15分"
+     "name": "約5km",
+     "dur": "約10分"
     },
     {
      "type": "spot",
@@ -1709,7 +1704,7 @@
    ],
    "pins": [
     "insect",
-    "zoo",
+    "hills",
     "saionji",
     "camp"
    ],
@@ -1890,9 +1885,9 @@
    "rain": [
     10,
     8,
-    7,
     9,
-    6
+    6,
+    1
    ]
   },
   {
