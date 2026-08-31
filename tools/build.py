@@ -92,7 +92,8 @@ def render_row(points, row, counter):
         links += '<a class="lnk lnk-rsv" href="%s" target="_blank" rel="noopener">予約</a>' % p["reserve"]
 
     # 項目表の「料金」から家族4人ぶんだけ抜き出して、カードの表に出す
-    fee = row.get("fee")
+    fee = row.get("fee")          # 明示指定はそのまま使う（「1泊◯円（◯泊で◯円）」など）
+    auto = not fee
     if not fee:
         for k, v in row.get("fields", []):
             if k == "料金" and isinstance(v, str):
@@ -102,7 +103,7 @@ def render_row(points, row, counter):
                 elif "無料" in v:
                     fee = "無料"
                 break
-    if fee:
+    if fee and auto:
         fee = re.sub(r"\s*[（(].*", "", fee).replace("ほど", "").strip()
     fee_html = '<div class="s-fee">%s</div>' % (
         ('\U0001F46A %s' % fee) if fee and fee != "無料" else (fee or ""))
