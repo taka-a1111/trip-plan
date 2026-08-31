@@ -378,6 +378,7 @@ html{scroll-behavior:smooth;scroll-padding-top:58px}
 .s-note{font-size:.86rem;color:#3f5359;margin-top:5px;line-height:1.7}
 .spot-links{display:flex;flex-direction:row;flex-wrap:wrap;gap:6px;margin-top:9px;flex-shrink:1}
 .spot-links .lnk{font-size:.78rem;font-weight:700;padding:4px 13px;border-radius:20px;text-align:center}
+
 .spot-row.is-move{padding-top:3px;padding-bottom:3px;background:none}
 .mv-line{display:flex;flex-wrap:wrap;align-items:center;gap:4px 7px}
 .mv-name{font-size:.82rem;font-weight:600;color:#6c8087;line-height:1.3;min-width:0;overflow-wrap:break-word}
@@ -399,7 +400,8 @@ html{scroll-behavior:smooth;scroll-padding-top:58px}
 /* カードの高さをそろえる：見出し行は名前2行ぶんを最低の高さにする */
 .spot-row.is-fold .spot-head{flex-wrap:nowrap;min-height:calc(1.08rem * 1.42 * 2)}
 .spot-row.is-fold>.spot-links{grid-column:3;grid-row:2;margin-top:5px}
-.spot-body{grid-column:1/-1;grid-row:3;min-width:0;margin-top:7px}
+.spot-row.is-fold>.s-fee{grid-column:3;grid-row:3;height:1.25rem;line-height:1.25rem;overflow:hidden;margin-top:4px;font-family:'Outfit',sans-serif;font-weight:700;font-size:.82rem;color:#4d6168;white-space:nowrap}
+.spot-body{grid-column:1/-1;grid-row:4;min-width:0;margin-top:7px}
 .spot-body .s-facts{margin-top:0}
 .s-facts:empty{display:none}
 .spot-head .ctag{font-size:.7rem;padding:3px 9px;border-radius:5px;flex:none}
@@ -412,7 +414,7 @@ html{scroll-behavior:smooth;scroll-padding-top:58px}
 .spot-list.np .s-rail{display:none}
 .spot-list.np .s-node{grid-column:1}
 .spot-list.np .spot-head{grid-column:2}
-.spot-list.np .spot-row.is-fold>.spot-links{grid-column:2}
+.spot-list.np .spot-row.is-fold>.spot-links,.spot-list.np .spot-row.is-fold>.s-fee{grid-column:2}
 @media(min-width:700px){
   .spot-row{grid-template-columns:auto 28px minmax(0,1fr);column-gap:7px;padding:14px 16px 15px}
   .spot-list.np .spot-row{grid-template-columns:auto 28px minmax(0,1fr)}

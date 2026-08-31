@@ -7,6 +7,7 @@
 import base64
 import datetime
 import json
+import re
 import os
 import sys
 import urllib.parse
@@ -89,6 +90,22 @@ def render_row(points, row, counter):
         links += '<a class="lnk lnk-nap" href="%s" target="_blank" rel="noopener">なっぷ</a>' % p["nap"]
     if p.get("reserve"):
         links += '<a class="lnk lnk-rsv" href="%s" target="_blank" rel="noopener">予約</a>' % p["reserve"]
+
+    # 項目表の「料金」から家族4人ぶんだけ抜き出して、カードの表に出す
+    fee = row.get("fee")
+    if not fee:
+        for k, v in row.get("fields", []):
+            if k == "料金" and isinstance(v, str):
+                mm = re.search(r"\U0001F46A\s*([^<]+)", v)
+                if mm:
+                    fee = mm.group(1).strip()
+                elif "無料" in v:
+                    fee = "無料"
+                break
+    if fee:
+        fee = re.sub(r"\s*[（(].*", "", fee).replace("ほど", "").strip()
+    fee_html = '<div class="s-fee">%s</div>' % (
+        ('\U0001F46A %s' % fee) if fee and fee != "無料" else (fee or ""))
     name = row.get("name_override") or p["n"]
     plan = ('<span class="s-plan">%s</span>' % row["plan"]) if row.get("plan") else ""
     main_cls = " is-main" if row.get("main") else ""
@@ -117,12 +134,12 @@ def render_row(points, row, counter):
             '<div class="spot-head" role="button" tabindex="0"><span class="s-name">%s</span>'
             '<span class="s-meta">%s<span class="ctag cat-%s">%s</span></span>'
             '<span class="s-caret" aria-hidden="true"></span></div>'
-            '<div class="spot-links">%s</div>'
+            '<div class="spot-links">%s</div>%s'
             '<div class="spot-body">'
             '<div class="s-facts">%s%s</div>'
             '%s%s</div></li>'
             % (row["cat"], main_cls, plan, no_cls, row["cat"], counter[0], name, star,
-               row["cat"], row["cat_lbl"], links, time_html, badges, note_html, flds))
+               row["cat"], row["cat_lbl"], links, fee_html, time_html, badges, note_html, flds))
 
 
 def build(name, tag):
