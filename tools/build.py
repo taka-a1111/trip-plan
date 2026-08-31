@@ -72,12 +72,13 @@ def render_row(points, row, counter):
         # フライトなど予約番号・締切を残す行だけ "keep_note": true で例外にする。
         note = ('<div class="s-note">%s</div>' % row["note"]) if (row.get("note") and row.get("keep_note")) else ""
         plan = ('<span class="s-plan">%s</span>' % row["plan"]) if row.get("plan") else ""
+        toll = ('<span class="mv-toll">%s</span>' % row["toll"]) if row.get("toll") else ""
         return ('<li class="spot-row is-move"><div class="s-rail">%s</div>'
                 '<div class="s-node"><span class="mv-node"></span></div>'
                 '<div class="spot-head"><span class="mv-name">%s</span>'
-                '<span class="mv-dur">%s</span>%s</div>'
+                '<span class="mv-dur">%s</span>%s%s</div>'
                 '<div class="spot-body">%s</div></li>'
-                % (plan, row["name"], row["dur"], badges, note))
+                % (plan, row["name"], row["dur"], toll, badges, note))
     p = points[row["key"]]
     counter[0] += 1
     no_cls = "sn-stay" if p["k"] == "stay" else "sn-spot"
