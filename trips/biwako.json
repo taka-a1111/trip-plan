@@ -34,7 +34,8 @@
    "lon": 135.9892338,
    "k": "stay",
    "q": "マイアミ浜オートキャンプ場 野洲市",
-   "official": "https://maiami.info/"
+   "official": "https://maiami.info/",
+   "nap": "https://www.nap-camp.com/shiga/11419"
   },
   "mori": {
    "n": "びわこ地球市民の森",
@@ -245,7 +246,7 @@
      "key": "camp",
      "cat": "stay",
      "cat_lbl": "泊まる",
-     "time": "IN 13:00 / OUT 11:00",
+     "time": "IN 14:00–17:00 / OUT 9:00–12:00",
      "plan": "14:00",
      "main": true,
      "badges": [
@@ -262,7 +263,7 @@
      "fields": [
       [
        "予約",
-       "<a href=\"https://maiami.info/\" target=\"_blank\" rel=\"noopener\">公式サイト</a>または電話 077-589-5725"
+       "<a href=\"https://maiami.info/\" target=\"_blank\" rel=\"noopener\">公式サイト</a>または <a href=\"https://www.nap-camp.com/shiga/11419\" target=\"_blank\" rel=\"noopener\">なっぷ</a>／電話 077-589-5725"
       ],
       [
        "料金",

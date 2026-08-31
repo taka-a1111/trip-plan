@@ -58,7 +58,7 @@
    "lon": 135.3343668,
    "k": "stay",
    "q": "グランパスinn白浜 オートキャンプ場",
-   "reserve": "https://www.nap-camp.com/wakayama/13428"
+   "nap": "https://www.nap-camp.com/wakayama/13428"
   },
   "p06": {
    "n": "円月島",
@@ -110,7 +110,8 @@
    "lat": 33.6708154,
    "lon": 135.3343668,
    "k": "stay",
-   "q": "グランパスinn白浜 オートキャンプ場"
+   "q": "グランパスinn白浜 オートキャンプ場",
+   "nap": "https://www.nap-camp.com/wakayama/13428"
   },
   "p13": {
    "n": "京都大学白浜水族館",

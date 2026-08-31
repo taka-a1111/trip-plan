@@ -85,6 +85,8 @@ def render_row(points, row, counter):
     links = '<a class="lnk" href="%s" target="_blank" rel="noopener">地図</a>' % gmap(p["q"])
     if p.get("official"):
         links += '<a class="lnk lnk-of" href="%s" target="_blank" rel="noopener">公式</a>' % p["official"]
+    if p.get("nap"):
+        links += '<a class="lnk lnk-nap" href="%s" target="_blank" rel="noopener">なっぷ</a>' % p["nap"]
     if p.get("reserve"):
         links += '<a class="lnk lnk-rsv" href="%s" target="_blank" rel="noopener">予約</a>' % p["reserve"]
     name = row.get("name_override") or p["n"]
