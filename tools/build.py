@@ -252,8 +252,20 @@ def build(name, tag):
                ("" if any(r.get("plan") for r in d["rows"]) else " np"), rows, i, meals_html, route))
         DM[str(i)] = [pin(points, k) for k in d["pins"]]
 
+    cost = ""
+    if data.get("cost"):
+        c = data["cost"]
+        rows_ = "".join(
+            '<div class="cost-row"><span class="cost-k">%s</span>'
+            '<span class="cost-v">%s</span><span class="cost-s">%s</span></div>'
+            % (k, v, s) for k, v, s in c["items"])
+        cost = ('<section class="cost" id="cost"><h2 class="cost-h">費用の目安</h2>%s'
+                '<div class="cost-row cost-total"><span class="cost-k">合計</span>'
+                '<span class="cost-v">%s</span><span class="cost-s">%s</span></div>'
+                '<div class="cost-note">%s</div></section>'
+                % (rows_, c["total"], c.get("total_sub", ""), c.get("note", "")))
     memo = ('<div class="notice" id="memo" style="margin-top:22px">%s</div>' % data["memo"]) if data.get("memo") else ""
-    main = "".join(sections) + memo
+    main = "".join(sections) + cost + memo
 
     home = dict(data["home"], k="home")
     RT = {"pts": [home] + [pin(points, k) for k in data["rt_order"]],
