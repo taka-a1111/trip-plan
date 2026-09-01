@@ -253,12 +253,18 @@ def build(name, tag):
         DM[str(i)] = [pin(points, k) for k in d["pins"]]
 
     cost = ""
+    stat_cost = ""
     if data.get("cost"):
         c = data["cost"]
         rows_ = "".join(
             '<div class="cost-row"><span class="cost-k">%s</span>'
             '<span class="cost-v">%s</span><span class="cost-s">%s</span></div>'
             % (k, v, s) for k, v, s in c["items"])
+        man = re.sub(r"[^\d]", "", c["total"])
+        if man:
+            stat_cost = ('<div><a class="st-cost" href="#cost">'
+                         '<div class="num">%s万円</div><div class="lbl">費用の目安</div></a></div>'
+                         % ("約%.1f" % (int(man) / 10000.0)))
         cost = ('<section class="cost" id="cost"><h2 class="cost-h">費用の目安</h2>%s'
                 '<div class="cost-row cost-total"><span class="cost-k">合計</span>'
                 '<span class="cost-v">%s</span><span class="cost-s">%s</span></div>'
@@ -359,6 +365,7 @@ def build(name, tag):
         "{{STAT_DAYS}}": str(len(data["days"])), "{{STAT_NIGHTS}}": str(nights), "{{STAT_SPOTS}}": str(spots),
         "{{DATE_S}}": data["date_s"], "{{DATE_E}}": data["date_e"],
         "{{NAV_TITLE}}": nav_title, "{{NAV_DATES}}": nav_dates,
+        "{{STAT_COST}}": stat_cost,
         "{{WX_LAT}}": ",".join(lats), "{{WX_LON}}": ",".join(lons),
         "{{LEGEND_EXTRA}}": ('<span class="lg lg-pin"><span class="mno" style="width:16px;height:16px;font-size:.62rem">A</span>食事の候補</span>' if has_meal_pins else ""), "{{DAY_BAR}}": daybar, "{{WEAR}}": wear_html, "{{TRIP_KEY}}": data["name"], "{{DIRLINK}}": dirlink, "{{MAIN}}": main,
         "{{RT}}": json.dumps(RT, ensure_ascii=False),
