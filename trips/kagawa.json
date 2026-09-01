@@ -76,14 +76,6 @@
    "q": "父母ヶ浜 三豊市",
    "official": "https://www.mitoyo-kanko.com/"
   },
-  "zenigata": {
-   "n": "銭形砂絵",
-   "lat": 34.1358,
-   "lon": 133.647,
-   "k": "spot",
-   "q": "銭形砂絵 観音寺",
-   "official": "https://www.kanonji-kankou.jp/"
-  },
   "marugame": {
    "n": "丸亀城",
    "lat": 34.2859887,
@@ -1406,7 +1398,7 @@
      "4泊目"
     ]
    ],
-   "theme": "父母ヶ浜と銭形砂絵",
+   "theme": "父母ヶ浜と不動の滝",
    "notice": "まんのう公園は火曜休園なので外へ出る日。父母ヶ浜が鏡になるのは干潮と無風が重なったときだけなので、前日に潮見表を見る。",
    "photo": {
     "file": "assets/day_kagawa_4.jpg",
@@ -1498,54 +1490,15 @@
       ],
       [
        "移動",
-       "銭形砂絵まで約4km・約10分"
+       "キャンプ場まで約30km・約45分"
       ]
      ]
     },
     {
      "type": "move",
-     "name": "約4km",
-     "dur": "約10分",
-     "plan": "14:25"
-    },
-    {
-     "type": "spot",
-     "key": "zenigata",
-     "cat": "sight",
-     "cat_lbl": "観光",
-     "time": "24時間",
-     "plan": "14:40",
-     "badges": [
-      [
-       "b-always",
-       "無料"
-      ]
-     ],
-     "note": "琴弾公園の砂浜に描かれた周囲345mの巨大な寛永通宝。展望台から見下ろすと文字が正しい形に見える。見ると健康で長生きできるという言い伝えがある。",
-     "fields": [
-      [
-       "料金",
-       "<span class=\"amn\">🎟️ 無料</span><span class=\"amn\">🅿️ 無料</span>"
-      ],
-      [
-       "営業",
-       "24時間（展望台）"
-      ],
-      [
-       "所要",
-       "40分"
-      ],
-      [
-       "移動",
-       "キャンプ場まで約29km・約45分"
-      ]
-     ]
-    },
-    {
-     "type": "move",
-     "name": "約29km",
+     "name": "約30km",
      "dur": "約45分",
-     "plan": "15:30"
+     "plan": "14:40"
     },
     {
      "type": "spot",
@@ -1553,7 +1506,7 @@
      "cat": "stay",
      "cat_lbl": "泊まる",
      "time": "IN 14:00–18:00 / OUT 8:00–12:00",
-     "plan": "16:20",
+     "plan": "15:30",
      "badges": [
       [
        "b-open",
@@ -1595,7 +1548,7 @@
      "cat": "onsen",
      "cat_lbl": "温泉",
      "time": "16:00–20:00",
-     "plan": "18:20",
+     "plan": "18:00",
      "badges": [
       [
        "b-ok",
@@ -1627,9 +1580,8 @@
    "pins": [
     "chichibu",
     "fudou",
-    "zenigata",
-    "camp",
-    "ofuro"
+    "ofuro",
+    "camp"
    ],
    "meals": [
     {
@@ -2410,7 +2362,6 @@
   "aqua",
   "chichibu",
   "fudou",
-  "zenigata",
   "marugame",
   "gamou",
   "banpaku",
