@@ -144,8 +144,45 @@ def render_row(points, row, counter):
                row["cat"], row["cat_lbl"], links, fee_html, time_html, badges, note_html, flds))
 
 
+def validate(data):
+    """しおりデータの必須要素を検査する。欠けていればビルドを止める。
+    過去に「日程を組み直したときに食事・買い出し候補と雨候補を落とした」事故があったため、
+    日ごとの meals / rain、行が参照する points、pins、rt_order の整合を必ず確認する。"""
+    errs = []
+    pts = data["points"]; nrain = len(data.get("rain") or [])
+    for day in data["days"]:
+        dd = day.get("dd", "?")
+        meals = day.get("meals") or []
+        if not any(s.get("items") for s in meals):
+            errs.append("%s: 食事・買い出しの候補（meals）がない" % dd)
+        if not day.get("rain"):
+            errs.append("%s: 雨の日の候補（rain）がない" % dd)
+        for j in day.get("rain") or []:
+            if not (1 <= j <= nrain):
+                errs.append("%s: rain の番号 %s が範囲外（1〜%d）" % (dd, j, nrain))
+        for r in day["rows"]:
+            if r.get("type") == "spot" and r.get("key") not in pts:
+                errs.append("%s: 行 %s が points にない" % (dd, r.get("key")))
+        for k in day.get("pins") or []:
+            if k not in pts:
+                errs.append("%s: pins の %s が points にない" % (dd, k))
+        stays = [r for r in day["rows"] if r.get("type") == "spot" and r.get("cat") == "stay"]
+        if not stays and day is not data["days"][-1]:
+            errs.append("%s: 最終日ではないのに泊まる行がない" % dd)
+    for k in data.get("rt_order") or []:
+        if k not in pts:
+            errs.append("rt_order の %s が points にない" % k)
+    used = {r.get("key") for day in data["days"] for r in day["rows"] if r.get("type") == "spot"}
+    for k in pts:
+        if k not in used:
+            print("注意: points の %s はどの日の行にも使われていない" % k)
+    if errs:
+        raise SystemExit("データ検査で失敗:\n  - " + "\n  - ".join(errs))
+
+
 def build(name, tag):
     data = json.load(open(os.path.join(ROOT, "trips", name + ".json"), encoding="utf-8"))
+    validate(data)
     tpl = open(os.path.join(ROOT, "tools", "template.html"), encoding="utf-8").read()
     points = data["points"]
 
