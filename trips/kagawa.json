@@ -348,7 +348,7 @@
      "name": "明石海峡大橋 約61km（料金は名古屋からの通し）",
      "dur": "約1時間",
      "plan": "13:40",
-     "toll": "8,000円"
+     "toll": "8,630円"
     },
     {
      "type": "spot",
@@ -385,7 +385,8 @@
        "移動",
        "キャンプ場まで約50km・約50分"
       ]
-     ]
+     ],
+     "fee": "無料"
     },
     {
      "type": "move",
@@ -633,7 +634,7 @@
      "fields": [
       [
        "料金",
-       "<span class=\"amn\">🎟️ 大人510円　🧒 小学生260円</span><span class=\"amn\">👪 1,540円</span><span class=\"amn\">🅿️ 有料</span>"
+       "<span class=\"amn\">🎟️ 大人510円　🧒 小学生260円</span><span class=\"amn\">👶 6歳未満は無料。下の子は6歳なので260円</span><span class=\"amn\">👪 1,540円</span><span class=\"amn\">🅿️ 420円</span>"
       ],
       [
        "営業",
@@ -655,7 +656,8 @@
        "移動",
        "山田家まで約64km・約1時間15分"
       ]
-     ]
+     ],
+     "fee": "1,540円"
     },
     {
      "type": "move",
@@ -732,7 +734,7 @@
      "fields": [
       [
        "料金",
-       "<span class=\"amn\">🚗 普通車 往復6,330円（運転者1名込み）</span><span class=\"amn\">👨‍🦰 同乗 往復1,400円　🧒 700円</span><span class=\"amn\">👪 往復8,430円</span>"
+       "<span class=\"amn\">🚗 普通車 往路6,330円（運転者込み）</span><span class=\"amn\">🎁 復路の車は0円（お帰り無料）</span><span class=\"amn\">👨‍🦰 大人1名 往復1,400円</span><span class=\"amn\">🧒 小学生 往復700円</span><span class=\"amn\">👶 未就学児 無料（大人1名につき1名）</span><span class=\"amn\">👪 往復8,430円</span>"
       ],
       [
        "便",
@@ -1512,7 +1514,8 @@
        "移動",
        "高松東港からうどんバカ一代まで約4km・約5分"
       ]
-     ]
+     ],
+     "fee": "往復に込み"
     },
     {
      "type": "move",
