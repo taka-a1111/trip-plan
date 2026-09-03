@@ -144,6 +144,10 @@ def render_row(points, row, counter):
                row["cat"], row["cat_lbl"], links, fee_html, time_html, badges, note_html, flds))
 
 
+MEAL_KINDS = ["うどん・そば", "ラーメン", "寿司", "海鮮", "肉", "定食・食堂", "ファミレス", "洋食・カフェ", "ご当地", "市場・道の駅"]
+SHOP_KINDS = ["スーパー", "直売所", "コンビニ"]
+
+
 def validate(data):
     """しおりデータの必須要素を検査する。欠けていればビルドを止める。
     過去に「日程を組み直したときに食事・買い出し候補と雨候補を落とした」事故があったため、
@@ -153,9 +157,14 @@ def validate(data):
     for day in data["days"]:
         dd = day.get("dd", "?")
         meals = day.get("meals") or []
-        if not any(s.get("items") for s in meals):
-            errs.append("%s: 食事・買い出しの候補（meals）がない" % dd)
-        if not day.get("rain"):
+        if not any(s.get("items") for s in meals) and not day.get("no_meals"):
+            errs.append("%s: 食事・買い出しの候補（meals）がない（意図的なら day に no_meals: true を付ける）" % dd)
+        for s in meals:
+            allowed = SHOP_KINDS if s.get("slot") == "買い出し" else MEAL_KINDS
+            for it in s.get("items") or []:
+                if it.get("kind") not in allowed:
+                    errs.append("%s: 候補「%s」の種別が未設定か不正（%s）" % (dd, it.get("name"), it.get("kind")))
+        if nrain and not day.get("rain"):
             errs.append("%s: 雨の日の候補（rain）がない" % dd)
         for j in day.get("rain") or []:
             if not (1 <= j <= nrain):
@@ -164,6 +173,8 @@ def validate(data):
             if r.get("type") == "spot" and r.get("key") not in pts:
                 errs.append("%s: 行 %s が points にない" % (dd, r.get("key")))
         for k in day.get("pins") or []:
+            if isinstance(k, dict):
+                continue  # ラベル付きピン（沖縄など）は別形式
             if k not in pts:
                 errs.append("%s: pins の %s が points にない" % (dd, k))
         stays = [r for r in day["rows"] if r.get("type") == "spot" and r.get("cat") == "stay"]
@@ -196,9 +207,11 @@ def build(name, tag):
                 mid = "%s-%s-%s" % ((d or {}).get("id", ""), g.get("slot", ""), it["name"])
                 rows += ('<tr data-mk="%s" data-shop="%s" data-q="%s" data-la="%s" data-lo="%s"><td class="mt-ck"><span class="mck"></span></td>'
                          '<th scope="row"><a class="fshop" href="%s" target="_blank" rel="noopener">%s</a></th>'
+                         '<td class="mt-kind"><span class="mkind">%s</span></td>'
                          '<td class="mt-rv">%s</td><td class="mt-bg">%s</td>'
                          '<td class="mt-hr">%s</td><td class="mt-off">%s</td></tr>'
-                         % (mid, it.get("br") or it["name"], it["q"], it.get("la", ""), it.get("lo", ""), gmap(it["q"]), it["name"], it.get("rv") or "—", it.get("bg") or "—",
+                         % (mid, it.get("br") or it["name"], it["q"], it.get("la", ""), it.get("lo", ""), gmap(it["q"]), it["name"],
+                            it.get("kind") or "—", it.get("rv") or "—", it.get("bg") or "—",
                             it.get("hr") or "—", it.get("off") or "—"))
             sl = g.get("slot", "夜")
             lab_cls = "ml-l" if sl == "昼" else ("ml-s" if sl == "買い出し" else "ml-d")
@@ -206,7 +219,7 @@ def build(name, tag):
             col1 = {"昼": "昼の候補", "夜": "夜の候補", "買い出し": "スーパーの候補"}.get(sl, "候補")
             blocks += ('<div class="mslot"><span class="mlab %s">%s</span>'
                        '<div class="mtable-wrap"><table class="mtable"><thead><tr>'
-                       '<th class="mt-ck"></th><th>%s</th><th>口コミ</th><th>予算（1人あたり）</th><th>営業時間</th><th>定休日</th>'
+                       '<th class="mt-ck"></th><th>%s</th><th>種別</th><th>口コミ</th><th>予算（1人あたり）</th><th>営業時間</th><th>定休日</th>'
                        '</tr></thead><tbody>%s</tbody></table></div></div>' % (lab_cls, lab, col1, rows))
         return ('<div class="mwrap is-fold"><div class="mhead" role="button" tabindex="0">'
                 '食事と買い出しの候補<span class="mhint">タップで開く</span>'
