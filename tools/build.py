@@ -312,9 +312,9 @@ def build(name, tag):
             % (k, v, s) for k, v, s in c["items"])
         man = re.sub(r"[^\d]", "", c["total"])
         if man:
-            stat_cost = ('<div><a class="st-cost" href="#cost">'
-                         '<div class="num">%s万円</div><div class="lbl">費用の目安</div></a></div>'
-                         % ("約%.1f" % (int(man) / 10000.0)))
+            stat_cost = ('<div class="st-cost-cell"><a class="st-cost" href="#cost">'
+                         '<div class="num">%s<small>万円</small></div><div class="lbl">費用の目安</div></a></div>'
+                         % ("%.1f" % (int(man) / 10000.0)))
         cost = ('<section class="cost" id="cost"><h2 class="cost-h">費用の目安</h2>%s'
                 '<div class="cost-row cost-total"><span class="cost-k">合計</span>'
                 '<span class="cost-v">%s</span><span class="cost-s">%s</span></div>'

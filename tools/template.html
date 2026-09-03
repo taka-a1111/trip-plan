@@ -48,8 +48,10 @@ body{font-family:'Zen Kaku Gothic New',sans-serif;color:var(--ink);background:va
 .hero-stats div:last-child{border-right:none}
 .hero-stats .num{font-family:'Outfit';font-weight:700;font-size:1.7rem;color:#fff;line-height:1}
 .hero-stats .st-cost{text-decoration:none;display:block}
-.hero-stats .st-cost .num{font-size:1.2rem;white-space:nowrap}
-@media(max-width:400px){.hero-stats .num{font-size:1.44rem}.hero-stats .st-cost .num{font-size:1rem}.hero-stats .lbl{font-size:.62rem}}
+.hero-stats .st-cost-cell{flex:1.15}
+.hero-stats .st-cost .num{white-space:nowrap}
+.hero-stats .st-cost .num small{font-size:.55em;font-weight:600;margin-left:2px;letter-spacing:.02em}
+@media(max-width:400px){.hero-stats .num{font-size:1.44rem}.hero-stats .lbl{font-size:.62rem}}
 .hero-stats .lbl{font-size:.68rem;letter-spacing:.06em;color:rgba(255,255,255,.85);font-family:'Zen Kaku Gothic New';font-weight:500;margin-top:5px}
 
 .legend-wrap{max-width:980px;margin:0 auto;padding:26px 18px 4px}
