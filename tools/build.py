@@ -178,8 +178,9 @@ def validate(data):
             if k not in pts:
                 errs.append("%s: pins の %s が points にない" % (dd, k))
         stays = [r for r in day["rows"] if r.get("type") == "spot" and r.get("cat") == "stay"]
-        if not stays and day is not data["days"][-1]:
-            errs.append("%s: 最終日ではないのに泊まる行がない" % dd)
+        home = any(t[0] == "t-home" for t in day.get("tags") or [])
+        if not stays and not home and day is not data["days"][-1]:
+            errs.append("%s: 最終日でも日帰り（tags に t-home）でもないのに泊まる行がない" % dd)
     for k in data.get("rt_order") or []:
         if k not in pts:
             errs.append("rt_order の %s が points にない" % k)
@@ -384,7 +385,8 @@ def build(name, tag):
             lons.append(str(w["lon"]))
 
     hero = base64.b64encode(open(os.path.join(ROOT, data["hero_image"]), "rb").read()).decode()
-    nights = sum(1 for d in data["days"][:-1])
+    nights = sum(1 for d_ in data["days"]
+                 if any(r.get("type") == "spot" and r.get("cat") == "stay" for r in d_["rows"]))
     spots = len([k for k in data["rt_order"]
                  if points[k].get("k") == "spot" and points[k].get("cat_hint") != "onsen"])
     onsen_keys = {r["key"] for d_ in data["days"] for r in d_["rows"]
@@ -412,7 +414,8 @@ def build(name, tag):
         "{{TITLE}}": data["title"], "{{BUILD_TAG}}": tag, "{{HERO_B64}}": hero,
         "{{H1_TOP}}": data["h1_top"], "{{H1_SUB}}": data["h1_sub"],
         "{{DATES_LABEL}}": data["dates_label"],
-        "{{STAT_DAYS}}": str(len(data["days"])), "{{STAT_NIGHTS}}": str(nights), "{{STAT_SPOTS}}": str(spots),
+        "{{STAT_DAYS}}": str(len(data["days"])),
+        "{{STAT_NIGHTS_CELL}}": ('<div><div class="num">%d</div><div class="lbl">泊</div></div>' % nights) if nights else "", "{{STAT_SPOTS}}": str(spots),
         "{{DATE_S}}": data["date_s"], "{{DATE_E}}": data["date_e"],
         "{{NAV_TITLE}}": nav_title, "{{NAV_DATES}}": nav_dates,
         "{{STAT_COST}}": stat_cost,
