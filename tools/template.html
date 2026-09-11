@@ -271,7 +271,7 @@ html{scroll-behavior:smooth;scroll-padding-top:58px}
 .day-line .wx .glance{display:inline-flex;align-items:center;gap:9px;cursor:pointer;font-family:'Outfit',sans-serif;font-weight:700;font-size:.95rem;color:var(--ink);background:var(--paper-2);border:1px solid var(--line);border-radius:22px;padding:4px 14px;white-space:nowrap}
 .day-line .wx .glance .ic{font-size:1.15em;line-height:1}
 .day-line .wx .glance .lo{font-weight:600;color:var(--ink-soft)}
-.day-line .wx .glance .pp{color:var(--teal);font-weight:700}
+.day-line .wx .glance .pp{color:var(--teal);font-weight:700}.pp-na{color:var(--ink-faint,#8aa0a6);font-weight:600}
 .day-line .wx .glance:hover{background:var(--sand,#efe6d6)}
 .day-line .wx .glance .ic{font-size:1.4rem;line-height:1}
 .day-line .wx .glance .t{color:var(--ink)}
@@ -638,7 +638,7 @@ body{padding-bottom:76px}
   .spot-row.is-fold .spot-head{min-height:calc(1.12rem * 1.42 * 2)}
   .s-fields{font-size:.92rem}
 }
-</style><link rel="preconnect" href="https://api.open-meteo.com" crossorigin><link rel="dns-prefetch" href="https://api.open-meteo.com"><script>/*WXHEAD*/window.__WXP=(function(){var t=new Date();t.setHours(0,0,0,0);var sd='{{DATE_S}}',ed='{{DATE_E}}';var s=new Date(sd+'T00:00:00'),e=new Date(ed+'T00:00:00');if((s-t)/864e5>16||(t-e)/864e5>0)return null;var u='https://api.open-meteo.com/v1/forecast?latitude={{WX_LAT}}&longitude={{WX_LON}}&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_mean&models=jma_seamless&timezone=Asia%2FTokyo&start_date='+sd+'&end_date='+ed;return{weather:fetch(u).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}),typhoon:fetch('https://www.jma.go.jp/bosai/typhoon/data/targetTc.json').then(function(r){return r.ok?r.json():[];}).catch(function(){return[];})};})();</script></head><body>
+</style><link rel="preconnect" href="https://api.open-meteo.com" crossorigin><link rel="dns-prefetch" href="https://api.open-meteo.com"><script>/*WXHEAD*/window.__WXP=(function(){var t=new Date();t.setHours(0,0,0,0);var sd='{{DATE_S}}',ed='{{DATE_E}}';var s=new Date(sd+'T00:00:00'),e=new Date(ed+'T00:00:00');if((s-t)/864e5>16||(t-e)/864e5>0)return null;var u='https://api.open-meteo.com/v1/forecast?latitude={{WX_LAT}}&longitude={{WX_LON}}&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_mean&models=jma_seamless,ecmwf_ifs04&timezone=Asia%2FTokyo&start_date='+sd+'&end_date='+ed;return{weather:fetch(u).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}),typhoon:fetch('https://www.jma.go.jp/bosai/typhoon/data/targetTc.json').then(function(r){return r.ok?r.json():[];}).catch(function(){return[];})};})();</script></head><body>
 <nav class="nav" id="top"><div class="nav-in"><a class="nv-back" href="./index.html" aria-label="カレンダーへ戻る"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5 8 12l7 7"/></svg></a><div class="nv-title"><b>{{NAV_TITLE}}</b><small>{{NAV_DATES}}</small></div><div class="navright"><button class="navbtn" id="navShare" type="button" aria-label="このしおりを共有" title="このしおりを共有"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.4 10.8 15.6 6.6M8.4 13.2l7.2 4.2"/></svg></button><details class="menu-wrap"><summary class="ham" aria-label="メニュー"><svg viewBox="0 0 24 26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary><div class="menu-panel"><a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">この旅の全体地図</a><a href="#fvwx" onclick="document.getElementById('fvwx').scrollIntoView({behavior:'smooth'});return false;">天気の予報</a><a href="#pack" onclick="document.getElementById('pack').scrollIntoView({behavior:'smooth'});return false;">持ち物リスト</a><a href="#memo" onclick="document.getElementById('memo').scrollIntoView({behavior:'smooth'});return false;">予約と確認事項</a><a href="#" id="navGo">今日の宿へナビ</a><div class="menu-h">ほかの旅</div><a href="./index.html">カレンダーへ戻る</a></div></details></div></div></nav><div class="fv"><header class="hero trip-hero fv-photo" style="background-image:linear-gradient(180deg,rgba(5,40,48,.32),rgba(4,38,46,.18) 38%,rgba(4,40,48,.74)),url('data:image/jpeg;base64,{{HERO_B64}}')"><div class="hero-frame">{{CREDIT}}<div class="hero-main"><h1><span class="nb">{{H1_TOP}}</span><br>{{H1_SUB}}</h1><div class="dates"><b class="en">{{DATES_LABEL}}</b></div><div class="hero-stats"><div><div class="num">{{STAT_DAYS}}</div><div class="lbl">日間</div></div>{{STAT_NIGHTS_CELL}}<div><div class="num">{{STAT_SPOTS}}</div><div class="lbl">スポット</div></div>{{STAT_COST}}</div></div></div></header><div class="fv-map"><div class="fv-map-label">この旅のスポット</div><a class="fv-gbtn rm-gbtn map-open" href="{{DIRLINK}}" target="_blank" rel="noopener">Googleマップで開く →</a><div id="tripmap"></div></div></div><div class="fvwx" id="fvwx"></div>{{WEAR}}<div class="legend"><span class="lg"><span class="dot cat-sight"></span>観光</span><span class="lg"><span class="dot cat-play"></span>遊ぶ</span><span class="lg"><span class="dot cat-food"></span>グルメ</span><span class="lg"><span class="dot cat-shop"></span>買物</span><span class="lg"><span class="dot cat-onsen"></span>温泉</span><span class="lg"><span class="dot cat-stay"></span>泊まる</span><span class="lg"><span class="dot cat-move"></span>移動</span>{{LEGEND_EXTRA}}</div><main class="timeline">{{MAIN}}</main><section class="pack reveal" id="pack">
   <div class="pack-h"><h2>持ち物リスト</h2><span class="ln"></span><button class="pack-toggle" id="packToggle" type="button">開く</button><button class="pack-reset" id="packReset" type="button">すべてリセット</button></div>
   <div class="pack-sub">タップでチェックできます（この端末に保存され、旅ごとに別で記録されます）。この旅で使うものだけ選んでください。ドライヤーは日帰り温泉のものを使う前提です。</div>
@@ -693,7 +693,7 @@ if(document.readyState!=='loading')go();else document.addEventListener('DOMConte
   var start=new Date(dates[0]+'T00:00:00'),end=new Date(dates[dates.length-1]+'T00:00:00');
   if((start-today)/864e5>HORIZON)return;
   if((today-end)/864e5>0)return;
-  var MODELS='jma_seamless';
+  var MODELS='jma_seamless,ecmwf_ifs04';
   var FIELDS='weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_mean';
   var sd=dates[0],ed=dates[dates.length-1],TYP=false,STORM={};
   var JMAF={};
@@ -839,13 +839,17 @@ if(document.readyState!=='loading')go();else document.addEventListener('DOMConte
       var J=(x.jma&&JMAD[x.jma]&&JMAD[x.jma][x.d])||null;var wc=codes.length?classify(codes,Pp,J):['',''];if(wc[3]!=null)Pp=wc[3];
       var storm=!!STORM[x.d];if(storm)wc=['typhoon','\u53f0\u98a8\uff08\u66b4\u98a8\u57df\uff09'];
       var lead=Math.round((new Date(x.d+'T00:00:00')-today)/864e5);
-      var conf=lead<=3?'':(lead<=7?'\u78ba\u5ea6\uff1a\u4e2d\uff08\u5909\u308f\u308a\u3084\u3059\u3044\u30fb\u8981\u78ba\u8a8d\uff09':'\u78ba\u5ea6\uff1a\u4f4e\uff08\u3042\u304f\u307e\u3067\u76ee\u5b89\u30fb\u8981\u78ba\u8a8d\uff09');
-      var info={nm:x.nm,d:x.d,jma:x.jma,tk:x.tk,la:x.la,lo:x.lo,ic:wc[0],lab:wc[1],hint:wc[2],thunder:wc[4],tnote:wc[5],hi:Hi,lo2:Lo,pp:Pp,lead:lead,conf:conf,typ:TYP,storm:storm};
+      var jmaOk=!!(J&&J.pop!=null);
+      var REL={A:'\u9ad8\u3044',B:'\u3084\u3084\u9ad8\u3044',C:'\u4f4e\u3044'};
+      var conf;
+      if(jmaOk){conf=(J.rel&&REL[J.rel])?('\u6c17\u8c61\u5e81\u306e\u9031\u9593\u4e88\u5831\u306e\u4fe1\u983c\u5ea6\uff1a'+J.rel+'\uff08'+REL[J.rel]+'\uff09'):(lead<=3?'':'\u78ba\u5ea6\uff1a\u4e2d\uff08\u5909\u308f\u308a\u3084\u3059\u3044\uff09');}
+      else{conf='\u6c17\u8c61\u5e81\u306e\u4e88\u5831\u306f\u307e\u3060\u51fa\u3066\u3044\u307e\u305b\u3093\uff087\u65e5\u5148\u307e\u3067\u767a\u8868\uff09';Pp=null;}
+      var info={nm:x.nm,d:x.d,jma:x.jma,tk:x.tk,la:x.la,lo:x.lo,ic:wc[0],lab:wc[1],hint:wc[2],thunder:wc[4],tnote:wc[5],hi:Hi,lo2:Lo,pp:Pp,lead:lead,conf:conf,typ:TYP,storm:storm,jmaOk:jmaOk};
       if(strip){
         var wd='\u65e5\u6708\u706b\u6c34\u6728\u91d1\u571f'[new Date(x.d+'T00:00:00').getDay()];
         var md=x.d.slice(5).replace('-','/');
         var b=document.createElement('button');b.type='button';b.className='fvwx-day'+(storm?' storm':'');
-        b.innerHTML='<span class="d">'+md+' '+wd+'</span>'+'<span class="loc">'+x.nm+'</span>'+(wc[0]?'<span class="ic">'+icon(wc[0])+(wc[4]&&wc[0]!=='storm'?'<span class="tb" title="\u96f7\u6ce8\u610f">\u26a1</span>':'')+'</span>':'')+(Hi!==null?'<span class="t">'+Hi+'\u00b0<span class="lo">/'+Lo+'\u00b0</span></span>':'')+(Pp!==null?'<span class="pp">'+Pp+'%</span>':'');
+        b.innerHTML='<span class="d">'+md+' '+wd+'</span>'+'<span class="loc">'+x.nm+'</span>'+(wc[0]?'<span class="ic">'+icon(wc[0])+(wc[4]&&wc[0]!=='storm'?'<span class="tb" title="\u96f7\u6ce8\u610f">\u26a1</span>':'')+'</span>':'')+(Hi!==null?'<span class="t">'+Hi+'\u00b0<span class="lo">/'+Lo+'\u00b0</span></span>':'')+(Pp!==null?'<span class="pp">'+Pp+'%</span>':'<span class="pp pp-na">\u2014</span>');
         (function(bb,inf){bb.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();openPop(bb,inf);});})(b,info);
         strip.appendChild(b);
       }
@@ -855,6 +859,7 @@ if(document.readyState!=='loading')go();else document.addEventListener('DOMConte
         if(wc[0])g+='<span class="ic">'+icon(wc[0])+(wc[4]&&wc[0]!=='storm'?'<span class="tb">\u26a1</span>':'')+'</span>';
         if(Hi!==null)g+='<span class="t">'+Hi+'\u00b0<span class="lo">/'+Lo+'\u00b0</span></span>';
         if(Pp!==null)g+='<span class="pp">'+Pp+'%</span>';
+        if(Pp===null)g+='<span class="pp pp-na">\u2014</span>';
         g+='</span>';
         var w=document.createElement('span');w.className='wx';w.innerHTML=g;
         var glance=w.querySelector('.glance');

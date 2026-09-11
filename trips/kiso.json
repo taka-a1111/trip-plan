@@ -295,7 +295,8 @@
     "file": "assets/day_kiso_2.jpg",
     "alt": "赤沢森林鉄道",
     "credit": "赤沢自然休養林森林鉄道 / Tawashi CC BY-SA 3.0"
-   }
+   },
+   "no_meals": true
   },
   {
    "id": "day3",
