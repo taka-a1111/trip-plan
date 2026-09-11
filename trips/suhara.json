@@ -291,7 +291,8 @@
    "wxn": {
     "hi": 23,
     "lo": 17
-   }
+   },
+   "no_meals": true
   },
   {
    "id": "day3",

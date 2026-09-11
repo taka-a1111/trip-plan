@@ -380,7 +380,8 @@
     "file": "assets/day_kiso_3.jpg",
     "alt": "木曽馬の里の木曽馬",
     "credit": "木曽馬の里 / potaufeu CC BY 2.0"
-   }
+   },
+   "no_meals": true
   },
   {
    "id": "day4",
