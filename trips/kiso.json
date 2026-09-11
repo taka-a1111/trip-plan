@@ -198,7 +198,8 @@
     "file": "assets/day_kiso_1.jpg",
     "alt": "木曽駒高原",
     "credit": "木曽駒高原 / 山村一 CC BY-SA 4.0"
-   }
+   },
+   "no_meals": true
   },
   {
    "id": "day2",
