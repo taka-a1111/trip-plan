@@ -290,6 +290,10 @@ html{scroll-behavior:smooth;scroll-padding-top:58px}
 .wxpop a+a{border-top:1px solid var(--line)}
 .wxpop a .ar{color:var(--ink-faint,#8aa0a6);font-family:'Outfit',sans-serif}
 .wxpop a.typ{color:#b3452a}
+.wxpop a.wn{font-weight:700}.wxpop a.wn::before{content:"";width:9px;height:9px;border-radius:50%;background:#0b6fc4;flex:0 0 9px;margin-right:-2px}
+.wxpop a.tk::before{content:"";width:9px;height:9px;border-radius:50%;background:#e2711d;flex:0 0 9px;margin-right:-2px}
+.wxpop a{justify-content:flex-start}
+.wxpop a .ar{margin-left:auto}
 .wxpop .src{font-size:.66rem;color:var(--ink-faint,#8aa0a6);margin-top:8px;line-height:1.5;border-top:1px solid var(--line);padding-top:8px}
 .wxpop .cls{position:absolute;top:7px;right:9px;cursor:pointer;color:var(--ink-faint,#8aa0a6);font-size:.85rem;background:none;border:none;padding:2px}
 
@@ -772,9 +776,9 @@ if(document.readyState!=='loading')go();else document.addEventListener('DOMConte
     openedAt=Date.now();
     var p=ensurePop();
     var links=[
-      ['\u6c17\u8c61\u5e81','https://www.jma.go.jp/bosai/forecast/#area_type=offices&amp;area_code='+info.jma,''],
-      ['tenki.jp','https://tenki.jp/forecast/'+info.tk+'/',''],
-      ['\u30a6\u30a7\u30b6\u30fc\u30cb\u30e5\u30fc\u30b9','https://weathernews.jp/onebox/'+info.la+'/'+info.lo+'/','']
+      ['\u30a6\u30a7\u30b6\u30fc\u30cb\u30e5\u30fc\u30b9','https://weathernews.jp/onebox/'+info.la+'/'+info.lo+'/','wn'],
+      ['tenki.jp','https://tenki.jp/forecast/'+info.tk+'/','tk'],
+      ['\u6c17\u8c61\u5e81','https://www.jma.go.jp/bosai/forecast/#area_type=offices&amp;area_code='+info.jma,'']
     ];
     if(info.typ||info.storm)links.push(['\u53f0\u98a8\u60c5\u5831','https://www.jma.go.jp/bosai/map.html#contents=typhoon','typ']);
     var h='<button class="cls" aria-label="\u9589\u3058\u308b">\u2715</button>';
@@ -784,7 +788,7 @@ if(document.readyState!=='loading')go();else document.addEventListener('DOMConte
     h+='<div class="now"><span class="big">'+icon(info.ic)+'</span><span>'+line+'</span></div>';
     if(info.tnote)h+='<div class="conf">\u6c17\u8c61\u5e81\u306e\u4e88\u5831\u6587\u306b\u300c\u96f7\u3092\u4f34\u3044\u300d\u306e\u8a18\u8f09\u3042\u308a\uff08\u591a\u304f\u306f\u300c\u6240\u306b\u3088\u308a\u300d\u3068\u3044\u3046\u5c40\u5730\u7684\u306a\u4e88\u5831\uff09\u3002\u5c71\u3084\u5ddd\u3067\u306f\u5348\u5f8c\u306e\u5929\u5019\u5909\u5316\u306b\u6ce8\u610f</div>';if(info.hint)h+='<div class="conf">\u4e00\u90e8\u306e\u4e88\u5831\u30e2\u30c7\u30eb\u306f\u96f7\u96e8\u3092\u4e88\u60f3\u3057\u3066\u3044\u307e\u3059\uff08\u5c71\u30fb\u5ddd\u3067\u306f\u5348\u5f8c\u306e\u5929\u5019\u5909\u5316\u306b\u6ce8\u610f\uff09</div>';if(info.conf)h+='<div class="conf">'+info.conf+' \uff0f \u7d04'+info.lead+'\u65e5\u5148\u306e\u4e88\u5831</div>';
     h+=links.map(function(a){return '<a'+(a[2]?' class="'+a[2]+'"':'')+' href="'+a[1]+'" target="_blank" rel="noopener">'+a[0]+'<span class="ar">\u2197</span></a>';}).join('');
-    h+='<div class="src">\u5bbf\u6cca\u5730\u306e\u30d4\u30f3\u30dd\u30a4\u30f3\u30c8\u4e88\u5831\u3092\u958b\u304d\u307e\u3059\u3002\u5024\u306e\u76ee\u5b89\u306f\u6c17\u8c61\u5e81\u30fbECMWF\u30fbGFS\u30fbICON\u306e\u7d71\u5408\u5024\u3067\u3059\u3002</div>';
+    h+='<div class="src">\u4e0a\u306e\u6570\u5024\u306f\u6c17\u8c61\u5e81\u306e\u4e88\u5831\u3092\u512a\u5148\u3057\u3001ECMWF\u30fbGFS\u30fbICON\u3092\u5408\u308f\u305b\u305f\u76ee\u5b89\u3067\u3059\u3002\u30a6\u30a7\u30b6\u30fc\u30cb\u30e5\u30fc\u30b9\u306e\u4e88\u5831\u306f\u4e0a\u306e\u30ea\u30f3\u30af\u304b\u3089\u78ba\u304b\u3081\u3066\u304f\u3060\u3055\u3044\u3002</div>';
     p.innerHTML=h;
     p.querySelector('.cls').addEventListener('click',hide);
     p.classList.add('show');
