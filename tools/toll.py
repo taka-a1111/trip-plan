@@ -1,37 +1,59 @@
 # -*- coding: utf-8 -*-
-"""ドラぷら（NEXCO）から高速料金を取得する
-使い方: python3 tools/toll.py 出発IC 到着IC [経由IC ...]
-出力: 通常料金 / ETC料金 / 距離 / 所要
+"""高速料金をドラぷらで調べる。
+使い方:
+  python3 tools/toll.py 出発IC 到着IC [YYYY-MM-DD] [HH]
+日付を渡すとその日の料金で検索するので、休日割引などのETC割引が反映される。
+日付を省略すると当日の料金になる（＝割引の判定ができないので、旅程に使うときは必ず日付を渡す）。
+2026年度は3連休・GW・お盆・SW・年末年始が休日割引の適用除外日。
 """
-import sys, re, time, urllib.parse, urllib.request
+import sys, re, html, urllib.parse, urllib.request
 
-UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36"
+UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+      "(KHTML, like Gecko) Chrome/124 Safari/537.36")
 
-def fetch(dep, arr, via=None):
-    q = [("startPlaceKana", dep), ("arrivePlaceKana", arr)]
+
+def fetch(dep, arr, ymd=None, hh="9", via=None):
+    q = [("startPlaceKana", dep), ("arrivePlaceKana", arr),
+         ("carType", "1"), ("priority", "3"), ("kind", "1")]
     if via:
         q.append(("keiyuPlaceKana", via))
-    url = "https://www.driveplaza.com/dp/SearchQuick?" + urllib.parse.urlencode(q)
-    req = urllib.request.Request(url, headers={"User-Agent": UA})
+    if ymd:
+        y, m, d = ymd.split("-")
+        q += [("searchYear", y), ("searchMonth", str(int(m))), ("searchDay", str(int(d))),
+              ("searchHour", str(int(hh))), ("searchMinute", "0")]
+    u = "https://www.driveplaza.com/dp/SearchQuick?" + urllib.parse.urlencode(q)
+    req = urllib.request.Request(u, headers={"User-Agent": UA})
     return urllib.request.urlopen(req, timeout=40).read().decode("utf-8", "replace")
 
-def parse(html):
-    m = re.search(r'<!--ルートi-->(.*?)</tr>', html, re.S)
-    if not m:
-        return None
-    seg = m.group(1)
-    yen = [int(x.replace(",", "")) for x in re.findall(r'<em>([\d,]+)</em>円', seg)]
-    km = re.search(r'<em>([\d.]+)</em>km', seg)
-    tm = re.findall(r'<em>(\d+)</em>時間<em>(\d+)</em>分', seg)
-    return {
-        "normal": yen[0] if yen else None,
-        "etc": yen[1] if len(yen) > 1 else None,
-        "km": float(km.group(1)) if km else None,
-        "time": ("%s時間%s分" % tm[0]) if tm else None,
-    }
+
+def parse(h):
+    i = h.find("通常料金")
+    if i < 0:
+        return None, []
+    t = html.unescape(re.sub(r"<[^>]+>", "|", h[max(0, i - 900):i + 3000]))
+    t = re.sub(r"\|[\s\r\n]*", "|", t)
+    dm = re.search(r"(\d{4}年\d{2}月\d{2}日)\|+(\d{2}:\d{2})", t)
+    routes = []
+    for m in re.finditer(r"ルート\|(\d)\|+([\d,]+)\|円\|+([\d,]+)\|円\|+([\d,]+)\|円\|+"
+                         r"([^|]*)\|+([^|]*)\|+([\d.]+)km", t):
+        routes.append({"no": int(m.group(1)),
+                       "normal": int(m.group(2).replace(",", "")),
+                       "etc": int(m.group(3).replace(",", "")),
+                       "etc2": int(m.group(4).replace(",", "")),
+                       "time": m.group(5), "km": float(m.group(7))})
+    return (dm.group(1) + " " + dm.group(2)) if dm else None, routes
+
 
 if __name__ == "__main__":
     dep, arr = sys.argv[1], sys.argv[2]
-    via = sys.argv[3] if len(sys.argv) > 3 else None
-    r = parse(fetch(dep, arr, via))
-    print(dep, "→", arr, r)
+    ymd = sys.argv[3] if len(sys.argv) > 3 else None
+    hh = sys.argv[4] if len(sys.argv) > 4 else "9"
+    when, routes = parse(fetch(dep, arr, ymd, hh))
+    print("%s → %s  %s" % (dep, arr, when or "（当日）"))
+    if not routes:
+        print("  取得できませんでした")
+    for r in routes:
+        mark = "  ←最安" if r["etc"] == min(x["etc"] for x in routes) else ""
+        print("  ルート%d  通常%s円  ETC%s円  %.1fkm  %s%s"
+              % (r["no"], format(r["normal"], ","), format(r["etc"], ","),
+                 r["km"], r["time"], mark))
