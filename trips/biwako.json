@@ -34,7 +34,7 @@
    "lon": 135.9647999,
    "k": "spot",
    "q": "びわこ地球市民の森 守山市",
-   "official": "https://www.pref.shiga.lg.jp/"
+   "official": "https://www.pref.shiga.lg.jp/rb00/499.html"
   },
   "kibo": {
    "n": "希望が丘文化公園",
@@ -74,7 +74,7 @@
    "lon": 135.9399054,
    "k": "spot",
    "q": "草津市立水生植物公園みずの森",
-   "official": "https://www.pref.shiga.lg.jp/"
+   "official": "https://www.seibu-la.co.jp/mizunomori/"
   },
   "kojin": {
    "n": "荒神山公園",
@@ -82,7 +82,7 @@
    "lon": 136.2031933,
    "k": "spot",
    "q": "荒神山公園 彦根市",
-   "official": "https://www.city.hikone.lg.jp/"
+   "official": "http://www.koujinyama-park.com/"
   },
   "camp": {
    "n": "妹背の里",
@@ -90,7 +90,7 @@
    "lon": 136.1454,
    "k": "stay",
    "q": "妹背の里 竜王町",
-   "official": "http://ryuoh.or.jp/imosenosato.html"
+   "official": "https://ryuoh.or.jp/imosenosato.html"
   },
   "gamou": {
    "n": "蒲生野の湯",
@@ -98,7 +98,7 @@
    "lon": 136.1400149,
    "k": "onsen",
    "q": "蒲生野の湯 竜王町",
-   "official": "https://www.gamounoyu.com/"
+   "official": "https://www.gamounonoyu.net/"
   }
  },
  "rain": [
@@ -136,7 +136,7 @@
    "hr": "9:00–17:00",
    "off": "月曜",
    "note": "温室があるので雨でも歩ける。琵琶湖博物館の隣",
-   "official": "https://www.pref.shiga.lg.jp/"
+   "official": "https://www.seibu-la.co.jp/mizunomori/"
   },
   {
    "n": "滋賀県立安土城考古博物館",
@@ -148,7 +148,7 @@
    "hr": "9:00–17:00",
    "off": "月曜",
    "note": "安土城と信長。城跡と近く、子ども向けの展示もある",
-   "official": "https://www.pref.shiga.lg.jp/"
+   "official": "https://azuchi-museum.or.jp/"
   },
   {
    "n": "イオンモール草津",
@@ -160,7 +160,7 @@
    "hr": "10:00–21:00",
    "off": "無休",
    "note": "最後の逃げ場。屋内の遊び場とフードコート、駐車無料",
-   "official": "https://kusatsu-aeonmall.com/"
+   "official": "https://kusatsu.aeonmall.jp/"
   },
   {
    "n": "三井アウトレットパーク滋賀竜王",
@@ -327,7 +327,7 @@
      "fields": [
       [
        "料金",
-       "<span class=\"amn\">👨‍🦰 1,000円ほど（土日祝）</span><span class=\"amn\">👪 3,000円ほど</span>"
+       "<span class=\"amn\">👨‍🦰 大人900円（平日）・1,000円（土日祝）　🧒 子ども500円</span><span class=\"amn\">👪 2,800円</span>"
       ],
       [
        "営業",
@@ -1041,7 +1041,7 @@
      "fields": [
       [
        "料金",
-       "<span class=\"amn\">👨‍🦰 1,000円ほど（土日祝）</span><span class=\"amn\">👪 3,000円ほど</span>"
+       "<span class=\"amn\">👨‍🦰 大人900円（平日）・1,000円（土日祝）　🧒 子ども500円</span><span class=\"amn\">👪 3,000円</span>"
       ],
       [
        "営業",
@@ -1622,11 +1622,11 @@
    ],
    [
     "施設・温泉",
-    "15,480円",
+    "15,280円",
     "家族4人ぶんの入場料と入浴料の合計"
    ]
   ],
-  "total": "約34,142円",
+  "total": "約33,942円",
   "total_sub": "食費とおみやげは含みません（変動するため）",
   "note": "ガソリンは目安（総走行距離÷13km/L×175円/L）。高速代はドラぷらで区間ごとに調べた実額です。"
  }
