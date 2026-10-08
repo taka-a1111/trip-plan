@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<!-- BUILD_TAG: 2026-10-08y -->
+<title>雪国旅行プラン比較</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@600&display=swap">
+<style>
+/* Layout: one narrow reading column — verdict, at-a-glance grid, total cost ranges, cost breakdown, one card per destination, airfare by week */
+:root{
+  --bg:#eef2f5; --surface:#ffffff; --ink:#1c2631; --muted:#566576; --line:#d5dde5;
+  --accent:#2c5a86; --warm:#a84a37; --tint:#e3ebf3; --track:#e6ecf1;
+  --r1:#2c5a86; --r2:#6c96bd; --r3:#b98422; --r4:#a84a37;
+  --serif:"Noto Serif JP","游明朝","Yu Mincho","YuMincho",serif;
+  --sans:"Noto Sans JP","游ゴシック","Yu Gothic","YuGothic","メイリオ","Meiryo","MS Pゴシック",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#10161c; --surface:#18212a; --ink:#e5ebf1; --muted:#9dabb9; --line:#2a3541;
+  --accent:#8db5dc; --warm:#e0907c; --tint:#1e2c3a; --track:#223040;
+  --r1:#8db5dc; --r2:#5f86ab; --r3:#d7a84d; --r4:#e0907c; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#10161c; --surface:#18212a; --ink:#e5ebf1; --muted:#9dabb9; --line:#2a3541;
+  --accent:#8db5dc; --warm:#e0907c; --tint:#1e2c3a; --track:#223040;
+  --r1:#8db5dc; --r2:#5f86ab; --r3:#d7a84d; --r4:#e0907c; color-scheme:dark}
+
+*{box-sizing:border-box}
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+img{max-width:100%}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.75;margin:0}
+.wrap{max-width:760px;margin:0 auto;padding-inline:16px;padding-block:28px 56px;display:flex;flex-direction:column;gap:40px}
+h1,h2{font-family:var(--serif);font-weight:600;text-wrap:balance;margin:0;line-height:1.35}
+h1{font-size:1.9rem;letter-spacing:.02em}
+h2{font-size:1.3rem}
+p{margin:0}
+.num{font-variant-numeric:tabular-nums}
+.eyebrow{font-size:.78rem;letter-spacing:.12em;color:var(--muted)}
+.sub{color:var(--muted);font-size:.92rem}
+section{display:flex;flex-direction:column;gap:14px}
+
+header{display:flex;flex-direction:column;gap:8px;border-bottom:1px solid var(--line);padding-bottom:20px}
+.facts{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.88rem;color:var(--muted)}
+.facts span b{font-weight:500;color:var(--ink)}
+
+/* verdict */
+.verdict{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.pick{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.pick.main{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.tag{align-self:flex-start;font-size:.75rem;letter-spacing:.08em;padding:1px 10px;border-radius:999px;border:1px solid currentColor}
+.tag.honmei{color:var(--warm)}
+.tag.alt{color:var(--accent)}
+.pick h3{margin:0;font-size:1.08rem;font-weight:700}
+.pick .why{font-size:.88rem;color:var(--muted)}
+.pick .total{font-size:1.15rem;font-weight:500;margin-top:auto}
+.pick .total small{font-size:.75rem;color:var(--muted);font-weight:400;margin-left:4px}
+.note{font-size:.88rem;color:var(--muted)}
+
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.84rem;color:var(--muted)}
+.mk{display:inline-flex;align-items:center;justify-content:center;width:1.7em;height:1.7em;border-radius:50%;font-size:.95rem;line-height:1;color:var(--surface);flex:none}
+.m1{background:var(--r1)} .m2{background:var(--r2)} .m3{background:var(--r3)} .m4{background:var(--r4)}
+
+.scroll{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:.88rem}
+.t-grid{min-width:560px}
+.t-cost{min-width:640px}
+th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+th{font-weight:500;font-size:.78rem;color:var(--muted);letter-spacing:.04em;white-space:nowrap}
+td.c,th.c{text-align:center}
+td.r,th.r{text-align:right}
+tr:last-child td{border-bottom:0}
+td .dest{font-weight:500;white-space:nowrap}
+td .how{display:block;font-size:.76rem;color:var(--muted)}
+td.nw{white-space:nowrap}
+td.sum{white-space:nowrap;font-weight:500}
+tr.top td{background:var(--tint)}
+
+/* cost range chart */
+.ranges{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px 12px;display:flex;flex-direction:column;gap:10px}
+.rg{display:grid;grid-template-columns:11em 1fr;gap:2px 14px;align-items:center}
+.rg .lab{font-size:.86rem;line-height:1.35}
+.rg .lab small{display:block;font-size:.8rem;color:var(--muted)}
+.track{position:relative;height:16px;background:var(--track);border-radius:3px}
+.track i{position:absolute;top:0;bottom:0;border-radius:3px;background:var(--r2)}
+.rg.pickrow .track i{background:var(--accent)}
+.axis{display:grid;grid-template-columns:11em 1fr;gap:14px}
+.axis .ticks{position:relative;height:1.4em;font-size:.72rem;color:var(--muted)}
+.axis .ticks span{position:absolute;transform:translateX(-50%)}
+.axis .ticks span:first-child{transform:none}
+
+/* destination cards */
+.cards{display:flex;flex-direction:column;gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.card .head{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
+.card h3{margin:0;font-size:1.06rem;font-weight:700}
+.card .route{font-size:.84rem;color:var(--muted)}
+.scores{display:flex;flex-wrap:wrap;gap:8px 18px}
+.score{display:flex;align-items:center;gap:6px;font-size:.84rem;color:var(--muted)}
+.card ul{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:2px;font-size:.92rem}
+.cost-line{font-size:.9rem;border-top:1px dashed var(--line);padding-top:8px;display:flex;flex-wrap:wrap;gap:2px 10px;align-items:baseline}
+.cost-line .lbl{color:var(--muted)}
+.cost-line .amt{font-weight:500}
+.cost-line .br{font-size:.8rem;color:var(--muted);flex-basis:100%}
+
+/* week bars */
+.weeks{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:14px}
+.wk{display:grid;grid-template-columns:8.6em 1fr;gap:4px 12px;align-items:center}
+.wk .d{font-size:.88rem;line-height:1.35}
+.wk .d small{display:block;color:var(--muted);font-size:.76rem}
+.bar{height:22px;display:flex;align-items:center}
+.bar i{display:block;height:100%;border-radius:3px;background:var(--r2)}
+.wk.best .bar i{background:var(--accent)}
+.bar span{margin-left:8px;font-size:.86rem;white-space:nowrap}
+.wk .memo{grid-column:2;font-size:.8rem;color:var(--muted);margin-top:-4px}
+
+.todo,.assume{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:4px;font-size:.9rem}
+.assume{font-size:.84rem;color:var(--muted)}
+.src{margin:0;padding-left:1.1em;font-size:.8rem;color:var(--muted);display:flex;flex-direction:column;gap:2px}
+a{color:var(--accent);overflow-wrap:anywhere}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+@media (max-width:520px){
+  h1{font-size:1.6rem}
+  .rg,.axis{grid-template-columns:1fr;gap:4px}
+  .axis .pad{display:none}
+  .wk{grid-template-columns:1fr}
+  .wk .memo{grid-column:1}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap" lang="ja">
+
+<header>
+  <span class="eyebrow">2026年12月・家族4人</span>
+  <h1>雪国旅行プラン比較</h1>
+  <div class="facts">
+    <span>日程 <b>12/12（土）〜12/20（日）の8泊9日</b></span>
+    <span>人数 <b>大人2・小学2年・年長</b></span>
+    <span>調べた日 <b class="num">2026年10月8日</b></span>
+  </div>
+</header>
+
+<section aria-labelledby="h-verdict">
+  <h2 id="h-verdict">結論</h2>
+  <div class="verdict">
+    <div class="pick main">
+      <span class="tag honmei">本命</span>
+      <h3>北海道 旭川・富良野</h3>
+      <p class="why">雪の確実さと子どもの楽しみが一番。旭山動物園やスキー場がある。</p>
+      <p class="total num">約24〜32万円</p>
+    </div>
+    <div class="pick">
+      <span class="tag alt">安さ重視</span>
+      <h3>新潟 湯沢・南魚沼（車）</h3>
+      <p class="why">本州で雪が一番確実。ただし片道5時間半ほどの運転で、最後は雪道。</p>
+      <p class="total num">約14〜28万円<small>タイヤ代込み</small></p>
+    </div>
+    <div class="pick">
+      <span class="tag alt">運転なし</span>
+      <h3>北海道 札幌</h3>
+      <p class="why">雪道を運転しない。電車とバスで、スキー場や小樽へ行ける。</p>
+      <p class="total num">約21〜26万円</p>
+    </div>
+  </div>
+  <p class="note">金額は、行き帰りの交通費・現地の足・宿8泊を足した総額です。食費、リフトや施設の料金、おみやげは入っていません。</p>
+</section>
+
+<section aria-labelledby="h-grid">
+  <h2 id="h-grid">ひと目で比較</h2>
+  <div class="legend">
+    <span><span class="mk m1">◎</span> とても良い</span>
+    <span><span class="mk m2">◯</span> 良い</span>
+    <span><span class="mk m3">△</span> やや不安</span>
+    <span><span class="mk m4">✕</span> きびしい</span>
+    <span>（12月中旬に行く場合）</span>
+  </div>
+  <div class="scroll">
+    <table class="t-grid">
+      <thead><tr><th>行き先</th><th class="c">雪</th><th class="c">子ども</th><th class="c">移動のらくさ</th><th class="r">総額の目安</th></tr></thead>
+      <tbody>
+        <tr class="top"><td><span class="dest">北海道 旭川・富良野</span><span class="how">飛行機＋レンタカー</span></td><td class="c"><span class="mk m1">◎</span></td><td class="c"><span class="mk m1">◎</span></td><td class="c"><span class="mk m3">△</span></td><td class="r nw num">24.0〜32.2万円</td></tr>
+        <tr class="top"><td><span class="dest">新潟 湯沢・南魚沼</span><span class="how">自分の車</span></td><td class="c"><span class="mk m2">◯</span></td><td class="c"><span class="mk m2">◯</span></td><td class="c"><span class="mk m4">✕</span></td><td class="r nw num">14.4〜27.8万円</td></tr>
+        <tr class="top"><td><span class="dest">北海道 札幌</span><span class="how">飛行機、現地は電車とバス</span></td><td class="c"><span class="mk m2">◯</span></td><td class="c"><span class="mk m2">◯</span></td><td class="c"><span class="mk m1">◎</span></td><td class="r nw num">20.8〜26.4万円</td></tr>
+        <tr><td><span class="dest">岐阜 郡上・高山</span><span class="how">自分の車</span></td><td class="c"><span class="mk m3">△</span></td><td class="c"><span class="mk m2">◯</span></td><td class="c"><span class="mk m2">◯</span></td><td class="r nw num">13.8〜25.7万円</td></tr>
+        <tr><td><span class="dest">新潟 越後湯沢</span><span class="how">新幹線</span></td><td class="c"><span class="mk m3">△</span></td><td class="c"><span class="mk m2">◯</span></td><td class="c"><span class="mk m1">◎</span></td><td class="r nw num">18.9〜27.3万円</td></tr>
+        <tr><td><span class="dest">北海道（行きは船）</span><span class="how">フェリー＋帰り飛行機</span></td><td class="c"><span class="mk m1">◎</span></td><td class="c"><span class="mk m1">◎</span></td><td class="c"><span class="mk m4">✕</span></td><td class="r nw num">20.1〜26.2万円</td></tr>
+        <tr><td><span class="dest">群馬 草津温泉</span><span class="how">自分の車</span></td><td class="c"><span class="mk m3">△</span></td><td class="c"><span class="mk m2">◯</span></td><td class="c"><span class="mk m3">△</span></td><td class="r nw num">22.0〜39.2万円</td></tr>
+        <tr><td><span class="dest">青森 八甲田・酸ヶ湯</span><span class="how">飛行機＋レンタカー</span></td><td class="c"><span class="mk m1">◎</span></td><td class="c"><span class="mk m2">◯</span></td><td class="c"><span class="mk m2">◯</span></td><td class="r nw num">32.5〜41.4万円</td></tr>
+        <tr><td><span class="dest">岩手 雫石・花巻</span><span class="how">飛行機＋レンタカー</span></td><td class="c"><span class="mk m2">◯</span></td><td class="c"><span class="mk m2">◯</span></td><td class="c"><span class="mk m2">◯</span></td><td class="r nw num">33.1〜38.3万円</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section aria-labelledby="h-range">
+  <h2 id="h-range">総額の幅</h2>
+  <p class="sub">安い順。棒の左端が安く済ませた場合、右端が少しゆとりを持たせた場合です。車の案はスタッドレスタイヤ代（3万〜10万円）を含みます。</p>
+  <div class="ranges num" role="img" aria-label="行き先ごとの総額の幅">
+    <div class="rg"><div class="lab">岐阜 郡上・高山（車）<small>13.8〜25.7万円</small></div><div class="track"><i style="left:30.67%;width:26.44%"></i></div></div>
+    <div class="rg pickrow"><div class="lab">新潟 湯沢・南魚沼（車）<small>14.4〜27.8万円</small></div><div class="track"><i style="left:32%;width:29.78%"></i></div></div>
+    <div class="rg"><div class="lab">新潟 越後湯沢（新幹線）<small>18.9〜27.3万円</small></div><div class="track"><i style="left:42%;width:18.67%"></i></div></div>
+    <div class="rg"><div class="lab">北海道（行きは船）<small>20.1〜26.2万円</small></div><div class="track"><i style="left:44.67%;width:13.56%"></i></div></div>
+    <div class="rg pickrow"><div class="lab">北海道 札幌<small>20.8〜26.4万円</small></div><div class="track"><i style="left:46.22%;width:12.44%"></i></div></div>
+    <div class="rg"><div class="lab">群馬 草津温泉（車）<small>22.0〜39.2万円</small></div><div class="track"><i style="left:48.89%;width:38.22%"></i></div></div>
+    <div class="rg pickrow"><div class="lab">北海道 旭川・富良野<small>24.0〜32.2万円</small></div><div class="track"><i style="left:53.33%;width:18.22%"></i></div></div>
+    <div class="rg"><div class="lab">青森 八甲田・酸ヶ湯<small>32.5〜41.4万円</small></div><div class="track"><i style="left:72.22%;width:19.78%"></i></div></div>
+    <div class="rg"><div class="lab">岩手 雫石・花巻<small>33.1〜38.3万円</small></div><div class="track"><i style="left:73.56%;width:11.56%"></i></div></div>
+    <div class="axis"><div class="pad"></div><div class="ticks"><span style="left:0">0</span><span style="left:22.22%">10万</span><span style="left:44.44%">20万</span><span style="left:66.67%">30万</span><span style="left:88.89%">40万</span></div></div>
+  </div>
+</section>
+
+<section aria-labelledby="h-cost">
+  <h2 id="h-cost">費用の内訳</h2>
+  <div class="scroll">
+    <table class="t-cost num">
+      <thead><tr><th>行き先</th><th>行き帰り</th><th>現地の足</th><th>宿（8泊）</th><th class="r">合計</th></tr></thead>
+      <tbody>
+        <tr><td class="nw">北海道 旭川・富良野</td><td>飛行機 6.7万</td><td>レンタカー 6.9〜9.0万<br>ガソリン 1.0万</td><td class="nw">9.4〜15.5万</td><td class="r sum">24.0〜32.2万</td></tr>
+        <tr><td class="nw">新潟 湯沢・南魚沼（車）</td><td>タイヤ 3〜10万<br>高速 1.6万・ガソリン 1.6万</td><td>自分の車</td><td class="nw">8.2〜14.6万</td><td class="r sum">14.4〜27.8万</td></tr>
+        <tr><td class="nw">北海道 札幌</td><td>飛行機 6.7万</td><td>電車・バス 2〜3万</td><td class="nw">12.1〜16.7万</td><td class="r sum">20.8〜26.4万</td></tr>
+        <tr><td class="nw">岐阜 郡上・高山（車）</td><td>タイヤ 3〜10万<br>高速 0.6万・ガソリン 0.7万</td><td>自分の車</td><td class="nw">9.5〜14.4万</td><td class="r sum">13.8〜25.7万</td></tr>
+        <tr><td class="nw">新潟 越後湯沢（新幹線）</td><td>新幹線 8.8〜10.5万</td><td>駅とスキー場が直結</td><td class="nw">10.1〜16.8万</td><td class="r sum">18.9〜27.3万</td></tr>
+        <tr><td class="nw">北海道（行きは船）</td><td>フェリー 3.1万<br>帰りの飛行機 3.5万</td><td>レンタカー 5.5〜7.0万<br>ガソリン 1.0万</td><td class="nw">7.0〜11.6万（6泊）</td><td class="r sum">20.1〜26.2万</td></tr>
+        <tr><td class="nw">群馬 草津温泉（車）</td><td>タイヤ 3〜10万<br>高速 1.0万・ガソリン 1.2万</td><td>自分の車</td><td class="nw">16.8〜27.0万</td><td class="r sum">22.0〜39.2万</td></tr>
+        <tr><td class="nw">青森 八甲田・酸ヶ湯</td><td>飛行機 11.3万</td><td>レンタカー 6.6〜8.5万<br>ガソリン 1.0万</td><td class="nw">13.6〜20.6万</td><td class="r sum">32.5〜41.4万</td></tr>
+        <tr><td class="nw">岩手 雫石・花巻</td><td>飛行機 11.3万</td><td>レンタカー 6.5〜8.5万<br>ガソリン 1.0万</td><td class="nw">14.3〜17.5万</td><td class="r sum">33.1〜38.3万</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <ul class="assume">
+    <li>飛行機（ピーチ）：12/12・12/20の最安運賃×4人に、預け荷物2個の往復（8,000円）を足した額</li>
+    <li>飛行機（FDA）：割引運賃14,100円×4人。子どもが割引運賃を使えない場合は、小児運賃（普通運賃の半額）になり高くなる</li>
+    <li>新幹線：大人17,540円、小学生8,770円（片道）。年長は座席を使わなければ無料で、座席を取ると高い側の金額</li>
+    <li>フェリー：2等和室で大人12,300円、小学生6,100円、年長は添い寝で無料。船で2泊するので宿は6泊</li>
+    <li>レンタカー：9日間、ジュニアシート2つと補償込み。北海道・東北の冬はスタッドレスが標準。安い側は予約サイトの大手の料金、高い側は公式の一般料金</li>
+    <li>自分の車：高速は休日割引の料金（12/12と12/20は割引の対象日）。ガソリンは燃費13km/L、1L175円で計算</li>
+    <li>宿：楽天トラベルで12/12〜12/20、家族4人1部屋で探した実例。素泊まりが中心で、安い側にはお風呂・トイレ共用の宿も入っている</li>
+    <li>レンタカーの日のガソリン代と、札幌の電車・バス代は概算。北海道・東北で高速道路を使う場合の料金は入っていない</li>
+  </ul>
+</section>
+
+<section aria-labelledby="h-cards">
+  <h2 id="h-cards">それぞれの行き先</h2>
+  <div class="cards">
+
+    <article class="card">
+      <div class="head"><h3>北海道 旭川・富良野</h3><span class="route">セントレア→新千歳、レンタカー</span></div>
+      <div class="scores"><span class="score">雪 <span class="mk m1">◎</span></span><span class="score">子ども <span class="mk m1">◎</span></span><span class="score">移動 <span class="mk m3">△</span></span></div>
+      <ul>
+        <li>旭山動物園、富良野のスキー場、白金の青い池</li>
+        <li>気温は−10℃前後。雪は量も質も確実</li>
+        <li>新千歳から旭川までは、雪道を車で約2時間</li>
+        <li>宿は旭川が安い。富良野に泊まると8泊で9万〜11万円ほど高くなる</li>
+      </ul>
+      <p class="cost-line num"><span class="lbl">総額</span><span class="amt">24.0〜32.2万円</span><span class="br">飛行機 6.7万＋レンタカー 6.9〜9.0万＋ガソリン 1.0万＋宿 9.4〜15.5万</span></p>
+    </article>
+
+    <article class="card">
+      <div class="head"><h3>新潟 湯沢・南魚沼（車）</h3><span class="route">自分の車（スタッドレスを買う）</span></div>
+      <div class="scores"><span class="score">雪 <span class="mk m2">◯</span></span><span class="score">子ども <span class="mk m2">◯</span></span><span class="score">移動 <span class="mk m4">✕</span></span></div>
+      <ul>
+        <li>本州では雪が一番確実で、子どものスキー教室も選べる</li>
+        <li>名古屋ICから湯沢ICまで高速で約460km、5時間半ほど</li>
+        <li>石打丸山スキー場のリフト前に、8泊8.2万円の宿がある</li>
+        <li>大雪の日は高速道路が通行止めやチェーン規制になることがある</li>
+      </ul>
+      <p class="cost-line num"><span class="lbl">総額</span><span class="amt">14.4〜27.8万円</span><span class="br">タイヤ 3〜10万＋高速 1.6万＋ガソリン 1.6万＋宿 8.2〜14.6万</span></p>
+    </article>
+
+    <article class="card">
+      <div class="head"><h3>北海道 札幌</h3><span class="route">セントレア→新千歳、電車とバス</span></div>
+      <div class="scores"><span class="score">雪 <span class="mk m2">◯</span></span><span class="score">子ども <span class="mk m2">◯</span></span><span class="score">移動 <span class="mk m1">◎</span></span></div>
+      <ul>
+        <li>雪道を運転しない案</li>
+        <li>市内のスキー場（ばんけい・藻岩山）でそりやスキー、JRで小樽へ</li>
+        <li>札幌の宿は、土曜の夜が平日より1万円以上高いところが多い</li>
+        <li>雪まつりは2月なので時期外</li>
+      </ul>
+      <p class="cost-line num"><span class="lbl">総額</span><span class="amt">20.8〜26.4万円</span><span class="br">飛行機 6.7万＋電車・バス 2〜3万＋宿 12.1〜16.7万</span></p>
+    </article>
+
+    <article class="card">
+      <div class="head"><h3>岐阜 郡上・高山（車）</h3><span class="route">自分の車（スタッドレスを買う）</span></div>
+      <div class="scores"><span class="score">雪 <span class="mk m3">△</span></span><span class="score">子ども <span class="mk m2">◯</span></span><span class="score">移動 <span class="mk m2">◯</span></span></div>
+      <ul>
+        <li>名古屋ICから高鷲ICまで約1.5時間、飛騨清見ICまで約2時間と一番近い</li>
+        <li>12月中旬は雪が少ないことが多く、郡上のスキー場は人工雪頼み</li>
+        <li>奥飛騨温泉郷の宿は高く、8泊で23万円以上。安く済ませるなら高山か郡上に泊まる</li>
+      </ul>
+      <p class="cost-line num"><span class="lbl">総額</span><span class="amt">13.8〜25.7万円</span><span class="br">タイヤ 3〜10万＋高速 0.6万＋ガソリン 0.7万＋宿 9.5〜14.4万</span></p>
+    </article>
+
+    <article class="card">
+      <div class="head"><h3>新潟 越後湯沢（新幹線）</h3><span class="route">名古屋→東京→越後湯沢、約3時間10分</span></div>
+      <div class="scores"><span class="score">雪 <span class="mk m3">△</span></span><span class="score">子ども <span class="mk m2">◯</span></span><span class="score">移動 <span class="mk m1">◎</span></span></div>
+      <ul>
+        <li>ガーラ湯沢は新幹線の駅とスキー場がつながっている</li>
+        <li>年長は座席を使わなければ運賃がかからない</li>
+        <li>12月中旬はスキー場が開き始める時期で、雪は年しだい</li>
+      </ul>
+      <p class="cost-line num"><span class="lbl">総額</span><span class="amt">18.9〜27.3万円</span><span class="br">新幹線 8.8〜10.5万＋宿 10.1〜16.8万</span></p>
+    </article>
+
+    <article class="card">
+      <div class="head"><h3>北海道（行きは船）</h3><span class="route">名古屋港→苫小牧のフェリー、帰りは飛行機</span></div>
+      <div class="scores"><span class="score">雪 <span class="mk m1">◎</span></span><span class="score">子ども <span class="mk m1">◎</span></span><span class="score">移動 <span class="mk m4">✕</span></span></div>
+      <ul>
+        <li>12/12（土）19:00に名古屋を出て、仙台を経由し、12/14（月）11:00に苫小牧着</li>
+        <li>船旅そのものが思い出になる。12月前半はフェリーが一番安い時期</li>
+        <li>苫小牧でレンタカーを借りて旭川方面へ。北海道にいられるのは6日間</li>
+      </ul>
+      <p class="cost-line num"><span class="lbl">総額</span><span class="amt">20.1〜26.2万円</span><span class="br">フェリー 3.1万＋帰りの飛行機 3.5万＋レンタカー 5.5〜7.0万＋ガソリン 1.0万＋宿6泊 7.0〜11.6万</span></p>
+    </article>
+
+    <article class="card">
+      <div class="head"><h3>群馬 草津温泉（車）</h3><span class="route">自分の車、または電車とバス</span></div>
+      <div class="scores"><span class="score">雪 <span class="mk m3">△</span></span><span class="score">子ども <span class="mk m2">◯</span></span><span class="score">移動 <span class="mk m3">△</span></span></div>
+      <ul>
+        <li>湯畑と湯もみショー、雪の日でも遊べる屋内の草津熱帯圏、初心者向けの天狗山ゲレンデ</li>
+        <li>車なら名古屋ICから碓氷軽井沢ICまで約4時間、そこから一般道で草津へ</li>
+        <li>電車なら長野と軽井沢を経由してバスで約5時間40分、大人片道13,420円</li>
+        <li>温泉地なので宿が高い。スキー場は昨季12/18開業で、行くなら12/19からの週が合う</li>
+      </ul>
+      <p class="cost-line num"><span class="lbl">総額</span><span class="amt">22.0〜39.2万円</span><span class="br">タイヤ 3〜10万＋高速 1.0万＋ガソリン 1.2万＋宿 16.8〜27.0万</span></p>
+    </article>
+
+    <article class="card">
+      <div class="head"><h3>青森 八甲田・酸ヶ湯</h3><span class="route">小牧→青森（FDA）、レンタカー</span></div>
+      <div class="scores"><span class="score">雪 <span class="mk m1">◎</span></span><span class="score">子ども <span class="mk m2">◯</span></span><span class="score">移動 <span class="mk m2">◯</span></span></div>
+      <ul>
+        <li>酸ヶ湯は日本有数の豪雪地</li>
+        <li>吹雪の日は浅虫水族館や、ねぶたの展示施設（ワ・ラッセ）へ</li>
+        <li>家から近い小牧の空港を使えるが、航空券は北海道の倍近い</li>
+      </ul>
+      <p class="cost-line num"><span class="lbl">総額</span><span class="amt">32.5〜41.4万円</span><span class="br">飛行機 11.3万＋レンタカー 6.6〜8.5万＋ガソリン 1.0万＋宿 13.6〜20.6万</span></p>
+    </article>
+
+    <article class="card">
+      <div class="head"><h3>岩手 雫石・花巻</h3><span class="route">小牧→花巻（FDA）、レンタカー</span></div>
+      <div class="scores"><span class="score">雪 <span class="mk m2">◯</span></span><span class="score">子ども <span class="mk m2">◯</span></span><span class="score">移動 <span class="mk m2">◯</span></span></div>
+      <ul>
+        <li>雫石や安比のスキー場、小岩井農場</li>
+        <li>花巻市内の宿は高いので、雫石に泊まる計算</li>
+        <li>岩手・秋田は2025年にクマの被害が多かった地域。選ぶなら直前の出没状況を確かめる</li>
+      </ul>
+      <p class="cost-line num"><span class="lbl">総額</span><span class="amt">33.1〜38.3万円</span><span class="br">飛行機 11.3万＋レンタカー 6.5〜8.5万＋ガソリン 1.0万＋宿 14.3〜17.5万</span></p>
+    </article>
+
+  </div>
+</section>
+
+<section aria-labelledby="h-weeks">
+  <h2 id="h-weeks">いつ行くと安いか</h2>
+  <p class="sub">北海道（セントレア⇔新千歳）の航空券、4人往復の最安運賃。12月23日までほぼ同じ値段で、24日から一気に上がります。</p>
+  <div class="weeks">
+    <div class="wk">
+      <div class="d num">12/5（土）〜13（日）<small>1人 15,480円</small></div>
+      <div class="bar"><i style="width:33.8%"></i><span class="num">61,920円</span></div>
+      <p class="memo">スキー場はまだ一部しか開いていないことがある</p>
+    </div>
+    <div class="wk best">
+      <div class="d num">12/12（土）〜20（日）<small>1人 14,780円</small></div>
+      <div class="bar"><i style="width:32.3%"></i><span class="num">59,120円</span></div>
+      <p class="memo">一番安い。このページの総額はこの週で計算</p>
+    </div>
+    <div class="wk">
+      <div class="d num">12/19（土）〜27（日）<small>1人 18,120円</small></div>
+      <div class="bar"><i style="width:39.5%"></i><span class="num">72,480円</span></div>
+      <p class="memo">旭山動物園のペンギンの散歩に当たり、雪も多い</p>
+    </div>
+    <div class="wk">
+      <div class="d num">12/26（土）〜1/3（日）<small>1人 45,820円</small></div>
+      <div class="bar"><i style="width:100%"></i></div>
+      <p class="memo num">183,280円。年末年始で一番高い</p>
+    </div>
+  </div>
+  <p class="note">ピーチなどLCCは、小学生も年長も大人と同じ運賃です。席が売れると値段が上がるので、決めたら早めに取ります。</p>
+</section>
+
+<section aria-labelledby="h-todo">
+  <h2 id="h-todo">気になる点と、まだ確かめていないこと</h2>
+  <ul class="todo">
+    <li>12/12〜12/20だと、平日の12/14〜18の5日間、学校と幼稚園を休むことになる</li>
+    <li>宿とレンタカーの金額は10月8日時点の実例。安い部屋から埋まり、セール価格は変わる</li>
+    <li>FDA（青森・花巻便）の割引運賃を子どもが使えるかは未確認</li>
+    <li>旭山動物園のペンギンの散歩は昨年度12/18開始。今年の開始日は発表待ち</li>
+    <li>草津温泉スキー場の今季の開業日は11月に発表予定</li>
+    <li>東北と群馬は、冬眠に入る時期でも直前のクマの出没状況を確かめる</li>
+  </ul>
+</section>
+
+<section aria-labelledby="h-src">
+  <h2 id="h-src">出典</h2>
+  <ul class="src">
+    <li><a href="https://travelist.jp/airport_CTS/airport_NGO/">セントレア→新千歳の最安運賃（トラベリスト）</a></li>
+    <li><a href="https://travelist.jp/airport_NGO/airport_CTS/">新千歳→セントレアの最安運賃（トラベリスト）</a></li>
+    <li><a href="https://travelist.jp/airport_AOJ/airport_NKM/">小牧→青森の最安運賃（トラベリスト）</a></li>
+    <li><a href="https://travelist.jp/airport_HNA/airport_NKM/">小牧→花巻の最安運賃（トラベリスト）</a></li>
+    <li><a href="https://www.fujidream.co.jp/fare/type/infant.html">FDA 子どもの運賃</a></li>
+    <li><a href="https://www.flypeach.com/lm/fares/fees_and_charges">ピーチ 手数料と料金（預け荷物）</a></li>
+    <li><a href="https://www.jreast.co.jp/kippu/06.html">JR東日本 こども・幼児のきっぷ</a></li>
+    <li><a href="https://www.taiheiyo-ferry.co.jp/koro/unchin/tomakomai-nagoya-a-k.html">太平洋フェリー 苫小牧⇔名古屋の運賃（A期間）</a></li>
+    <li><a href="https://www.taiheiyo-ferry.co.jp/assets/img/index/taiheiyo-f_202612_202703_ura.pdf">太平洋フェリー 運航日程表（2026年12月〜）</a></li>
+    <li><a href="https://www.nipponrentacar.co.jp/car_price/winter.html">ニッポンレンタカー 冬期シーズン料金</a></li>
+    <li><a href="https://rental.timescar.jp/price/studless.html">タイムズカーレンタル スタッドレスタイヤ</a></li>
+    <li><a href="https://jafmate.jp/car/traffic_topics_20260419_1198935.html">2026年度の休日割引の適用除外日（JAF Mate）</a></li>
+    <li><a href="https://travel.rakuten.co.jp/">楽天トラベル（宿の料金の実例）</a></li>
+    <li><a href="https://www.city.asahikawa.hokkaido.jp/asahiyamazoo/news-blog/osirase/d082998.html">旭山動物園 ペンギンの散歩について</a></li>
+    <li><a href="https://weathernews.jp/ski/spot/34206/">草津温泉スキー場の営業期間（ウェザーニュース）</a></li>
+    <li><a href="https://auctions.yahoo.co.jp/jp/auction/p1237397076">スタッドレス 215/60R16 4本セットの出品例</a></li>
+  </ul>
+</section>
+
+</div>
+
+</body>
+</html>
