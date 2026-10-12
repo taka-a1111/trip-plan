@@ -247,13 +247,14 @@ def build(name, tag):
                         x.get("rv") or "—", x.get("fam") or x.get("fee") or "—",
                         x.get("hr") or "—", x.get("off") or "—"))
         return ('<div class="mwrap is-fold rwrap"><div class="mhead" role="button" tabindex="0">'
-                '雨の日の候補<span class="mhint">タップで開く</span>'
+                '%s<span class="mhint">タップで開く</span>'
                 '<span class="s-caret" aria-hidden="true"></span></div>'
-                '<div class="meals"><div class="mslot"><span class="mlab ml-r">雨</span>'
+                '<div class="meals"><div class="mslot"><span class="mlab ml-r">%s</span>'
                 '<div class="mtable-wrap"><table class="mtable"><thead><tr>'
                 '<th class="mt-ck"></th><th>室内の候補</th><th>口コミ</th><th>料金（家族4人）</th>'
                 '<th>営業時間</th><th>定休日</th>'
-                '</tr></thead><tbody>%s</tbody></table></div></div></div></div>' % rows)
+                '</tr></thead><tbody>%s</tbody></table></div></div></div></div>'
+                % (data.get("rain_title") or "雨の日の候補", data.get("rain_mark") or "雨", rows))
 
     sections, DM, has_meals, has_meal_pins = [], {}, False, False
     for i, d in enumerate(data["days"]):
@@ -430,6 +431,19 @@ def build(name, tag):
         assert k in h, "placeholder missing in template: " + k
         h = h.replace(k, v)
     assert "{{" not in h, "unresolved placeholder remains"
+    if data.get("pack"):
+        # 旅ごとの持ち物リスト（既定はキャンプ向け。ホテル泊の冬旅などは JSON の pack で差し替える）
+        grid = "".join(
+            '<div class="pack-cat"><h3><span class="cdot" style="background:%s"></span>%s</h3>%s</div>'
+            % (g.get("c", "var(--teal)"), g["t"], "".join(
+                '<div class="pack-item" data-id="%s"><span class="box"></span><span class="txt">%s</span></div>' % (i, t)
+                for i, t in g["items"])) for g in data["pack"])
+        h, n = re.subn(r'<div class="pack-grid">.*?</div></div>\n</section>',
+                       lambda m: '<div class="pack-grid">%s</div>\n</section>' % grid, h, count=1, flags=re.S)
+        assert n == 1, "pack-grid not found"
+        if data.get("pack_sub"):
+            h, n = re.subn(r'<div class="pack-sub">.*?</div>', lambda m: '<div class="pack-sub">%s</div>' % data["pack_sub"], h, count=1, flags=re.S)
+            assert n == 1, "pack-sub not found"
     out = os.path.join(ROOT, name + ".html")
     open(out, "w", encoding="utf-8").write(h)
     print("wrote", out, len(h.encode("utf-8")), "bytes / BUILD_TAG:", tag)
