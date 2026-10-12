@@ -1,0 +1,496 @@
+{
+ "NGO-CTS-2026-12-12": [
+  {
+   "dep": "7:10",
+   "arr": "8:55",
+   "al": "Peach",
+   "adult": 10180,
+   "child": 10180,
+   "fam": 40720,
+   "kind": "same"
+  },
+  {
+   "dep": "7:10",
+   "arr": "8:50",
+   "al": "スカイマーク",
+   "adult": 10810,
+   "child": 10810,
+   "fam": 43240,
+   "kind": "same"
+  },
+  {
+   "dep": "7:45",
+   "arr": "9:25",
+   "al": "ANA",
+   "adult": 14450,
+   "child": 10840,
+   "fam": 50580,
+   "kind": "child25"
+  },
+  {
+   "dep": "7:55",
+   "arr": "9:40",
+   "al": "JAL",
+   "adult": 13350,
+   "child": 10010,
+   "fam": 46720,
+   "kind": "child25"
+  },
+  {
+   "dep": "8:40",
+   "arr": "10:25",
+   "al": "ANA",
+   "adult": 14450,
+   "child": 10840,
+   "fam": 50580,
+   "kind": "child25"
+  },
+  {
+   "dep": "12:35",
+   "arr": "14:20",
+   "al": "スカイマーク",
+   "adult": 10810,
+   "child": 10810,
+   "fam": 43240,
+   "kind": "same"
+  },
+  {
+   "dep": "12:35",
+   "arr": "14:20",
+   "al": "JAL",
+   "adult": 13350,
+   "child": 10010,
+   "fam": 46720,
+   "kind": "child25"
+  },
+  {
+   "dep": "13:50",
+   "arr": "15:30",
+   "al": "ANA",
+   "adult": 11700,
+   "child": 8780,
+   "fam": 40960,
+   "kind": "child25"
+  },
+  {
+   "dep": "15:45",
+   "arr": "17:25",
+   "al": "AIRDO（ANA共同運航）",
+   "adult": 10215,
+   "child": 7660,
+   "fam": 35750,
+   "kind": "child25"
+  },
+  {
+   "dep": "17:20",
+   "arr": "19:00",
+   "al": "JAL",
+   "adult": 13350,
+   "child": 10010,
+   "fam": 46720,
+   "kind": "child25"
+  },
+  {
+   "dep": "17:25",
+   "arr": "19:10",
+   "al": "Peach",
+   "adult": 7680,
+   "child": 7680,
+   "fam": 30720,
+   "kind": "same"
+  },
+  {
+   "dep": "17:45",
+   "arr": "19:25",
+   "al": "ANA",
+   "adult": 11700,
+   "child": 8780,
+   "fam": 40960,
+   "kind": "child25"
+  },
+  {
+   "dep": "18:00",
+   "arr": "19:45",
+   "al": "スカイマーク",
+   "adult": 7810,
+   "child": 7810,
+   "fam": 31240,
+   "kind": "same"
+  }
+ ],
+ "CTS-NGO-2026-12-19": [
+  {
+   "dep": "8:50",
+   "arr": "10:45",
+   "al": "AIRDO（ANA共同運航）",
+   "adult": 12745,
+   "child": 9560,
+   "fam": 44610,
+   "kind": "child25"
+  },
+  {
+   "dep": "10:00",
+   "arr": "11:50",
+   "al": "JAL",
+   "adult": 17310,
+   "child": 12980,
+   "fam": 60580,
+   "kind": "child25"
+  },
+  {
+   "dep": "10:05",
+   "arr": "11:55",
+   "al": "ANA",
+   "adult": 17200,
+   "child": 12900,
+   "fam": 60200,
+   "kind": "child25"
+  },
+  {
+   "dep": "11:10",
+   "arr": "13:00",
+   "al": "ANA",
+   "adult": 14450,
+   "child": 10840,
+   "fam": 50580,
+   "kind": "child25"
+  },
+  {
+   "dep": "14:20",
+   "arr": "16:20",
+   "al": "Peach",
+   "adult": 7680,
+   "child": 7680,
+   "fam": 30720,
+   "kind": "same"
+  },
+  {
+   "dep": "14:40",
+   "arr": "16:35",
+   "al": "JAL",
+   "adult": 13350,
+   "child": 10010,
+   "fam": 46720,
+   "kind": "child25"
+  },
+  {
+   "dep": "15:30",
+   "arr": "17:20",
+   "al": "スカイマーク",
+   "adult": 7810,
+   "child": 7810,
+   "fam": 31240,
+   "kind": "same"
+  },
+  {
+   "dep": "17:30",
+   "arr": "19:20",
+   "al": "スカイマーク",
+   "adult": 9310,
+   "child": 9310,
+   "fam": 37240,
+   "kind": "same"
+  },
+  {
+   "dep": "18:35",
+   "arr": "20:25",
+   "al": "ANA",
+   "adult": 11700,
+   "child": 8780,
+   "fam": 40960,
+   "kind": "child25"
+  },
+  {
+   "dep": "19:40",
+   "arr": "21:30",
+   "al": "JAL",
+   "adult": 13350,
+   "child": 10010,
+   "fam": 46720,
+   "kind": "child25"
+  },
+  {
+   "dep": "20:05",
+   "arr": "21:55",
+   "al": "ANA",
+   "adult": 11700,
+   "child": 8780,
+   "fam": 40960,
+   "kind": "child25"
+  },
+  {
+   "dep": "20:50",
+   "arr": "22:50",
+   "al": "Peach",
+   "adult": 7680,
+   "child": 7680,
+   "fam": 30720,
+   "kind": "same"
+  },
+  {
+   "dep": "20:55",
+   "arr": "22:45",
+   "al": "スカイマーク",
+   "adult": 13310,
+   "child": 13310,
+   "fam": 53240,
+   "kind": "same"
+  }
+ ],
+ "NGO-CTS-2026-12-19": [
+  {
+   "dep": "7:10",
+   "arr": "8:55",
+   "al": "Peach",
+   "adult": 9280,
+   "child": 9280,
+   "fam": 37120,
+   "kind": "same"
+  },
+  {
+   "dep": "7:10",
+   "arr": "8:50",
+   "al": "スカイマーク",
+   "adult": 9810,
+   "child": 9810,
+   "fam": 39240,
+   "kind": "same"
+  },
+  {
+   "dep": "7:45",
+   "arr": "9:25",
+   "al": "ANA",
+   "adult": 14450,
+   "child": 10840,
+   "fam": 50580,
+   "kind": "child25"
+  },
+  {
+   "dep": "7:55",
+   "arr": "9:40",
+   "al": "JAL",
+   "adult": 17310,
+   "child": 12980,
+   "fam": 60580,
+   "kind": "child25"
+  },
+  {
+   "dep": "8:40",
+   "arr": "10:25",
+   "al": "ANA",
+   "adult": 11700,
+   "child": 8780,
+   "fam": 40960,
+   "kind": "child25"
+  },
+  {
+   "dep": "12:35",
+   "arr": "14:20",
+   "al": "スカイマーク",
+   "adult": 9310,
+   "child": 9310,
+   "fam": 37240,
+   "kind": "same"
+  },
+  {
+   "dep": "12:35",
+   "arr": "14:20",
+   "al": "JAL",
+   "adult": 13350,
+   "child": 10010,
+   "fam": 46720,
+   "kind": "child25"
+  },
+  {
+   "dep": "13:50",
+   "arr": "15:30",
+   "al": "ANA",
+   "adult": 11700,
+   "child": 8780,
+   "fam": 40960,
+   "kind": "child25"
+  },
+  {
+   "dep": "15:45",
+   "arr": "17:25",
+   "al": "AIRDO（ANA共同運航）",
+   "adult": 10215,
+   "child": 7660,
+   "fam": 35750,
+   "kind": "child25"
+  },
+  {
+   "dep": "17:20",
+   "arr": "19:00",
+   "al": "JAL",
+   "adult": 13350,
+   "child": 10010,
+   "fam": 46720,
+   "kind": "child25"
+  },
+  {
+   "dep": "17:25",
+   "arr": "19:10",
+   "al": "Peach",
+   "adult": 7680,
+   "child": 7680,
+   "fam": 30720,
+   "kind": "same"
+  },
+  {
+   "dep": "17:45",
+   "arr": "19:25",
+   "al": "ANA",
+   "adult": 11700,
+   "child": 8780,
+   "fam": 40960,
+   "kind": "child25"
+  },
+  {
+   "dep": "18:00",
+   "arr": "19:45",
+   "al": "スカイマーク",
+   "adult": 6810,
+   "child": 6810,
+   "fam": 27240,
+   "kind": "same"
+  }
+ ],
+ "CTS-NGO-2026-12-26": [
+  {
+   "dep": "8:50",
+   "arr": "10:45",
+   "al": "AIRDO（ANA共同運航）",
+   "adult": 13570,
+   "child": 10180,
+   "fam": 47500,
+   "kind": "child25"
+  },
+  {
+   "dep": "9:20",
+   "arr": "11:10",
+   "al": "ANA",
+   "adult": 12690,
+   "child": 9520,
+   "fam": 44420,
+   "kind": "child25"
+  },
+  {
+   "dep": "10:00",
+   "arr": "11:50",
+   "al": "JAL",
+   "adult": 20280,
+   "child": 15210,
+   "fam": 70980,
+   "kind": "child25"
+  },
+  {
+   "dep": "10:05",
+   "arr": "11:55",
+   "al": "ANA",
+   "adult": 15550,
+   "child": 11660,
+   "fam": 54420,
+   "kind": "child25"
+  },
+  {
+   "dep": "10:35",
+   "arr": "12:25",
+   "al": "ANA",
+   "adult": 15550,
+   "child": 11660,
+   "fam": 54420,
+   "kind": "child25"
+  },
+  {
+   "dep": "11:10",
+   "arr": "13:00",
+   "al": "ANA",
+   "adult": 15550,
+   "child": 11660,
+   "fam": 54420,
+   "kind": "child25"
+  },
+  {
+   "dep": "14:20",
+   "arr": "16:20",
+   "al": "Peach",
+   "adult": 13380,
+   "child": 13380,
+   "fam": 53520,
+   "kind": "same"
+  },
+  {
+   "dep": "14:40",
+   "arr": "16:35",
+   "al": "JAL",
+   "adult": 20280,
+   "child": 15210,
+   "fam": 70980,
+   "kind": "child25"
+  },
+  {
+   "dep": "15:30",
+   "arr": "17:20",
+   "al": "スカイマーク",
+   "adult": 15810,
+   "child": 15810,
+   "fam": 63240,
+   "kind": "same"
+  },
+  {
+   "dep": "17:30",
+   "arr": "19:20",
+   "al": "スカイマーク",
+   "adult": 14810,
+   "child": 14810,
+   "fam": 59240,
+   "kind": "same"
+  },
+  {
+   "dep": "18:35",
+   "arr": "20:25",
+   "al": "ANA",
+   "adult": 35680,
+   "child": 26760,
+   "fam": 124880,
+   "kind": "child25"
+  },
+  {
+   "dep": "19:40",
+   "arr": "21:30",
+   "al": "JAL",
+   "adult": 16430,
+   "child": 12320,
+   "fam": 57500,
+   "kind": "child25"
+  },
+  {
+   "dep": "20:05",
+   "arr": "21:55",
+   "al": "ANA",
+   "adult": 12690,
+   "child": 9520,
+   "fam": 44420,
+   "kind": "child25"
+  },
+  {
+   "dep": "20:50",
+   "arr": "22:50",
+   "al": "Peach",
+   "adult": 12180,
+   "child": 12180,
+   "fam": 48720,
+   "kind": "same"
+  },
+  {
+   "dep": "20:55",
+   "arr": "22:45",
+   "al": "スカイマーク",
+   "adult": 12810,
+   "child": 12810,
+   "fam": 51240,
+   "kind": "same"
+  }
+ ]
+}
