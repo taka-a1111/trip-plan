@@ -106,8 +106,15 @@ def render_row(points, row, counter):
                 break
     if fee and auto:
         fee = re.sub(r"\s*[（(].*", "", fee).replace("ほど", "").strip()
-    fee_html = '<div class="s-fee">%s</div>' % (
-        ('\U0001F46A %s' % fee) if fee and fee != "無料" else (fee or ""))
+    fee_txt = ('\U0001F46A %s' % fee) if fee and fee != "無料" else (fee or "")
+    # 口コミ（★と件数）をカードの表に出す。飲食店は閉じたままでも評判が分かるようにする
+    rv = row.get("rv") or p.get("rv")
+    rv_html = ""
+    if rv:
+        mr = re.match(r"\s*★?\s*([\d.]+)\s*[・/｜|]\s*([\d,]+)\s*件", rv)
+        rv_html = ('<span class="s-rv"><span class="s-rv-st">★%s</span><span class="s-rv-n">%s件</span></span>'
+                   % (mr.group(1), mr.group(2))) if mr else '<span class="s-rv">%s</span>' % rv
+    fee_html = '<div class="s-fee">%s%s</div>' % (rv_html, ('<span class="s-fee-t">%s</span>' % fee_txt) if fee_txt else "")
     name = row.get("name_override") or p["n"]
     plan = ('<span class="s-plan">%s</span>' % row["plan"]) if row.get("plan") else ""
     main_cls = " is-main" if row.get("main") else ""
