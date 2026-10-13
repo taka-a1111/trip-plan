@@ -176,9 +176,8 @@ def make(P):
       "rain": [2]},
 
      {"id": "day3", "dd": D[2], "dw": "月", "badge": "3日目", "tags": [["t-far", "車"], ["t-rail", "3泊目"]],
-      "theme": "車で旭川へ、美瑛でアルパカと青い池",
-      "notice": "<b>日没が早い：</b>美瑛の日没は16時前で、青い池から旭川への約1時間は暗い雪道になる。吹雪や路面が悪い日は美瑛をやめて旭川へ直行する。",
-      "photo": {"file": "assets/day_hokkaido_3.jpg", "alt": "ライトアップされた白金青い池", "credit": "Shirogane Blue Pond by night / Calistemon CC BY-SA 4.0"},
+      "theme": "車で旭川へ、美瑛の四季彩の丘でアルパカとそり",
+      "notice": "<b>日没が早い：</b>美瑛の日没は16時前。白ひげの滝を見たら、暗くなりきる前に旭川へ向かう（約1時間）。吹雪や路面が悪い日は美瑛をやめて旭川へ直行する。",
       "wx": ASA_WX,
       "rows": [
        mv("ユースから 札幌IC→旭川鷹栖IC 約140km", "約1時間50分", "9:15", toll="3,380円"),
@@ -191,20 +190,15 @@ def make(P):
         "badges": [["b-open", "通年営業"]],
         "note": "冬は丘が雪原になる。アルパカ牧場は通年営業で、エサやりもできる。そりやスノーラフティングは積雪しだいで12月上旬から。長靴は売店で借りられる。",
         "fields": [["料金", A("👨‍🦰 アルパカ牧場 大人500円　🧒 小中学生300円・小学生未満無料") + A("👪 1,300円") + A("🛷 そり1台500円（積雪しだい）")], ["営業", "9:10–16:30（11〜12月。アルパカ牧場は16:00まで）"], ["定休", "12/31・1/1以外は営業"]]},
-       mv("約19km", "約30分", "15:40"),
-       {"type": "spot", "key": "shirahige", "cat": "sight", "cat_lbl": "観光", "time": "終日", "plan": "16:10",
+       mv("約19km", "約30分", "15:10"),
+       {"type": "spot", "key": "shirahige", "cat": "sight", "cat_lbl": "観光", "time": "終日", "plan": "15:40",
         "badges": [["b-always", "無料"]],
         "note": "白金温泉の橋の上から見る、崖の間から流れ出る滝。下の美瑛川も青い。橋は凍るので手すりを持つ。",
         "fields": [["料金", A("🎟️ 無料")], ["営業", "終日"], ["定休", "なし"]]},
-       mv("約3km", "約5分", "16:25"),
-       {"type": "spot", "key": "aoiike", "cat": "sight", "cat_lbl": "観光", "time": "点灯 16:30–21:00", "plan": "16:30", "main": True,
-        "badges": [["b-night", "ライトアップ"]],
-        "note": "冬は池が雪に覆われるので、ライトアップで見る。立ち枯れの木が青く浮かぶ。悪天候の日は中止になることがある。",
-        "fields": [["料金", A("🎟️ 無料") + A("🅿️ 普通車1,000円")], ["営業", "ライトアップ 12月は16:30点灯〜21:00（昨シーズンは10月下旬〜4月）"], ["定休", "なし（悪天候で中止あり）"]]},
-       mv("約43km", "約1時間5分", "17:00"),
-       stay_asa("3泊目", "18:05", first=True),
+       mv("約45km", "約1時間5分", "16:00"),
+       stay_asa("3泊目", "17:05", first=True),
       ],
-      "pins": ["guts", "aoba", "shikisai", "shirahige", "aoiike", "asa_hotel"],
+      "pins": ["aoba", "shikisai", "shirahige", "asa_hotel"],
       "meals": [
        {"slot": "昼", "items": [AOBA, SANTOKA, BAIKO, TENKIN, HACHIYA]},
        {"slot": "夜", "items": [TENKIN, SANTOKA, BAIKO, TORITON]},
@@ -348,7 +342,7 @@ def make(P):
             + "<b>レンタカー：</b>KGSカーレンタル 新千歳空港店（8:00〜19:00、空港から無料送迎で約10分）。じゃらんでコンパクト4WD・スタッドレス・カーナビ・ETC込みの8日間が27,000円（10/13時点）。着いたら070-9355-0088に電話して送迎を呼ぶ。"
             + "予約のときに免責補償の額を確かめる。"
             + "受け取りのときに傷とタイヤの溝を写真で控える。ETCカードを持っていく。<br>"
-            + "<b>雪道：</b>日没は16時ごろ。運転は明るいうちに終える組み方にした。車間を長めにとり、急ブレーキ・急ハンドルを避ける。"
+            + "<b>雪道：</b>日没は16時ごろ。運転はなるべく明るいうちに終える組み方にした。車間を長めにとり、急ブレーキ・急ハンドルを避ける。"
             + "吹雪の日は美瑛をやめて、下の「吹雪の日の候補」に振り替える。<br>"
             + "<b>クマ：</b>12月は冬眠の時期。ただ札幌の円山動物園には2025年11月にクマが入ったので、山の遊歩道や林には入らない。<br>"
             + P["memo_school"]
@@ -375,8 +369,8 @@ def make(P):
      "pack": pack,
      "pack_sub": "タップでチェックできます（この端末に保存され、旅ごとに別で記録されます）。北海道の12月は日中も0℃前後なので、防寒を厚めに。",
      "points": points, "rain": rain, "days": days,
-     "rt_order": ["ssc", "market", "shikisai", "shirahige", "aoiike", "zoo", "rvillage", "factory", "museum", "orgel", "letao", "canal"] + P["rt_extra"],
-     "visit_order": ["sap_hotel", "guts", "shikisai", "aoiike", "zoo", "factory", "museum", "canal"],
+     "rt_order": ["ssc", "market", "shikisai", "shirahige", "zoo", "rvillage", "factory", "museum", "orgel", "letao", "canal"] + P["rt_extra"],
+     "visit_order": ["sap_hotel", "shikisai", "zoo", "factory", "museum", "canal"],
      "memo": memo,
      "cost": {"items": [], "total": "", "total_sub": "食費とおみやげは含みません（変動するため）", "note": ""},
     }
@@ -392,7 +386,7 @@ def make(P):
     jr = 0
     car = 27000
     hotel = 3000 * P["yh_n"] + (20304 - 6000 * 2)
-    fac = 1600 + 1300 + 1000 + 2000 + 600 + 500 + P["fac_extra"][0]
+    fac = 1600 + 1300 + 2000 + 600 + 500 + P["fac_extra"][0]
     total = air + jr + car + gas + toll + hotel + fac
     f = lambda n: format(n, ',')
     data["cost"]["items"] = [
@@ -401,7 +395,7 @@ def make(P):
      ["ガソリン", "約%s円" % f(gas), "車で走る約%d km／燃費13km/L・175円/Lで計算" % km],
      ["高速代", "%s円" % f(toll), "ドラぷらで走る日を指定して調べた普通車ETCの額"],
      ["宿泊", "約%s円" % f(hotel), "未予約。札幌国際ユースホステル%d泊（家族で1泊3,000円ほど）・旭川のシン トキワ2泊8,304円（会社補助後%s）" % (P["yh_n"], P["asa_q"])],
-     ["施設", "%s円" % f(fac), "家族4人ぶん（科学館1,600円・アルパカ1,300円・青い池駐車1,000円・旭山2,000円・小樽市総合博物館600円・滝野の駐車場500円%s）" % P["fac_extra"][1]],
+     ["施設", "%s円" % f(fac), "家族4人ぶん（科学館1,600円・アルパカ1,300円・旭山2,000円・小樽市総合博物館600円・滝野の駐車場500円%s）" % P["fac_extra"][1]],
     ]
     data["cost"]["total"] = "約%s円" % f(total)
     data["cost"]["note"] = "宿は札幌のユースと旭川のホテルだけ。小樽は泊まらずに立ち寄る。"
