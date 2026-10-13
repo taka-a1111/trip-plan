@@ -99,7 +99,7 @@ tr.hl td{background:var(--hl)}
 .foot{margin-top:24px;font-size:.78rem;color:var(--slate)}
 </style></head><body><div class="wrap">
 <h1>北海道の飛行機 便と料金</h1>
-<p class="lead">中部（セントレア）⇔新千歳の直行便。大人2人・子ども2人（小学2年・年長）の4人で、片道ずつの合計額。2026年10月12日に調べた値段で、予約するまで変わります。</p>
+<p class="lead">中部（セントレア）⇔新千歳の直行便。大人2人・子ども2人（小学2年・年長）の4人で、片道ずつの合計額。12/19出発で決めた（10/13）。値段は12/19発が10月13日、12/12発が10月12日に調べたもので、予約するまで変わります。</p>
 <div class="note"><ul>
 <li>スカイマーク・ピーチは、割引運賃が大人も子どもも同じ額。</li>
 <li>ANA・JAL・AIRDOは、2〜11歳の子どもが25%ほど安くなるので、その分を引いた「約」の額。正確な額は予約画面で人数を入れると出る。</li>
@@ -107,8 +107,8 @@ tr.hl td{background:var(--hl)}
 <li>JALは行きも帰りもJALにすると、往復割引でさらに安くなることがある。</li>
 <li><span class="tg tg-s">しおり</span>は今のしおりに入れている便、<span class="tg tg-l">最安</span>はその日いちばん安い便。</li>
 </ul></div>
-@@P12@@
 @@P19@@
+@@P12@@
 <div class="links"><h2>予約するところ</h2><ul>
 <li><a href="https://www.skymark.co.jp/ja/" target="_blank" rel="noopener">スカイマーク</a></li>
 <li><a href="https://www.flypeach.com/ja" target="_blank" rel="noopener">ピーチ</a></li>
@@ -118,7 +118,7 @@ tr.hl td{background:var(--hl)}
 </ul></div>
 <p class="foot"><a href="./index.html">旅のしおり トップへ</a></p>
 </div></body></html>
-""".replace("@@P12@@", plan("12", "12/12発プラン（12/12〜19）", "hokkaido12.html")).replace("@@P19@@", plan("19", "12/19発プラン（12/19〜26）", "hokkaido.html"))
+""".replace("@@P12@@", plan("12", "参考：12/12発の案（12/12〜19）", "hokkaido12.html")).replace("@@P19@@", plan("19", "12/19発（決定）12/19〜26", "hokkaido.html"))
 
 open(os.path.join(ROOT, "hokkaido-flights.html"), "w", encoding="utf-8").write(html)
 print("ok")
