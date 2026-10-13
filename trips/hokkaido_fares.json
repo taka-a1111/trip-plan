@@ -492,5 +492,142 @@
    "fam": 51240,
    "kind": "same"
   }
+ ],
+ "CTS-NGO-2026-12-27": [
+  {
+   "dep": "8:50",
+   "arr": "10:45",
+   "al": "AIRDO（ANA共同運航）",
+   "adult": 12085,
+   "child": 9060,
+   "fam": 42290,
+   "kind": "child25"
+  },
+  {
+   "dep": "9:20",
+   "arr": "11:10",
+   "al": "ANA",
+   "adult": 12690,
+   "child": 9520,
+   "fam": 44420,
+   "kind": "child25"
+  },
+  {
+   "dep": "10:00",
+   "arr": "11:50",
+   "al": "JAL",
+   "adult": 20280,
+   "child": 15210,
+   "fam": 70980,
+   "kind": "child25"
+  },
+  {
+   "dep": "10:05",
+   "arr": "11:55",
+   "al": "ANA",
+   "adult": 12690,
+   "child": 9520,
+   "fam": 44420,
+   "kind": "child25"
+  },
+  {
+   "dep": "10:35",
+   "arr": "12:25",
+   "al": "ANA",
+   "adult": 12690,
+   "child": 9520,
+   "fam": 44420,
+   "kind": "child25"
+  },
+  {
+   "dep": "11:10",
+   "arr": "13:00",
+   "al": "ANA",
+   "adult": 18520,
+   "child": 13890,
+   "fam": 64820,
+   "kind": "child25"
+  },
+  {
+   "dep": "14:20",
+   "arr": "16:20",
+   "al": "Peach",
+   "adult": 13380,
+   "child": 13380,
+   "fam": 53520,
+   "kind": "same"
+  },
+  {
+   "dep": "14:40",
+   "arr": "16:35",
+   "al": "JAL",
+   "adult": 20280,
+   "child": 15210,
+   "fam": 70980,
+   "kind": "child25"
+  },
+  {
+   "dep": "15:30",
+   "arr": "17:20",
+   "al": "スカイマーク",
+   "adult": 15810,
+   "child": 15810,
+   "fam": 63240,
+   "kind": "same"
+  },
+  {
+   "dep": "17:30",
+   "arr": "19:20",
+   "al": "スカイマーク",
+   "adult": 15810,
+   "child": 15810,
+   "fam": 63240,
+   "kind": "same"
+  },
+  {
+   "dep": "18:35",
+   "arr": "20:25",
+   "al": "ANA",
+   "adult": 24240,
+   "child": 18180,
+   "fam": 84840,
+   "kind": "child25"
+  },
+  {
+   "dep": "19:40",
+   "arr": "21:30",
+   "al": "JAL",
+   "adult": 14560,
+   "child": 10920,
+   "fam": 50960,
+   "kind": "child25"
+  },
+  {
+   "dep": "20:05",
+   "arr": "21:55",
+   "al": "ANA",
+   "adult": 12690,
+   "child": 9520,
+   "fam": 44420,
+   "kind": "child25"
+  },
+  {
+   "dep": "20:50",
+   "arr": "22:50",
+   "al": "Peach",
+   "adult": 11080,
+   "child": 11080,
+   "fam": 44320,
+   "kind": "same"
+  },
+  {
+   "dep": "20:55",
+   "arr": "22:45",
+   "al": "スカイマーク",
+   "adult": 12810,
+   "child": 12810,
+   "fam": 51240,
+   "kind": "same"
+  }
  ]
 }

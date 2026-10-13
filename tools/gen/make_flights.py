@@ -10,7 +10,7 @@ LEGS = {
  "12": [("行き", "12/12（土）", "中部 → 新千歳", "NGO-CTS-2026-12-12", "18:00"),
         ("帰り", "12/19（土）", "新千歳 → 中部", "CTS-NGO-2026-12-19", "15:30")],
  "19": [("行き", "12/19（土）", "中部 → 新千歳", "NGO-CTS-2026-12-19", "18:00"),
-        ("帰り", "12/26（土）", "新千歳 → 中部", "CTS-NGO-2026-12-26", "9:20")],
+        ("帰り", "12/27（日）", "新千歳 → 中部", "CTS-NGO-2026-12-27", "10:35")],
 }
 
 
@@ -118,7 +118,7 @@ tr.hl td{background:var(--hl)}
 </ul></div>
 <p class="foot"><a href="./index.html">旅のしおり トップへ</a></p>
 </div></body></html>
-""".replace("@@P12@@", plan("12", "参考：12/12発の案（12/12〜19）", "hokkaido12.html")).replace("@@P19@@", plan("19", "12/19発（決定）12/19〜26", "hokkaido.html"))
+""".replace("@@P12@@", plan("12", "参考：12/12発の案（12/12〜19）", "hokkaido12.html")).replace("@@P19@@", plan("19", "12/19発（決定）12/19〜27", "hokkaido.html"))
 
 open(os.path.join(ROOT, "hokkaido-flights.html"), "w", encoding="utf-8").write(html)
 print("ok")
