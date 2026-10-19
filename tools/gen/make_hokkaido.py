@@ -74,11 +74,11 @@ YH_NOTE = "地下鉄東豊線の学園前駅から徒歩2分のユースホス�
 
 def stay(nth, plan, first=False, note=None):
     r = {"type": "spot", "key": "sap_hotel", "cat": "stay", "cat_lbl": "泊まる", "time": "IN 15:00–23:00", "plan": plan,
-         "badges": [["b-open", nth]], "fee": "5泊で15,000円ほど"}
+         "badges": [["b-open", nth]], "fee": "5泊で30,000円"}
     if first:
         r["note"] = YH_NOTE
         r["fields"] = [["受付", A("🕐 チェックイン 15:00–23:00") + A("🚪 OUT 10:00") + A("🔒 門限 24:00") + A('<a href="tel:0118253120">📞 011-825-3120</a>')],
-                       ["料金", A("👪 家族4人で1泊3,000円ほど（5泊で15,000円ほど）") + A("🅿️ 無料")],
+                       ["料金", A("👪 家族4人 5泊で30,000円") + A("🅿️ 無料")],
                        ["予約", "12/19 IN〜12/24 OUT の5泊"],
                        ["備品", A("🧼 ボディソープ ◯") + A("🧴 リンスインシャンプー ◯") + A("タオル・歯ブラシは有料")]]
     else:
@@ -289,7 +289,7 @@ km = sum(int(m.group(1).replace(',', '')) for dy in days if dy['id'] in car_days
 toll = sum(int(r['toll'].replace('円', '').replace(',', '')) for dy in days for r in dy['rows'] if r.get('toll'))
 gas = round(km / 13 * 175)
 air = 69120
-hotel = 15000
+hotel = 30000
 car = 9400
 jr = (1230 * 2 + 610) * 2          # 快速エアポート 往復（大人2・小2の子1。年長は無料）
 subway = 5000                      # 地下鉄の目安（6回ほど）
@@ -298,7 +298,7 @@ total = air + hotel + car + gas + toll + jr + subway + fac
 f = lambda n: format(n, ',')
 data["cost"]["items"] = [
  ["航空券", "%s円" % f(air), "ピーチ 予約済み。4人往復・預け荷物1個込み"],
- ["宿泊", "約%s円" % f(hotel), "札幌国際ユースホステル5泊（家族で1泊3,000円ほど）"],
+ ["宿泊", "%s円" % f(hotel), "札幌国際ユースホステル5泊（家族4人）"],
  ["レンタカー", "約%s円" % f(car), "HANDYMAN 12/21〜22の2日間（コンパクト4WD・スタッドレス込み・届けと回収込み）。免責補償は別"],
  ["ガソリン", "約%s円" % f(gas), "車で走る約%d km／燃費13km/L・175円/Lで計算" % km],
  ["高速代", "%s円" % f(toll), "ドラぷらで走る日を指定して調べた普通車ETCの額"],
