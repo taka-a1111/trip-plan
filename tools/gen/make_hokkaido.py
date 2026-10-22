@@ -11,30 +11,30 @@ import re
 A = lambda s: '<span class="amn">%s</span>' % s
 
 points = {
- "ngo": {"n": "中部国際空港", "lat": 34.8584, "lon": 136.8148, "k": "spot", "q": "中部国際空港 第1ターミナル"},
+ "ngo": {"n": "中部国際空港", "lat": 34.8584, "lon": 136.8148, "k": "spot", "q": "中部国際空港 第1ターミナル", "official": "https://www.centrair.jp/"},
  "sap_hotel": {"n": "札幌国際ユースホステル", "lat": 43.0476359, "lon": 141.3706734, "k": "stay", "q": "札幌国際ユースホステル", "official": "https://sapporo.jyh.jp/"},
- "tokeidai": {"n": "札幌市時計台", "lat": 43.0625768, "lon": 141.3534927, "k": "spot", "q": "札幌市時計台", "rv": "★3.9・17,949件"},
- "haruka": {"n": "札幌ラーメン悠", "lat": 43.0549506, "lon": 141.3542979, "k": "spot", "q": "札幌ラーメン悠 すすきの", "rv": "★4.8・4,646件"},
- "noria": {"n": "観覧車ノリア（ノルベサ屋上）", "lat": 43.0560862, "lon": 141.3509242, "k": "spot", "q": "ノルベサ 観覧車 nORIA", "rv": "★4.2・899件"},
- "akarenga": {"n": "北海道庁旧本庁舎（赤れんが庁舎）", "lat": 43.0639188, "lon": 141.3479716, "k": "spot", "q": "北海道庁旧本庁舎 赤れんが庁舎", "official": "https://www.sapporo.travel/?p=111017", "rv": "★4.3・2,215件"},
+ "tokeidai": {"n": "札幌市時計台", "lat": 43.0625768, "lon": 141.3534927, "k": "spot", "q": "札幌市時計台", "rv": "★3.9・17,949件", "official": "https://sapporoshi-tokeidai.jp/"},
+ "haruka": {"n": "札幌ラーメン悠", "lat": 43.0549506, "lon": 141.3542979, "k": "spot", "q": "札幌ラーメン悠 すすきの", "rv": "★4.8・4,646件", "official": "https://www.ramenharuka.com/"},
+ "noria": {"n": "観覧車ノリア（ノルベサ屋上）", "lat": 43.0560862, "lon": 141.3509242, "k": "spot", "q": "ノルベサ 観覧車 nORIA", "rv": "★4.2・899件", "official": "https://www.norbesa.jp/noria/"},
+ "akarenga": {"n": "北海道庁旧本庁舎（赤れんが庁舎）", "lat": 43.0639188, "lon": 141.3479716, "k": "spot", "q": "北海道庁旧本庁舎 赤れんが庁舎", "official": "https://www.akarenga-h.jp/", "rv": "★4.3・2,215件"},
  "fl_out": {"n": "✈️ ピーチ MM465 中部→新千歳", "lat": 34.8584, "lon": 136.8148, "k": "spot", "q": "中部国際空港", "official": "https://manage.flypeach.com/jp/manage/retrieve-booking"},
  "fl_ret": {"n": "✈️ ピーチ MM466 新千歳→中部", "lat": 42.7876, "lon": 141.6810, "k": "spot", "q": "新千歳空港 国内線ターミナル", "official": "https://manage.flypeach.com/jp/manage/retrieve-booking"},
- "nijo": {"n": "二条市場", "lat": 43.058299, "lon": 141.358446, "k": "spot", "q": "二条市場 札幌", "rv": "★3.8・13,662件"},
+ "nijo": {"n": "二条市場", "lat": 43.058299, "lon": 141.358446, "k": "spot", "q": "二条市場 札幌", "rv": "★3.8・13,662件", "official": "https://nijomarket.com/"},
  "market": {"n": "ミュンヘン・クリスマス市", "lat": 43.0597, "lon": 141.3517, "k": "spot", "q": "大通公園2丁目 札幌", "official": "https://www.sapporo.travel/white-illumination/event/munich/"},
  "garaku": {"n": "スープカレーGARAKU 札幌本店", "lat": 43.0583997, "lon": 141.3588997, "k": "spot", "q": "スープカレーGARAKU 札幌本店", "official": "https://s-garaku.com/", "rv": "★4.3・5,395件"},
  "aq": {"n": "おたる水族館", "lat": 43.2369305, "lon": 141.0119143, "k": "spot", "q": "おたる水族館", "official": "https://otaru-aq.jp/", "rv": "★4.3・7,863件"},
- "aotsuka": {"n": "民宿 青塚食堂", "lat": 43.2364998, "lon": 141.0149464, "k": "spot", "q": "民宿 青塚食堂 小樽", "rv": "★4.4・2,875件"},
+ "aotsuka": {"n": "民宿 青塚食堂", "lat": 43.2364998, "lon": 141.0149464, "k": "spot", "q": "民宿 青塚食堂 小樽", "rv": "★4.4・2,875件", "official": "http://www.aotsuka.com/"},
  "orgel": {"n": "小樽オルゴール堂 本館", "lat": 43.1905288, "lon": 141.0079732, "k": "spot", "q": "小樽オルゴール堂 本館", "official": "https://www.otaru-orgel.co.jp/", "rv": "★4.2・13,709件"},
- "letao": {"n": "ルタオ 運河プラザ店", "lat": 43.2001327, "lon": 141.000744, "k": "spot", "q": "ルタオ 運河プラザ店 小樽", "official": "https://www.letao-brand.jp/shop/", "rv": "★4.4・539件"},
- "toppi": {"n": "回転寿司とっぴ～ 小樽運河通り店", "lat": 43.1965888, "lon": 141.0054004, "k": "spot", "q": "回転寿司とっぴ～ 小樽運河通り店", "rv": "★3.9・2,417件"},
- "canal": {"n": "小樽運河", "lat": 43.199041, "lon": 141.0021176, "k": "spot", "q": "小樽運河"},
- "naruto": {"n": "若鶏時代 なると 本店", "lat": 43.2003732, "lon": 140.9950942, "k": "spot", "q": "若鶏時代 なると 本店", "rv": "★4.1・6,832件"},
+ "letao": {"n": "ルタオ 運河プラザ店", "lat": 43.2001327, "lon": 141.000744, "k": "spot", "q": "ルタオ 運河プラザ店 小樽", "official": "https://www.letao-brand.jp/shop/unga/", "rv": "★4.4・539件"},
+ "toppi": {"n": "回転寿司とっぴ～ 小樽運河通り店", "lat": 43.1965888, "lon": 141.0054004, "k": "spot", "q": "回転寿司とっぴ～ 小樽運河通り店", "rv": "★3.9・2,417件", "official": "https://toppi-sushi.jp/shop/"},
+ "canal": {"n": "小樽運河", "lat": 43.199041, "lon": 141.0021176, "k": "spot", "q": "小樽運河", "official": "https://www.city.otaru.lg.jp/docs/2020100900367/"},
+ "naruto": {"n": "若鶏時代 なると 本店", "lat": 43.2003732, "lon": 140.9950942, "k": "spot", "q": "若鶏時代 なると 本店", "rv": "★4.1・6,832件", "official": "http://otaru-naruto.jp/naruto/"},
  "sumire": {"n": "すみれ 中の島本店", "lat": 43.0326729, "lon": 141.3616204, "k": "spot", "q": "すみれ 中の島本店", "official": "http://www.sumireya.com/", "rv": "★4.0・3,406件"},
- "sonia": {"n": "ホテルソニア小樽", "lat": 43.198863, "lon": 141.001464, "k": "stay", "q": "ホテルソニア小樽", "rv": "★4.1・2,310件"},
+ "sonia": {"n": "ホテルソニア小樽", "lat": 43.198863, "lon": 141.001464, "k": "stay", "q": "ホテルソニア小樽", "rv": "★4.1・2,310件", "official": "https://sonia-otaru.com/"},
  "tengu": {"n": "小樽天狗山スノーパーク", "lat": 43.1776081, "lon": 140.9752401, "k": "spot", "q": "小樽天狗山ロープウエイ 山麓駅", "official": "https://tenguyama.ckk.chuo-bus.co.jp/hours-and-fees/", "rv": "★4.2・2,156件（山麓駅）"},
- "saimi": {"n": "麺屋 彩未", "lat": 43.0352658, "lon": 141.3819435, "k": "spot", "q": "麺屋 彩未", "rv": "★4.2・4,545件"},
+ "saimi": {"n": "麺屋 彩未", "lat": 43.0352658, "lon": 141.3819435, "k": "spot", "q": "麺屋 彩未", "rv": "★4.2・4,545件", "official": "https://www.menya-saimi.com/"},
  "moiwa": {"n": "もいわ山ロープウェイ", "lat": 43.0316221, "lon": 141.3330979, "k": "spot", "q": "札幌もいわ山ロープウェイ 山麓駅", "official": "https://mt-moiwa.jp/", "rv": "★4.4・3,139件"},
- "tanuki": {"n": "狸小路商店街", "lat": 43.0573, "lon": 141.3520, "k": "spot", "q": "狸小路商店街 札幌"},
+ "tanuki": {"n": "狸小路商店街", "lat": 43.0573, "lon": 141.3520, "k": "spot", "q": "狸小路商店街 札幌", "official": "https://tanukikoji.or.jp/"},
  "cts": {"n": "新千歳空港", "lat": 42.7876, "lon": 141.6810, "k": "spot", "q": "新千歳空港 国内線ターミナル", "official": "https://www.hokkaido-airports.com/ja/new-chitose/"},
 }
 
@@ -319,9 +319,9 @@ pack = [
 ]
 
 rain = [
- {"n": "狸小路商店街", "q": "狸小路商店街 札幌", "la": 43.0573, "lo": 141.3520, "rv": "—", "fam": "無料", "hr": "店ごとに異なる", "off": "店ごとに異なる", "note": "屋根のある商店街。大通の地下街からつながる"},
+ {"n": "狸小路商店街", "q": "狸小路商店街 札幌", "la": 43.0573, "lo": 141.3520, "rv": "—", "fam": "無料", "hr": "店ごとに異なる", "off": "店ごとに異なる", "note": "屋根のある商店街。大通の地下街からつながる", "official": "https://tanukikoji.or.jp/"},
  {"n": "小樽オルゴール堂 本館", "q": "小樽オルゴール堂 本館", "la": 43.1905288, "lo": 141.0079732, "rv": "★4.2・13,709件", "fam": "無料", "hr": "9:00–18:00", "off": "無休", "note": "建物の中を見て回れる", "official": "https://www.otaru-orgel.co.jp/"},
- {"n": "北海道庁旧本庁舎（赤れんが庁舎）", "q": "北海道庁旧本庁舎 赤れんが庁舎", "la": 43.0639188, "lo": 141.3479716, "rv": "★4.3・2,215件", "fam": "大人300円・中学生以下無料（家族600円）", "hr": "8:45–21:00", "off": "12/29〜1/3", "note": "2025年に改修を終えた明治の建物。北海道の歴史の展示とおみやげ・お菓子の店がある"},
+ {"n": "北海道庁旧本庁舎（赤れんが庁舎）", "q": "北海道庁旧本庁舎 赤れんが庁舎", "la": 43.0639188, "lo": 141.3479716, "rv": "★4.3・2,215件", "fam": "大人300円・中学生以下無料（家族600円）", "hr": "8:45–21:00", "off": "12/29〜1/3", "note": "2025年に改修を終えた明治の建物。北海道の歴史の展示とおみやげ・お菓子の店がある", "official": "https://www.akarenga-h.jp/"},
 ]
 RAIN_BY_DAY = {"day1": [1, 3], "day2": [1, 3], "day3": [1, 3], "day4": [1, 3], "day5": [1, 3], "day6": [1, 3]}
 for dy in days:
