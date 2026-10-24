@@ -191,6 +191,12 @@ def validate(data):
     for k in data.get("rt_order") or []:
         if k not in pts:
             errs.append("rt_order の %s が points にない" % k)
+    for k, p in pts.items():
+        if not str(p.get("official") or "").startswith("http"):
+            errs.append("points の %s（%s）に公式URL（official）がない" % (k, p.get("n")))
+    for i, r in enumerate(data.get("rain") or [], 1):
+        if not str(r.get("official") or "").startswith("http"):
+            errs.append("雨の日の候補 %d（%s）に公式URL（official）がない" % (i, r.get("n")))
     used = {r.get("key") for day in data["days"] for r in day["rows"] if r.get("type") == "spot"}
     for k in pts:
         if k not in used:
