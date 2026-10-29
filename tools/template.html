@@ -782,6 +782,7 @@ if(document.readyState!=='loading')go();else document.addEventListener('DOMConte
       ['tenki.jp','https://tenki.jp/forecast/'+info.tk+'/','tk'],
       ['\u6c17\u8c61\u5e81','https://www.jma.go.jp/bosai/forecast/#area_type=offices&amp;area_code='+info.jma,'']
     ];
+    links=links.filter(function(a){return !((a[2]==='tk'&&!info.tk)||(a[0]==='\u6c17\u8c61\u5e81'&&!info.jma));});
     if(info.typ||info.storm)links.push(['\u53f0\u98a8\u60c5\u5831','https://www.jma.go.jp/bosai/map.html#contents=typhoon','typ']);
     var h='<button class="cls" aria-label="\u9589\u3058\u308b">\u2715</button>';
     h+='<h4>'+info.nm+'\u30fb'+info.d.slice(5).replace('-','/')+' \u306e\u5929\u6c17</h4>';

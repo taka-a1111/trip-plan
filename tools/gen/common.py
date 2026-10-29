@@ -1,0 +1,59 @@
+"""make_<旅名>.py が共通で使う小さな部品（行・食事候補・費用の計算）。"""
+import json
+import re
+
+A = lambda s: '<span class="amn">%s</span>' % s
+
+PEACH_MANAGE = "https://manage.flypeach.com/jp/manage/retrieve-booking"
+NGO = {"n": "中部国際空港", "lat": 34.8584, "lon": 136.8148, "k": "spot", "q": "中部国際空港 第1ターミナル", "official": "https://www.centrair.jp/"}
+
+
+def mv(name, dur, plan=None, toll=None, note=None, badges=None):
+    r = {"type": "move", "name": name, "dur": dur}
+    if plan: r["plan"] = plan
+    if toll: r["toll"] = toll
+    if note:
+        r["note"] = note
+        r["keep_note"] = True
+    if badges: r["badges"] = badges
+    return r
+
+
+def meal(name, q, bg, rv, hr, off, ft, la, lo, kind, br=None):
+    d = {"name": name, "q": q, "bg": bg, "rv": rv, "hr": hr, "off": off, "ft": ft, "la": la, "lo": lo, "kind": kind}
+    if br: d["br"] = br
+    return d
+
+
+def rain(n, q, la, lo, rv, fam, hr, off, note, official):
+    return {"n": n, "q": q, "la": la, "lo": lo, "rv": rv, "fam": fam, "hr": hr, "off": off, "note": note, "official": official}
+
+
+def flight(key, flno, dep, arr, t1, t2, plan, deadline, fee, note, intl=False):
+    """飛行機のカード（未予約の候補）。"""
+    f = [["航空会社", "Peach（ピーチ）"], ["便名", "%s　%s %s → %s %s" % (flno, dep, t1, arr, t2)],
+         ["予約", "未予約。ピーチポイントで払う（搭乗者にポイントの名義人が入っていること）"],
+         ["荷物", "機内持ち込みは1人7kgまで（2個）。預ける荷物は有料"],
+         ["締切", deadline]]
+    return {"type": "spot", "key": key, "cat": "move", "cat_lbl": "飛行機", "time": "%s → %s" % (t1, t2), "plan": plan,
+            "badges": [["b-reserve", "未予約"]], "fee": fee, "note": note, "fields": f}
+
+
+f = lambda n: format(n, ',')
+
+
+def km_total(days, car_days=None):
+    return sum(int(m.group(1).replace(',', '')) for dy in days if (car_days is None or dy['id'] in car_days)
+               for r in dy['rows'] if r['type'] == 'move' for m in [re.search(r'約([\d,]+)km', r['name'])] if m)
+
+
+def save(name, data):
+    open('trips/%s.json' % name, 'w', encoding='utf-8').write(json.dumps(data, ensure_ascii=False, indent=1))
+
+
+PACK_COMMON = [
+ {"t": "貴重品・書類", "c": "var(--gold)", "items": [["cash", "現金・クレジットカード"], ["insurance", "健康保険証・母子手帳"], ["resv", "予約の控え（ピーチ・宿）"]]},
+ {"t": "電子機器", "c": "var(--slate)", "items": [["phone", "スマホ・充電ケーブル"], ["power", "モバイルバッテリー"], ["camera", "カメラ"]]},
+ {"t": "衣類・洗面", "c": "var(--coral)", "items": [["clothes", "着替え（1泊ぶん）"], ["under", "下着・靴下"], ["tooth", "歯ブラシ・歯みがき"], ["med", "常備薬・絆創膏"], ["wipe", "ウェットティッシュ"]]},
+ {"t": "子ども・移動", "c": "var(--gold)", "items": [["snack", "おやつ・飲み物"], ["sick", "酔い止め"], ["play", "飛行機と電車の暇つぶし"]]},
+]
