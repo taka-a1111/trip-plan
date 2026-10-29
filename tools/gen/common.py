@@ -75,10 +75,8 @@ PEACH_POINTS = 100000  # 持っているピーチポイント（円）
 
 
 def cost_with_points(items, total, air, note="", sub="食費とおみやげは含みません（変動するため）"):
-    """費用欄を作る。航空券はピーチポイントで払うので、その分を合計から引いて見せる。"""
-    pt = min(air, PEACH_POINTS)
-    extra = "（ポイントで足りない約%s円は現金）" % f(air - pt) if air > pt else ""
-    items = items + [["ピーチポイント", "−%s円" % f(pt), "航空券をピーチポイントで払う分を引く%s" % extra]]
-    return {"items": items, "total": "約%s円" % f(total - pt),
-            "total_sub": "ピーチポイント%s円を引いた、現金で払う額（引く前は約%s円）。%s" % (f(pt), f(total), sub),
+    """費用欄を作る。航空券はピーチポイントを全部使って払うので、合計に入れない（items の航空券の行は参考として残す）。"""
+    items = [(["航空券", "（%s）" % it[1], "合計に入れない。ピーチポイント%s円を全部使って払う。%s" % (f(PEACH_POINTS), it[2])] if it[0] == "航空券" else it) for it in items]
+    return {"items": items, "total": "約%s円" % f(total - air),
+            "total_sub": "航空券を除いた、現金で払う額。%s" % sub,
             "note": note}
