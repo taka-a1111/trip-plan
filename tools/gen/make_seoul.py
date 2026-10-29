@@ -7,7 +7,7 @@
 """
 import sys, os
 sys.path.insert(0, os.path.dirname(__file__))
-from common import A, mv, meal, rain, flight, f, save, PACK_COMMON, PEACH_MANAGE, NGO, YABATON, MARUHA, ngo_lunch
+from common import A, mv, meal, rain, flight, f, save, PACK_COMMON, PEACH_MANAGE, NGO, YABATON, MARUHA, ngo_lunch, cost_with_points
 
 KRW = 0.11  # 1ウォンあたりの円（目安）
 
@@ -143,13 +143,13 @@ fac = int(round(krw_fac * KRW, -2))
 ride = int(round(krw_ride * KRW, -2))
 keta = int(round(10300 * 4 * KRW, -2))
 total = air + hotel + fac + ride + keta
-data["cost"] = {"items": [
+data["cost"] = cost_with_points([
  ["航空券", "約%s円" % f(air), "4人往復の目安（空港使用料など込み・未予約・日と空席で変わる）。ピーチポイントで払う"],
  ["宿泊", "約%s円" % f(hotel), "ロッテシティホテル明洞のファミリートリプル1泊の目安（未確認）"],
  ["電車", "約%s円" % f(ride), "空港鉄道と地下鉄の目安%sウォン" % f(krw_ride)],
  ["施設", "約%s円" % f(fac), "Nソウルタワー104,000・南山ケーブルカー60,000・ロッテワールド226,000ウォン（家族4人）"],
  ["K-ETA", "約%s円" % f(keta), "1人10,300ウォン×4人（2027年に免除が延長されなければ）"],
  ["パスポート", "別に26,600円", "4人とも新しく作る場合（オンライン申請）。合計には入れていない"],
-], "total": "約%s円" % f(total), "total_sub": "食費とおみやげ、パスポート代は含みません。1,000ウォン＝110円で換算", "note": "航空券以外の現金は約%s円。" % f(total - air)}
+], total, air, note="航空券（約%s円）のうち10万円をポイントで払い、残りは現金で計算した。" % f(air), sub="食費とおみやげ、パスポート代は含みません。1,000ウォン＝110円で換算")
 print("total", total, fac, ride)
 save("seoul", data)

@@ -7,7 +7,7 @@
 """
 import sys, os
 sys.path.insert(0, os.path.dirname(__file__))
-from common import A, mv, meal, rain, flight, f, save, km_total, PACK_COMMON, PEACH_MANAGE, NGO, YABATON, MARUHA, ngo_lunch
+from common import A, mv, meal, rain, flight, f, save, km_total, PACK_COMMON, PEACH_MANAGE, NGO, YABATON, MARUHA, ngo_lunch, cost_with_points
 
 points = {
  "ngo": NGO,
@@ -139,13 +139,13 @@ taxi = 3000
 car = 10000 + 2200
 fac = 10800 + 2000
 total = air + hotel + taxi + car + gas + fac
-data["cost"] = {"items": [
+data["cost"] = cost_with_points([
  ["航空券", "約%s円" % f(air), "4人往復の目安（未予約・日と空席で変わる）。ピーチポイントで払う"],
  ["宿泊", "約%s円" % f(hotel), "ホテルグランビューガーデン沖縄 2部屋1泊の目安（未確認）"],
  ["タクシー", "約%s円" % f(taxi), "那覇空港からイーアスまで約8km（目安）"],
  ["レンタカー", "約%s円" % f(car), "OTS Sクラス12時間ほど（目安1万円・未確認）とジュニアシート2台2,200円"],
  ["ガソリン", "約%s円" % f(gas), "走る約%d km／燃費13km/L・175円/Lで計算" % km],
  ["施設", "約%s円" % f(fac), "DMMかりゆし水族館10,800円（レギュラー料金）・沖縄こどもの国2,000円"],
-], "total": "約%s円" % f(total), "total_sub": "食費とおみやげは含みません（変動するため）", "note": "航空券以外の現金は約%s円。車を借りるのは2日目だけ。イーアスの駐車場は無料。" % f(total - air)}
+], total, air, note="航空券は全額ポイントで払える見込み（実際の運賃は予約画面で確かめる）。車を借りるのは2日目だけ。イーアスの駐車場は無料。", sub="食費とおみやげは含みません（変動するため）")
 print("km", km, "total", total)
 save("okinawa2", data)

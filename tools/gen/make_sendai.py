@@ -6,7 +6,7 @@
 """
 import sys, os
 sys.path.insert(0, os.path.dirname(__file__))
-from common import A, mv, meal, rain, flight, f, save, PACK_COMMON, NGO, PEACH_MANAGE
+from common import A, mv, meal, rain, flight, f, save, PACK_COMMON, NGO, PEACH_MANAGE, cost_with_points
 
 points = {
  "fl_out": {"n": "✈️ ピーチ MM491 中部→仙台", "lat": 34.8584, "lon": 136.8148, "k": "spot", "q": "中部国際空港", "official": PEACH_MANAGE},
@@ -136,11 +136,11 @@ hotel = 18000
 train = (680 * 2 + 340) * 2 + (210 * 2 + 100) * 2 + (440 * 2 + 220) * 2 + 400 * 2  # アクセス線往復・仙石線2往復・水族館シャトル
 fac = 6700 + 3750 + 2500
 total = air + hotel + train + fac
-data["cost"] = {"items": [
+data["cost"] = cost_with_points([
  ["航空券", "約%s円" % f(air), "4人往復の目安（未予約・日と空席で変わる）。ピーチポイントで払う"],
  ["宿泊", "約%s円" % f(hotel), "ドーミーイン仙台駅前1泊の目安（添い寝2人6,000円込み・ベネフィット・ステーションの補助6,000円を引いた額）"],
  ["電車", "%s円" % f(train), "仙台空港アクセス線往復・仙石線（中野栄と松島海岸）・水族館のシャトルバス。年長は無料で計算"],
  ["施設", "%s円" % f(fac), "うみの杜水族館6,700円・松島の観光船3,750円・瑞巌寺2,500円（家族4人）"],
-], "total": "約%s円" % f(total), "total_sub": "食費とおみやげは含みません（変動するため）", "note": "航空券以外の現金は約%s円。" % f(total - air)}
+], total, air, note="航空券は全額ポイントで払える見込み（実際の運賃は予約画面で確かめる）。", sub="食費とおみやげは含みません（変動するため）")
 print("total", total, "train", train)
 save("sendai", data)

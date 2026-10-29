@@ -56,10 +56,10 @@ YABATON = meal("矢場とん 中部国際空港店", "矢場とん 中部国際�
 MARUHA = meal("まるは食堂 中部国際空港店", "まるは食堂 中部国際空港店", "2,000円ほど", "★3.9・684件", "10:00–21:00", "無休", "大きなエビフライ。展望デッキの近く", 34.85925, 136.8137361, "海鮮")
 
 
-def ngo_lunch(plan, note):
-    """出発前にセントレアで昼を食べる行。"""
+def ngo_lunch(plan, note, label="昼"):
+    """出発前にセントレアで食べる行（label は 昼 か 夕飯）。"""
     return {"type": "spot", "key": "ngo", "cat": "food", "cat_lbl": "グルメ", "time": "店ごとに異なる", "plan": plan,
-            "badges": [["b-open", "昼"]], "note": note,
+            "badges": [["b-open", label]], "note": note,
             "fields": [["営業", "矢場とん・まるは食堂 10:00–21:00"], ["定休", "なし"]]}
 
 
@@ -69,3 +69,16 @@ PACK_COMMON = [
  {"t": "衣類・洗面", "c": "var(--coral)", "items": [["clothes", "着替え（1泊ぶん）"], ["under", "下着・靴下"], ["tooth", "歯ブラシ・歯みがき"], ["med", "常備薬・絆創膏"], ["wipe", "ウェットティッシュ"]]},
  {"t": "子ども・移動", "c": "var(--gold)", "items": [["snack", "おやつ・飲み物"], ["sick", "酔い止め"], ["play", "飛行機と電車の暇つぶし"]]},
 ]
+
+
+PEACH_POINTS = 100000  # 持っているピーチポイント（円）
+
+
+def cost_with_points(items, total, air, note="", sub="食費とおみやげは含みません（変動するため）"):
+    """費用欄を作る。航空券はピーチポイントで払うので、その分を合計から引いて見せる。"""
+    pt = min(air, PEACH_POINTS)
+    extra = "（ポイントで足りない約%s円は現金）" % f(air - pt) if air > pt else ""
+    items = items + [["ピーチポイント", "−%s円" % f(pt), "航空券をピーチポイントで払う分を引く%s" % extra]]
+    return {"items": items, "total": "約%s円" % f(total - pt),
+            "total_sub": "ピーチポイント%s円を引いた、現金で払う額（引く前は約%s円）。%s" % (f(pt), f(total), sub),
+            "note": note}
