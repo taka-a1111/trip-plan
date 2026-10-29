@@ -2,7 +2,7 @@
    - 同一オリジンのHTML等: ネット優先（更新が最優先）→ 圏外時はキャッシュ
    - 天気API(open-meteo/jma): ネット優先・キャッシュには保存しない（古い天気を出さない）
    - 地図タイル/CDN/フォント: キャッシュ優先＋裏で更新（圏外でも表示を保つ） */
-var CACHE = 'trip-plan-v24';
+var CACHE = 'trip-plan-v25';
 var CORE = ['./', './index.html', './sw2026.html', './iseshima.html', './hokkaido.html', './hokkaido2.html', './okinawa2.html', './korea.html', './tohoku.html', './manifest.json'];
 
 self.addEventListener('install', function (e) {
