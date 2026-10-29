@@ -8,7 +8,7 @@
  "date_s": "2027-03-27",
  "date_e": "2027-04-04",
  "hero_image": "assets/hero_hokkaido2.jpg",
- "credit": "",
+ "credit": "写真：函館山からの夜景 / Raita Futo CC BY 2.0",
  "wx": {
   "lat": 42.8286,
   "lon": 141.6526,
@@ -508,7 +508,7 @@
    "photo": {
     "file": "assets/day_hokkaido2_1.jpg",
     "alt": "新千歳空港のピーチの飛行機",
-    "credit": ""
+    "credit": "Peach A320 JA819P @ RJCC / S5A-0043 CC BY 4.0"
    },
    "wxn": {
     "hi": 6,
@@ -694,7 +694,7 @@
    "photo": {
     "file": "assets/day_hokkaido2_2.jpg",
     "alt": "千歳水族館の水中観察窓",
-    "credit": ""
+    "credit": "Chitose river underwater observation / Totti CC BY-SA 4.0"
    },
    "wx": {
     "lat": 43.7701,
@@ -1090,7 +1090,7 @@
    "photo": {
     "file": "assets/day_hokkaido2_3.jpg",
     "alt": "旭山動物園のペンギン",
-    "credit": ""
+    "credit": "Penguin, Asahiyama Zoo / bryan... CC BY-SA 2.0"
    },
    "wx": {
     "lat": 43.7701,
@@ -1346,7 +1346,7 @@
    "photo": {
     "file": "assets/day_hokkaido2_4.jpg",
     "alt": "雪の富良野",
-    "credit": ""
+    "credit": "Furano Snow Resort / wakimasa パブリックドメイン"
    },
    "wx": {
     "lat": 43.3232,
@@ -1667,7 +1667,7 @@
    "photo": {
     "file": "assets/day_hokkaido2_5.jpg",
     "alt": "ノーザンホースパーク",
-    "credit": ""
+    "credit": "Northern Horse Park / 掬茶 CC BY-SA 4.0"
    },
    "wx": {
     "lat": 42.8286,
@@ -1892,7 +1892,7 @@
    "photo": {
     "file": "assets/day_hokkaido2_6.jpg",
     "alt": "洞爺湖と中島",
-    "credit": ""
+    "credit": "Naka-jima island, Lake Toya / Kentaro Ohno CC0"
    },
    "wx": {
     "lat": 42.5659,
@@ -2150,7 +2150,7 @@
    "photo": {
     "file": "assets/day_hokkaido2_7.jpg",
     "alt": "函館市熱帯植物園のサル山温泉",
-    "credit": ""
+    "credit": "Hakodate Botanical Garden monkeys / Raita Futo CC BY 2.0"
    },
    "wx": {
     "lat": 41.7738,
@@ -2495,7 +2495,7 @@
    "photo": {
     "file": "assets/day_hokkaido2_8.jpg",
     "alt": "函館朝市のイカ釣り",
-    "credit": ""
+    "credit": "Fishing for squid, Hakodate Morning Market / OKJaguar CC BY-SA 4.0"
    },
    "wx": {
     "lat": 41.7738,
@@ -2815,7 +2815,7 @@
    "photo": {
     "file": "assets/day_hokkaido2_9.jpg",
     "alt": "新千歳空港",
-    "credit": ""
+    "credit": "Shinchitose Airport Terminal Building / itoshin87 パブリックドメイン"
    },
    "wx": {
     "lat": 42.8286,

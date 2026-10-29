@@ -432,7 +432,18 @@ data = {
 }
 
 # ---- 写真のクレジット（Wikimedia Commons。ライセンスと作者は action=raw で確認） ----
-PHOTO = {}
+PHOTO = {
+ "hero": "函館山からの夜景 / Raita Futo CC BY 2.0",
+ "day1": "Peach A320 JA819P @ RJCC / S5A-0043 CC BY 4.0",
+ "day2": "Chitose river underwater observation / Totti CC BY-SA 4.0",
+ "day3": "Penguin, Asahiyama Zoo / bryan... CC BY-SA 2.0",
+ "day4": "Furano Snow Resort / wakimasa パブリックドメイン",
+ "day5": "Northern Horse Park / 掬茶 CC BY-SA 4.0",
+ "day6": "Naka-jima island, Lake Toya / Kentaro Ohno CC0",
+ "day7": "Hakodate Botanical Garden monkeys / Raita Futo CC BY 2.0",
+ "day8": "Fishing for squid, Hakodate Morning Market / OKJaguar CC BY-SA 4.0",
+ "day9": "Shinchitose Airport Terminal Building / itoshin87 パブリックドメイン",
+}
 for dy in days:
     k = dy["id"]
     if k in PHOTO:
